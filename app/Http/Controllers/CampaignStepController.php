@@ -6,6 +6,7 @@ use App\Models\CampaignStep;
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CampaignStepController extends Controller
 {
@@ -17,7 +18,8 @@ class CampaignStepController extends Controller
 
     public function create()
     {
-        $campaign = Campaign::all();
+        $userId = Auth::user()->id;
+        $campaign = Campaign::where('userId', '=', $userId)->get();
         return view('brand.campaignStep.create', \compact('campaign'));
     }
 

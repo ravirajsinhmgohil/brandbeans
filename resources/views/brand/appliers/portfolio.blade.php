@@ -113,9 +113,9 @@
                         <form action="{{route('brand.campaign.influencerContentReject')}}" method="post">
                             @csrf
                             <label for="">Message</label>
-                            <input type="hidqden" name="imageId" value="{{$data->id}}">
-                            <input type="hidqden" name="userId" value="{{$data->userId}}">
-                            <input type="hiddqen" name="campaignId" value="{{request('campaignId')}}">
+                            <input type="hidden" name="imageId" value="{{$data->id}}">
+                            <input type="hidden" name="userId" value="{{$data->userId}}">
+                            <input type="hidden" name="campaignId" value="{{request('campaignId')}}">
                             <textarea name="remark" placeholder="Add remark for rejection" class="form-control"></textarea>
                             <br>
                             <button type="submit" class="btn btn-success">OK</button>
@@ -169,9 +169,9 @@
                         <form action="{{route('brand.campaign.influencerContentReject')}}" method="post">
                             @csrf
                             <label for="">Message</label>
-                            <input type="hidaden" name="imageId" value="{{$data->id}}">
-                            <input type="hidaden" name="userId" value="{{$data->userId}}">
-                            <input type="hidaden" name="campaignId" value="{{request('campaignId')}}">
+                            <input type="hidden" name="imageId" value="{{$data->id}}">
+                            <input type="hidden" name="userId" value="{{$data->userId}}">
+                            <input type="hidden" name="campaignId" value="{{request('campaignId')}}">
                             <textarea name="remark" placeholder="Add remark for rejection" class="form-control"></textarea>
                             <br>
                             <button type="submit" class="btn btn-success">OK</button>
