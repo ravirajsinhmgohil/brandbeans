@@ -120,7 +120,6 @@ class ResellerController extends Controller
             $userPoint->point = 50;
             $userPoint->save();
         }
-        return $user->getRoleName;
 
         return redirect()->route('reseller.index')
             ->with('success', 'Reseller created successfully');
@@ -159,6 +158,8 @@ class ResellerController extends Controller
             'mobileno' => 'required',
         ]);
         $new_str = str_replace(' ', '', $request['username']);
+        $id = $user->id;
+        $mycode = $new_str . $id;
 
         $user = new User();
         $user->name = $request->name;
@@ -174,6 +175,8 @@ class ResellerController extends Controller
             $request->profilePhoto->move(public_path('profilePhoto'),  $user->profilePhoto);
         }
         $user->package = $request->package;
+        $user->refer = $request->mycode;
+
         $user->save();
 
 
@@ -238,6 +241,46 @@ class ResellerController extends Controller
         return redirect('reseller/user/index')
             ->with('success', 'User Created Successfully');
     }
+
+    public function userEdit($id)
+    {
+        $user = User::find($id);
+        $package = Subscriptionpackage::where('title', '!=', 'FREE')->get();
+
+        return view('reseller.user.edit', compact('user', 'package'));
+    }
+
+    public function userUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'userName' => 'required',
+            'mobileno' => 'required',
+        ]);
+
+        $new_str = str_replace(' ', '', $request['username']);
+        $id = $request->id;
+
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->userName = $request->userName;
+        $user->email = $request->email;
+        $user->password =  Hash::make($request->password);
+        $user->pin = $request->pin;
+        $user->mobileno = $request->mobileno;
+        $user->pin = $request->pin;
+        $image = $request->profilePhoto;
+        if ($request->profilePhoto) {
+            $user->profilePhoto = time() . '.' . $request->profilePhoto->extension();
+            $request->profilePhoto->move(public_path('profilePhoto'),  $user->profilePhoto);
+        }
+        $user->package = $request->package;
+        $user->save();
+
+        return redirect('reseller/user/index')
+            ->with('success', 'User Updated Successfully');
+    }
+
 
     public function userdestroy($id)
     {

@@ -270,67 +270,64 @@
                     </li>
 
                     <!-- Reports -->
-                    <<<<<<< HEAD <!-- {{Request::url('adminsubscription/index')}} -->
-                        <li class="@if( Request::url('adminsubscription/index')) ? 'current active' : '' @endif">
-                            =======
-                        <li>
-                            >>>>>>> 9b744894be33a492866433e622c31add13636d70
-                            <a class="text-white waves-effect parent-item js__control" href="#"><i class="text-white menu-icon fa fa-cog"></i><span>Reports</span><span class="menu-arrow fa fa-angle-down"></span></a>
-                            <ul class="sub-menu js__content ">
-                                <li>
-                                    <a class="text-white waves-effect" href="{{ route('adminsubscription.index') }}"><span>Subscription</span></a>
-                                </li>
-                                <li>
-                                    <a class="text-white waves-effect" href="{{ route('adminsubscriptionpackage.index') }}"><span>Subscription Package</span></a>
-                                </li>
-                                <li>
-                                    <a class="text-white waves-effect" href="{{ route('accountpost.index') }}"><span>Our Users</span></a>
-                                </li>
-                            </ul>
-                            <!-- /.sub-menu js__content -->
-                        </li>
+                    <!-- {{Request::url('adminsubscription/index')}} -->
+                    <li class="@if( Request::url('adminsubscription/index')) ? 'current active' : '' @endif">
+
+                    <li>
+                        <a class="text-white waves-effect parent-item js__control" href="#"><i class="text-white menu-icon fa fa-cog"></i><span>Reports</span><span class="menu-arrow fa fa-angle-down"></span></a>
+                        <ul class="sub-menu js__content ">
+                            <li>
+                                <a class="text-white waves-effect" href="{{ route('adminsubscription.index') }}"><span>Subscription</span></a>
+                            </li>
+                            <li>
+                                <a class="text-white waves-effect" href="{{ route('adminsubscriptionpackage.index') }}"><span>Subscription Package</span></a>
+                            </li>
+                            <li>
+                                <a class="text-white waves-effect" href="{{ route('accountpost.index') }}"><span>Our Users</span></a>
+                            </li>
+                        </ul>
+                        <!-- /.sub-menu js__content -->
+                    </li>
+
+                    @endrole
 
 
-
-                        @endrole
-
-
-                        <li>
-                            <a class="text-white waves-effect parent-item js__control" href="#"><i class="text-white menu-icon fa fa-cog"></i><span>My Profile</span><span class="menu-arrow fa fa-angle-down"></span></a>
-                            <ul class="sub-menu js__content ">
-                                <li>
-                                    <!-- {{ config('app.username')}} -->
-                                    <a class="waves-effect parent-item text-white" href=" {{ route('demo_edit') }}"><i class="menu-icon fa fa-flag text-white"></i><span>Profile</span></a>
-                                    <!-- /.sub-menu js__content -->
-                                </li>
-                                <li>
-                                    <a class="waves-effect parent-item text-white" href="{{ route('account.account') }}"><i class="menu-icon fa fa-adjust text-white"></i><span>Account</span></a>
-                                </li>
-                                <li>
-                                    <a class="waves-effect parent-item text-white" href="{{ route('feed.index') }}"><i class="menu-icon fa fa-star text-white"></i><span>FeedBack</span></a>
-                                </li>
-                                <li>
-                                    <a class="waves-effect parent-item text-white" href="{{ route('inquiry.index') }}"><i class="menu-icon fa fa-comments text-white"></i><span>Inquiry</span></a>
-                                </li>
-                                <!-- <li>
+                    <li>
+                        <a class="text-white waves-effect parent-item js__control" href="#"><i class="text-white menu-icon fa fa-cog"></i><span>My Profile</span><span class="menu-arrow fa fa-angle-down"></span></a>
+                        <ul class="sub-menu js__content ">
+                            <li>
+                                <!-- {{ config('app.username')}} -->
+                                <a class="waves-effect parent-item text-white" href=" {{ route('demo_edit') }}"><i class="menu-icon fa fa-flag text-white"></i><span>Profile</span></a>
+                                <!-- /.sub-menu js__content -->
+                            </li>
+                            <li>
+                                <a class="waves-effect parent-item text-white" href="{{ route('account.account') }}"><i class="menu-icon fa fa-adjust text-white"></i><span>Account</span></a>
+                            </li>
+                            <li>
+                                <a class="waves-effect parent-item text-white" href="{{ route('feed.index') }}"><i class="menu-icon fa fa-star text-white"></i><span>FeedBack</span></a>
+                            </li>
+                            <li>
+                                <a class="waves-effect parent-item text-white" href="{{ route('inquiry.index') }}"><i class="menu-icon fa fa-comments text-white"></i><span>Inquiry</span></a>
+                            </li>
+                            <!-- <li>
 <a class="waves-effect parent-item text-white" href="{{ route('pricing.index') }}"><i class="menu-icon fa fa-money text-white"></i><span>Pricing</span></a>
 </li> -->
-                                <li>
-                                    <a class="waves-effect parent-item text-white" href="{{ route('refer.index') }}"><i class="menu-icon fa fa-user-plus text-white"></i><span>Refer</span></a>
-                                </li>
+                            <li>
+                                <a class="waves-effect parent-item text-white" href="{{ route('refer.index') }}"><i class="menu-icon fa fa-user-plus text-white"></i><span>Refer</span></a>
+                            </li>
 
-                                <li>
-                                    <a class="waves-effect parent-item text-white" href="{{route('story.index')}}"><i class="menu-icon bi bi-hourglass-split text-white"></i><span>My Stories</span></a>
-                                </li>
+                            <li>
+                                <a class="waves-effect parent-item text-white" href="{{route('story.index')}}"><i class="menu-icon bi bi-hourglass-split text-white"></i><span>My Stories</span></a>
+                            </li>
 
-                            </ul>
-                            <!-- /.sub-menu js__content -->
-                        </li>
-
-
+                        </ul>
+                        <!-- /.sub-menu js__content -->
+                    </li>
 
 
-                        <br><br>
+
+
+                    <br><br>
                 </ul>
 
             </div>
