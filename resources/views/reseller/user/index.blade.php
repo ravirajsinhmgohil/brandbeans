@@ -60,7 +60,9 @@
                             <td><img src="{{ url('profilePhoto') }}/{{ $user->profilePhoto }}" alt="" style="height:100px; width: 100px;">
                             </td>
                             <td>{{ $user->package }}</td>
-                            <td> <a class="btn btn-danger btn-sm" href="{{ route('reseller.user.delete', $user->id) }}">Delete</a>
+                            <td>
+                                <a class="btn btn-success btn-sm" href="{{ route('reseller.user.edit', $user->id) }}">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="{{ route('reseller.user.delete', $user->id) }}">Delete</a>
                             </td>
                         </tr>
                         @endforeach

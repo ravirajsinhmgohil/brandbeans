@@ -520,3 +520,5 @@ Route::get('reseller/user/index', [ResellerController::class, 'userIndex'])->nam
 Route::get('reseller/user/create', [ResellerController::class, 'userCreate'])->name('reseller.user.create');
 Route::post('reseller/user/store', [ResellerController::class, 'userStore'])->name('reseller.user.store');
 Route::get('reseller/user/delete/{id?}', [ResellerController::class, 'userdestroy'])->name('reseller.user.delete');
+Route::get('reseller/user/edit/{id?}', [ResellerController::class, 'userEdit'])->name('reseller.user.edit');
+Route::post('reseller/user/update', [ResellerController::class, 'userUpdate'])->name('reseller.user.update');
