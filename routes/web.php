@@ -52,6 +52,7 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\QrcodeController;
 use App\Http\Controllers\ReferController;
+use App\Http\Controllers\ResellerController;
 use App\Http\Controllers\ServicedetailController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StoryController;
@@ -338,7 +339,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('brand/campaign/influencer/hold/{campaignId?}/{userId?}', [CampaignController::class, 'influencerOnHold'])->name('brand.campaign.influencerOnHold');
     Route::get('brand/campaign/influencer/reject/{campaignId?}/{userId?}', [CampaignController::class, 'influencerReject'])->name('brand.campaign.influencerReject');
     Route::get('brand/campaign/influencer/detail/{campaignId?}/{userId?}', [CampaignController::class, 'influencerDetail'])->name('brand.campaign.influencerDetail');
-    Route::get('brand/campaign/influencer/portfolio/{campaignId?}/{userId?}', [CampaignController::class, 'influencerPortfolio'])->name('brand.campaign.influencerPortfolio');
+    Route::get('brand/campaign/influencer/portfolio/{userId?}', [CampaignController::class, 'influencerPortfolio'])->name('brand.campaign.influencerPortfolio');
 
 
     // influencer content Management
@@ -504,3 +505,18 @@ Route::controller(OtpController::class)->group(function () {
     Route::post('auth/loginotp/{id?}', 'loginotp')->name('auth.loginotp');
     Route::post('otp/generate', 'generate')->name('otp.generate');
 });
+
+// by madhvi
+
+/* Admin Side Reseller */
+Route::get('reseller/index', [ResellerController::class, 'index'])->name('reseller.index');
+Route::get('reseller/create', [ResellerController::class, 'create'])->name('reseller.create');
+Route::post('reseller/store', [ResellerController::class, 'store'])->name('reseller.store');
+Route::get('reseller/delete/{id?}', [ResellerController::class, 'destroy'])->name('reseller.delete');
+
+
+/* reseller side add user */
+Route::get('reseller/user/index', [ResellerController::class, 'userIndex'])->name('reseller.user.index');
+Route::get('reseller/user/create', [ResellerController::class, 'userCreate'])->name('reseller.user.create');
+Route::post('reseller/user/store', [ResellerController::class, 'userStore'])->name('reseller.user.store');
+Route::get('reseller/user/delete/{id?}', [ResellerController::class, 'userdestroy'])->name('reseller.user.delete');

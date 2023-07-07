@@ -129,6 +129,15 @@
 
 					@endrole
 
+					@role('Reseller')
+
+					<li>
+						<a class="text-white waves-effect" href="{{route('reseller.user.index')}}"><i class="text-white menu-icon fa fa-user"></i><span>User</span></a>
+					</li>
+
+
+					@endrole
+
 					@role('Admin')
 
 					<li>
@@ -306,8 +315,8 @@
 
 
 
-
-					<br><br>
+					<<<<<<< HEAD=======>>>>>>> 9b744894be33a492866433e622c31add13636d70
+						<br><br>
 				</ul>
 
 			</div>
