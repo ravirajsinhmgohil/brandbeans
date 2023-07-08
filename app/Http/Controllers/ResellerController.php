@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Hash;
 use Twilio\Rest\Events\V1\SubscriptionPage;
+use Auth;
 
 class ResellerController extends Controller
 {
@@ -103,9 +104,9 @@ class ResellerController extends Controller
         $links->phone1  = $request['mobileno'];
         $links->save();
 
-
         $id = $user->id;
-        $mycode = $new_str . $id;
+        $name = $request->name;
+        $mycode = $new_str . $name . $id;
         $userUpdate = User::find($id);
         $userUpdate->myrefer = $mycode;
         $userUpdate->save();
@@ -136,16 +137,21 @@ class ResellerController extends Controller
     /* Reseller Side Add User */
     public function userIndex()
     {
-        $user = User::whereHas('roles', function ($query) {
-            return $query->where('name', '=', 'User');
-        })->orderBy('id', 'DESC')->paginate(5);
+        $reseller = Auth::user();
+
+        $user = User::where('refer', '=', $reseller->myrefer)
+            ->orderBy('id', 'DESC')->paginate(5);
+
         return view('reseller.user.index', compact('user'));
     }
 
     public function userCreate()
     {
+        $authId = Auth::user()->id;
         $package = Subscriptionpackage::where('title', '!=', 'FREE')->get();
-        return view('reseller.user.create', compact('package'));
+        $userData = User::where('id', '=', $authId)->get();
+
+        return view('reseller.user.create', compact('package', 'userData'));
     }
 
     public function userStore(Request $request)
@@ -157,15 +163,17 @@ class ResellerController extends Controller
             'password' => 'required|same:confirm-password',
             'mobileno' => 'required',
         ]);
+
         $new_str = str_replace(' ', '', $request['username']);
-        $id = $user->id;
-        $mycode = $new_str . $id;
+
+        $authId = Auth::user()->id;
+        $userData = User::where('id', '=', $authId)->first();
 
         $user = new User();
         $user->name = $request->name;
         $user->userName = $request->userName;
         $user->email = $request->email;
-        $user->password =  Hash::make($request->password);
+        $user->password = Hash::make($request->password);
         $user->pin = $request->pin;
         $user->mobileno = $request->mobileno;
         $user->pin = $request->pin;
@@ -175,7 +183,8 @@ class ResellerController extends Controller
             $request->profilePhoto->move(public_path('profilePhoto'),  $user->profilePhoto);
         }
         $user->package = $request->package;
-        $user->refer = $request->mycode;
+        $user->refer = $userData->myrefer;
+        // return $user;
 
         $user->save();
 
@@ -222,7 +231,8 @@ class ResellerController extends Controller
 
 
         $id = $user->id;
-        $mycode = $new_str . $id;
+        $name = $request->name;
+        $mycode = $new_str . $name . $id;
         $userUpdate = User::find($id);
         $userUpdate->myrefer = $mycode;
         $userUpdate->save();
@@ -261,6 +271,9 @@ class ResellerController extends Controller
         $new_str = str_replace(' ', '', $request['username']);
         $id = $request->id;
 
+        $authId = Auth::user()->id;
+        $userData = User::where('id', '=', $authId)->first();
+
         $user = User::find($id);
         $user->name = $request->name;
         $user->userName = $request->userName;
@@ -275,6 +288,8 @@ class ResellerController extends Controller
             $request->profilePhoto->move(public_path('profilePhoto'),  $user->profilePhoto);
         }
         $user->package = $request->package;
+        $user->refer = $userData->myrefer;
+
         $user->save();
 
         return redirect('reseller/user/index')
