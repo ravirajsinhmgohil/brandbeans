@@ -55,10 +55,10 @@ class ResellerController extends Controller
         $user->pin = $request->pin;
         $user->mobileno = $request->mobileno;
         $user->pin = $request->pin;
-        $image = $request->profilePhoto;
+        $profilePhoto = $request->profilePhoto;
         if ($request->profilePhoto) {
             $user->profilePhoto = time() . '.' . $request->profilePhoto->extension();
-            $request->profilePhoto->move(public_path('gallery'),  $user->profilePhoto);
+            $request->profilePhoto->move(public_path('profilePhoto'),  $user->profilePhoto);
         }
         $user->package = "FREE";
         $user->save();
@@ -126,6 +126,45 @@ class ResellerController extends Controller
             ->with('success', 'Reseller created successfully');
     }
 
+    public function edit($id)
+    {
+
+        $user = User::find($id);
+        // $package = Subscriptionpackage::where('title', '!=', 'FREE')->get();
+
+        return view('reseller.edit', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'userName' => 'required',
+            'mobileno' => 'required',
+        ]);
+
+        $new_str = str_replace(' ', '', $request['username']);
+
+        $id = $request->id;
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->userName = $request->userName;
+        $user->email = $request->email;
+        $user->password =  Hash::make($request->password);
+        $user->pin = $request->pin;
+        $user->mobileno = $request->mobileno;
+        $user->pin = $request->pin;
+        $profilePhoto = $request->profilePhoto;
+        if ($request->profilePhoto) {
+            $user->profilePhoto = time() . '.' . $request->profilePhoto->extension();
+            $request->profilePhoto->move(public_path('profilePhoto'),  $user->profilePhoto);
+        }
+        $user->package = "FREE";
+        $user->save();
+
+        return redirect()->route('reseller.index')
+            ->with('success', 'Reseller Updated successfully');
+    }
 
     public function destroy($id)
     {
@@ -177,7 +216,7 @@ class ResellerController extends Controller
         $user->pin = $request->pin;
         $user->mobileno = $request->mobileno;
         $user->pin = $request->pin;
-        $image = $request->profilePhoto;
+        $profilePhoto = $request->profilePhoto;
         if ($request->profilePhoto) {
             $user->profilePhoto = time() . '.' . $request->profilePhoto->extension();
             $request->profilePhoto->move(public_path('profilePhoto'),  $user->profilePhoto);

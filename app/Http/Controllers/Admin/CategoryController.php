@@ -24,7 +24,7 @@ class CategoryController extends Controller
             return view("adminCategory.indx", compact('category'));
         } catch (\Throwable $th) {
             //throw $th;
-            return redirect('https://www.google.com/search?q=cabcbdc&sxsrf=AB5stBhUfMiaRBULFBXIh6cIBfAeUYsPgw%3A1688728121594&source=hp&ei=OfKnZPyeIeDL2roPjfOb0AY&iflsig=AD69kcEAAAAAZKgASQEwvWn_7u11_Gt3yB7tMuFfjIDg&ved=0ahUKEwi8n7q-uvz_AhXgpVYBHY35BmoQ4dUDCAk&uact=5&oq=cabcbdc&gs_lcp=Cgdnd3Mtd2l6EAMyBwgAEA0QgAQyBwgAEA0QgAQyBwgAEA0QgAQyBwgAEA0QgAQyBwgAEA0QgAQyBwgAEA0QgAQyBwgAEA0QgAQyBwgAEA0QgAQyBwgAEA0QgAQyBwgAEA0QgAQ6BwgjEOoCECc6BAgjECc6BwgjEIoFECc6CAgAEIoFEJECOgsIABCABBCxAxCDAToRCC4QgAQQsQMQgwEQxwEQ0QM6CAgAEIAEELEDOgsILhCABBCxAxCDAToFCAAQgAQ6EAgAEIAEELEDELEDELEDEAo6DQgAEIAEELEDEIMBEAo6CggAEIAEELEDEAo6BwgAEIAEEAo6DQguEIAEEMcBENEDEAo6BwguEIAEEAo6CQgAEA0QgAQQClD-A1iSB2CUCWgBcAB4AIAB5gGIAcoJkgEFMC42LjGYAQCgAQGwAQo&sclient=gws-wiz');
+            return redirect('servererror');
             // return view("adminCategory.index", compact('category'));
         }
     }
