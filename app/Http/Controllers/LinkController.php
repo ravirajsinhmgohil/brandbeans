@@ -24,44 +24,55 @@ class LinkController extends Controller
 
     function delete($id)
     {
-        $detail = Links::find($id);
-        $detail->delete();
-        return redirect()->back()->with('success', "deleted successfully");
+        try {
+            $detail = Links::find($id);
+            $detail->delete();
+            return redirect()->back()->with('success', "deleted successfully");
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
 
     public function update(Request $request)
     {
 
+        try {
+            $id = Auth::user()->id;
+            //dd($id);
+            $cards = CardsModels::where('user_id', '=', $id)->get();
+            // return $cards;
+            $cardid = $cards[0]->id;
 
-        $id = Auth::user()->id;
-        //dd($id);
-        $cards = CardsModels::where('user_id', '=', $id)->get();
-        // return $cards;
-        $cardid = $cards[0]->id;
+            $links = Links::where('card_id', '=', $cardid)->first();
+            $id = $links->id;
 
-        $links = Links::where('card_id', '=', $cardid)->first();
-        $id = $links->id;
+            $link = Links::find($id);
+            $link->phone1 = $request->phone1;
+            $link->phone2 = $request->phone2;
+            $link->email = $request->email;
+            $link->skype = $request->skype;
+            $link->facebook = $request->facebook;
+            $link->instagram = $request->instagram;
+            $link->twitter = $request->twitter;
+            $link->youtube = $request->youtube;
+            $link->linkedin = $request->linkedin;
+            $link->website = $request->website;
+            $link->paypal = $request->paypal;
+            $link->save();
 
-        $link = Links::find($id);
-        $link->phone1 = $request->phone1;
-        $link->phone2 = $request->phone2;
-        $link->email = $request->email;
-        $link->skype = $request->skype;
-        $link->facebook = $request->facebook;
-        $link->instagram = $request->instagram;
-        $link->twitter = $request->twitter;
-        $link->youtube = $request->youtube;
-        $link->linkedin = $request->linkedin;
-        $link->website = $request->website;
-        $link->paypal = $request->paypal;
-        $link->save();
+            // $card_id = $cards[0]->user_id;
+            // $user = User::find($card_id);
+            // $user->mobileno = $link->phone1;
+            // $user->save();
 
-        // $card_id = $cards[0]->user_id;
-        // $user = User::find($card_id);
-        // $user->mobileno = $link->phone1;
-        // $user->save();
-
-        return \redirect()->back()->with('success', 'Links Updated Successfully');
+            return \redirect()->back()->with('success', 'Links Updated Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

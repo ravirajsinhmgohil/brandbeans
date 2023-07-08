@@ -12,9 +12,15 @@ class ServicedetailController extends Controller
 {
     public function index()
     {
-        $servicedetail = Servicedetail::all();
-        return $servicedetail;
-        return view('demo', compact('servicedetail'));
+        try {
+            $servicedetail = Servicedetail::all();
+            // return $servicedetail;
+            return view('demo', compact('servicedetail'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function create()
@@ -30,22 +36,28 @@ class ServicedetailController extends Controller
             'description' => 'required',
         ]);
 
-        $id = Auth::user()->id;
-        //dd($id);
-        $cards = CardsModels::where('user_id', '=', $id)->get();
-        // return $cards;
-        $cardid = $cards[0]->id;
+        try {
+            $id = Auth::user()->id;
+            //dd($id);
+            $cards = CardsModels::where('user_id', '=', $id)->get();
+            // return $cards;
+            $cardid = $cards[0]->id;
 
 
-        $servicedetail = new Servicedetail();
-        $servicedetail->card_id = $cardid;
-        $servicedetail->title = $request->title;
-        $servicedetail->description = $request->description;
-        $image = $request->photo;
-        $servicedetail->photo = time() . '.' . $request->photo->extension();
-        $request->photo->move(public_path('servicedetailimg'), $servicedetail->photo);
-        $servicedetail->save();
-        return redirect()->back()->with('success', 'Service Details Added');
+            $servicedetail = new Servicedetail();
+            $servicedetail->card_id = $cardid;
+            $servicedetail->title = $request->title;
+            $servicedetail->description = $request->description;
+            $image = $request->photo;
+            $servicedetail->photo = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('servicedetailimg'), $servicedetail->photo);
+            $servicedetail->save();
+            return redirect()->back()->with('success', 'Service Details Added');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show()
@@ -55,30 +67,48 @@ class ServicedetailController extends Controller
 
     public function edit($id)
     {
-        $servicedetail = Servicedetail::find($id);
-        return view('servicedetails.edit', compact('servicedetail'));
+        try {
+            $servicedetail = Servicedetail::find($id);
+            return view('servicedetails.edit', compact('servicedetail'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function update(Request $request)
     {
-        $id =  $request->serviceid;
+        try {
+            $id =  $request->serviceid;
 
-        $service = Servicedetail::find($id);
-        $service->title = $request->title;
-        if ($request->photo) {
-            $image = $request->photo;
-            $service->photo = time() . '.' . $request->photo->extension();
-            $request->photo->move(public_path('servicedetailimg'), $service->photo);
+            $service = Servicedetail::find($id);
+            $service->title = $request->title;
+            if ($request->photo) {
+                $image = $request->photo;
+                $service->photo = time() . '.' . $request->photo->extension();
+                $request->photo->move(public_path('servicedetailimg'), $service->photo);
+            }
+            $service->description = $request->description;
+            $service->save();
+
+            return \redirect('dashboard')->with('success', 'Service Details update Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
-        $service->description = $request->description;
-        $service->save();
-
-        return \redirect('dashboard')->with('success', 'Service Details update Successfully');
     }
 
     public function destroy($id)
     {
-        $service = Servicedetail::find($id);
-        $service->delete();
-        return \redirect()->back()->with('success', 'Service Detail Deleted Successfully');
+        try {
+            $service = Servicedetail::find($id);
+            $service->delete();
+            return \redirect()->back()->with('success', 'Service Detail Deleted Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

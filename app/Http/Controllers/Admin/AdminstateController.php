@@ -19,13 +19,25 @@ class AdminstateController extends Controller
     }
     public function index()
     {
-        $state = State::where('is_delete', '=', 'Active')->get();
-        // return $state;
-        return view('adminstate.index', compact('state'));
+        try {
+            $state = State::where('is_delete', '=', 'Active')->get();
+            // return $state;
+            return view('adminstate.index', compact('state'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function create()
     {
-        return view('adminstate.create');
+        try {
+            return view('adminstate.create');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function store(REQUEST $request)
     {
@@ -33,35 +45,57 @@ class AdminstateController extends Controller
             'statename' => 'required',
         ]);
 
-        $state = new State();
-        $state->sname = $request->statename;
-        $state->is_delete = 'Active';
-        $state->save();
-        return redirect('adminstate/index');
+        try {
+            $state = new State();
+            $state->sname = $request->statename;
+            $state->is_delete = 'Active';
+            $state->save();
+            return redirect('adminstate/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function edit($id)
     {
-        //
-        $state = State::find($id);
-        // return $state;
-        return view('adminstate.edit', compact('state'));
+        try {
+            $state = State::find($id);
+            // return $state;
+            return view('adminstate.edit', compact('state'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function update(Request $request)
     {
-
-        $id = $request->stateid;
-        // return $id;
-        $state = State::find($id);
-        $state->sname = $request->statename;
-        $state->save();
-        return redirect('adminstate/index');
+        try {
+            $id = $request->stateid;
+            // return $id;
+            $state = State::find($id);
+            $state->sname = $request->statename;
+            $state->save();
+            return redirect('adminstate/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function delete($id)
     {
-        $state = State::find($id);
-        $state->is_delete = 'Deactive';
-        $state->save();
-        return redirect()->back();
+        try {
+            $state = State::find($id);
+            $state->is_delete = 'Deactive';
+            $state->save();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

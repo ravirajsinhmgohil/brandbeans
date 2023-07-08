@@ -76,78 +76,84 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $new_str = str_replace(' ', '', $data['username']);
+        try {
+            $new_str = str_replace(' ', '', $data['username']);
 
-        $user = User::create([
-            'name' => $data['name'],
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'package' => "FREE",
-            'refer' => $data['refer'],
-            'mobileno' => $data['mobileno'],
-            'password' => Hash::make($data['password']),
-        ]);
+            $user = User::create([
+                'name' => $data['name'],
+                'username' => $data['username'],
+                'email' => $data['email'],
+                'package' => "FREE",
+                'refer' => $data['refer'],
+                'mobileno' => $data['mobileno'],
+                'password' => Hash::make($data['password']),
+            ]);
 
-        // $email = User::where('email', '=', $data['email'])->get();
-        // return $email;
+            // $email = User::where('email', '=', $data['email'])->get();
+            // return $email;
 
-        $user->assignRole('User');
-        if ($data['type'] ==  'Individual') {
-            $card = new CardsModels();
-            $card->user_id = $user->id;
-            $card->name = $user->name;
-            $type = $data['type'];
-            $cat = Category::where('name', '=', $type)->get();
-            $cat_id = $cat[0]->id;
-            $card->category = $cat_id;
-            $card->save();
-        } else {
-            if ($data['category'] == 'other') {
-                $category = new Category();
-                $category->name = $data['categoryname'];
-                $category->iconPath = "default.jpg";
-                $category->isBusiness = "yes";
-                $category->save();
-
+            $user->assignRole('User');
+            if ($data['type'] ==  'Individual') {
                 $card = new CardsModels();
                 $card->user_id = $user->id;
                 $card->name = $user->name;
-                $card->category = $category->id;
+                $type = $data['type'];
+                $cat = Category::where('name', '=', $type)->get();
+                $cat_id = $cat[0]->id;
+                $card->category = $cat_id;
                 $card->save();
             } else {
-                $card = new CardsModels();
-                $card->user_id = $user->id;
-                $card->name = $user->name;
-                $card->category = $data['category'];
-                $card->save();
+                if ($data['category'] == 'other') {
+                    $category = new Category();
+                    $category->name = $data['categoryname'];
+                    $category->iconPath = "default.jpg";
+                    $category->isBusiness = "yes";
+                    $category->save();
+
+                    $card = new CardsModels();
+                    $card->user_id = $user->id;
+                    $card->name = $user->name;
+                    $card->category = $category->id;
+                    $card->save();
+                } else {
+                    $card = new CardsModels();
+                    $card->user_id = $user->id;
+                    $card->name = $user->name;
+                    $card->category = $data['category'];
+                    $card->save();
+                }
             }
+            $payment = new Payment();
+            $payment->card_id = $card->id;
+            $payment->save();
+
+            $links = new Links();
+            $links->card_id  = $card->id;
+            $links->phone1  = $data['mobileno'];
+            $links->save();
+
+
+            $id = $user->id;
+            $mycode = $new_str . $id;
+            $userUpdate = User::find($id);
+            $userUpdate->myrefer = $mycode;
+            $userUpdate->save();
+
+            $code = $user->refer;
+            if ($code) {
+
+                $pointableUser = User::where('myrefer', '=', $code)->first();
+
+                $userPoint = new Point();
+                $userPoint->userId = $pointableUser->id;
+                $userPoint->point = 50;
+                $userPoint->save();
+            }
+            return $user;
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
-        $payment = new Payment();
-        $payment->card_id = $card->id;
-        $payment->save();
-
-        $links = new Links();
-        $links->card_id  = $card->id;
-        $links->phone1  = $data['mobileno'];
-        $links->save();
-
-
-        $id = $user->id;
-        $mycode = $new_str . $id;
-        $userUpdate = User::find($id);
-        $userUpdate->myrefer = $mycode;
-        $userUpdate->save();
-
-        $code = $user->refer;
-        if ($code) {
-
-            $pointableUser = User::where('myrefer', '=', $code)->first();
-
-            $userPoint = new Point();
-            $userPoint->userId = $pointableUser->id;
-            $userPoint->point = 50;
-            $userPoint->save();
-        }
-        return $user;
     }
 }

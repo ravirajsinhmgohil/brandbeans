@@ -11,16 +11,29 @@ class AdminaccountController extends Controller
 {
     public function index()
     {
-        // $account = User::role('name', '!=', 'Admin')->get();
-        $account = User::whereDoesntHave('roles', function ($q) {
-            $q->where('name', 'Admin');
-        })->get();
-        return view("adminAccount.index", compact('account'));
+        try {
+
+            // $account = User::role('name', '!=', 'Admin')->get();
+            $account = User::whereDoesntHave('roles', function ($q) {
+                $q->where('name', 'Admin');
+            })->get();
+            return view("adminAccount.index", compact('account'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function create()
     {
-        return view("adminAccount.create");
+        try {
+            return view("adminAccount.create");
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function store(Request $request)
@@ -30,17 +43,23 @@ class AdminaccountController extends Controller
             'password' => 'required',
         ]);
 
-        $account = new Account();
-        $account->loginName = $request->loginName;
-        $account->password = $request->password;
+        try {
+            $account = new Account();
+            $account->loginName = $request->loginName;
+            $account->password = $request->password;
 
-        if ($request->isCompany) {
-            $account->isCompany = "yes";
-        } else {
-            $account->isCompany = "no";
+            if ($request->isCompany) {
+                $account->isCompany = "yes";
+            } else {
+                $account->isCompany = "no";
+            }
+            $account->save();
+            return redirect('adminAccount/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
-        $account->save();
-        return redirect('adminAccount/index');
     }
 
     public function show(Account $account)
@@ -49,9 +68,14 @@ class AdminaccountController extends Controller
 
     public function edit($id)
     {
-        //
-        $account = Account::find($id);
-        return view('adminAccount.edit', compact('account'));
+        try {
+            $account = Account::find($id);
+            return view('adminAccount.edit', compact('account'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function update(Request $request)
     {
@@ -59,24 +83,37 @@ class AdminaccountController extends Controller
             'loginName' => 'required',
             'password' => 'required',
         ]);
-        $id = $request->accountid;
-        $account = Account::find($id);
-        $account->loginName = $request->loginName;
-        $account->password = $request->password;
 
-        if ($request->isCompany) {
-            $account->isCompany = "yes";
-        } else {
-            $account->isCompany = "no";
+        try {
+            $id = $request->accountid;
+            $account = Account::find($id);
+            $account->loginName = $request->loginName;
+            $account->password = $request->password;
+
+            if ($request->isCompany) {
+                $account->isCompany = "yes";
+            } else {
+                $account->isCompany = "no";
+            }
+            $account->save();
+            return redirect('adminAccount/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
-        $account->save();
-        return redirect('adminAccount/index');
     }
 
     public function destroy($id)
     {
-        $account = Account::find($id);
-        $account->delete();
-        return redirect()->back();
+        try {
+            $account = Account::find($id);
+            $account->delete();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        } 
     }
 }

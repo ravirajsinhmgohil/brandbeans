@@ -11,8 +11,14 @@ class QrcodeController extends Controller
 {
     public function index()
     {
-        $qr = Qrcode::all();
-        return \view('demo', \compact('qr'));
+        try {
+            $qr = Qrcode::all();
+            return \view('demo', \compact('qr'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function create()
@@ -28,21 +34,27 @@ class QrcodeController extends Controller
             'code' => 'required',
         ]);
 
-        $id = Auth::user()->id;
-        //dd($id);
-        $cards = CardsModels::where('user_id', '=', $id)->get();
-        // return $cards;
-        $cardid = $cards[0]->id;
+        try {
+            $id = Auth::user()->id;
+            //dd($id);
+            $cards = CardsModels::where('user_id', '=', $id)->get();
+            // return $cards;
+            $cardid = $cards[0]->id;
 
-        $qr = new Qrcode();
-        $qr->card_id = $cardid;
-        $qr->type = $request->type;
-        $qr->number = $request->number;
-        $image = $request->code;
-        $qr->code = time() . '.' . $request->code->extension();
-        $request->code->move(public_path('QRcodes'), $qr->code);
-        $qr->save();
-        return \redirect()->back()->with('success', 'QR Code Added Successfully');
+            $qr = new Qrcode();
+            $qr->card_id = $cardid;
+            $qr->type = $request->type;
+            $qr->number = $request->number;
+            $image = $request->code;
+            $qr->code = time() . '.' . $request->code->extension();
+            $request->code->move(public_path('QRcodes'), $qr->code);
+            $qr->save();
+            return \redirect()->back()->with('success', 'QR Code Added Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show(Qrcode $qrcode)
@@ -63,8 +75,14 @@ class QrcodeController extends Controller
 
     public function destroy($id)
     {
-        $qr = Qrcode::find($id);
-        $qr->delete();
-        return \redirect()->back()->with('success', 'QR Code Deleted Successfully');
+        try {
+            $qr = Qrcode::find($id);
+            $qr->delete();
+            return \redirect()->back()->with('success', 'QR Code Deleted Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

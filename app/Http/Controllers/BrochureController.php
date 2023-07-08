@@ -22,19 +22,25 @@ class BrochureController extends Controller
         $this->validate($request, [
             'brochure' => 'required|max:10000',
         ]);
-        $cardid = $request->cardid;
-        $count = Brochure::where('card_id', '=', $cardid)->count();
-        // dd($count);
-        if ($count < 3) {
-            $bro = new Brochure();
-            $bro->card_id = $cardid;
-            $file = $request->brochure;
-            $bro->file = time() . '.' . $request->brochure->extension();
-            $request->brochure->move(public_path('brofile'), $bro->file);
-            $bro->save();
-            return redirect()->back()->with('success', 'Brochure Added Successfully');
-        } else {
-            return redirect()->back()->with('warning', "You Can't Add More Than two Brochure");
+        try {
+            $cardid = $request->cardid;
+            $count = Brochure::where('card_id', '=', $cardid)->count();
+            // dd($count);
+            if ($count < 3) {
+                $bro = new Brochure();
+                $bro->card_id = $cardid;
+                $file = $request->brochure;
+                $bro->file = time() . '.' . $request->brochure->extension();
+                $request->brochure->move(public_path('brofile'), $bro->file);
+                $bro->save();
+                return redirect()->back()->with('success', 'Brochure Added Successfully');
+            } else {
+                return redirect()->back()->with('warning', "You Can't Add More Than two Brochure");
+            }
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -53,8 +59,14 @@ class BrochureController extends Controller
     }
     public function destroy($id)
     {
-        $bro = Brochure::find($id);
-        $bro->delete();
-        return \redirect()->back()->with('success', 'Brochure Deleted Successfully');
+        try {
+            $bro = Brochure::find($id);
+            $bro->delete();
+            return \redirect()->back()->with('success', 'Brochure Deleted Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

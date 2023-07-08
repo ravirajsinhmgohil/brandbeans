@@ -17,12 +17,24 @@ class BannerController extends Controller
     }
     function index()
     {
-        $banner = Banner::all();
-        return view('banner.index', \compact('banner'));
+        try {
+            $banner = Banner::all();
+            return view('banner.index', \compact('banner'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     function create()
     {
-        return view('banner.create');
+        try {
+            return view('banner.create');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     function store(Request $request)
     {
@@ -31,19 +43,31 @@ class BannerController extends Controller
             'sequence' => 'required',
         ]);
 
-        $banner = new Banner();
+        try {
+            $banner = new Banner();
 
-        $image = $request->photo;
-        $banner->photo = time() . '.' . $request->photo->extension();
-        $request->photo->move(public_path('bannerphoto'), $banner->photo);
-        $banner->sequence = $request->sequence;
-        $banner->save();
-        return redirect('banner/index')->with('success', 'Banner Inserted Successfully');
+            $image = $request->photo;
+            $banner->photo = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('bannerphoto'), $banner->photo);
+            $banner->sequence = $request->sequence;
+            $banner->save();
+            return redirect('banner/index')->with('success', 'Banner Inserted Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     function destory($id)
     {
-        $banner = Banner::find($id);
-        $banner->delete();
-        return redirect('banner/index')->with('success', 'Banner Deleted Successfully');
+        try {
+            $banner = Banner::find($id);
+            $banner->delete();
+            return redirect('banner/index')->with('success', 'Banner Deleted Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

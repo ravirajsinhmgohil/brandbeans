@@ -513,6 +513,9 @@ Route::get('reseller/index', [ResellerController::class, 'index'])->name('resell
 Route::get('reseller/create', [ResellerController::class, 'create'])->name('reseller.create');
 Route::post('reseller/store', [ResellerController::class, 'store'])->name('reseller.store');
 Route::get('reseller/delete/{id?}', [ResellerController::class, 'destroy'])->name('reseller.delete');
+Route::get('reseller/edit/{id?}', [ResellerController::class, 'edit'])->name('reseller.edit');
+Route::post('reseller/update', [ResellerController::class, 'update'])->name('reseller.update');
+
 
 
 /* reseller side add user */

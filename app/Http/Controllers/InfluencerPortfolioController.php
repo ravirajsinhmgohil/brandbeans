@@ -11,12 +11,24 @@ class InfluencerPortfolioController extends Controller
 {
     public function index()
     {
-        $portfolio = InfluencerPortfolio::all();
-        return view('influencer.portfolio.index', compact('portfolio'));
+        try {
+            $portfolio = InfluencerPortfolio::all();
+            return view('influencer.portfolio.index', compact('portfolio'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function create()
     {
-        return view('influencer.portfolio.create');
+        try {
+            return view('influencer.portfolio.create');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function store(Request $request)
@@ -27,22 +39,35 @@ class InfluencerPortfolioController extends Controller
             'type' => 'required',
             'details' => 'required',
         ]);
-        $userId = Auth::user()->id;
-        $portfolio = new InfluencerPortfolio();
-        $portfolio->title = $request->title;
-        $portfolio->userId = $userId;
-        $portfolio->photo = time() . '.' . $request->photo->extension();
-        $request->photo->move(public_path('portfolioPhoto'), $portfolio->photo);
-        $portfolio->type = $request->type;
-        $portfolio->details = $request->details;
-        $portfolio->save();
 
-        return redirect('influencer/portfolio')->with('success', 'Added Successfully..');
+        try {
+            $userId = Auth::user()->id;
+            $portfolio = new InfluencerPortfolio();
+            $portfolio->title = $request->title;
+            $portfolio->userId = $userId;
+            $portfolio->photo = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('portfolioPhoto'), $portfolio->photo);
+            $portfolio->type = $request->type;
+            $portfolio->details = $request->details;
+            $portfolio->save();
+
+            return redirect('influencer/portfolio')->with('success', 'Added Successfully..');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function edit($id)
     {
-        $portfolio = InfluencerPortfolio::find($id);
-        return view('influencer.portfolio.edit', \compact('portfolio'));
+        try {
+            $portfolio = InfluencerPortfolio::find($id);
+            return view('influencer.portfolio.edit', \compact('portfolio'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function update(Request $request)
@@ -53,22 +78,34 @@ class InfluencerPortfolioController extends Controller
             'details' => 'required',
         ]);
 
-        $id = $request->portfolioId;
-        $portfolio = InfluencerPortfolio::find($id);
-        $portfolio->title = $request->title;
-        if ($request->photo) {
-            $portfolio->photo = time() . '.' . $request->photo->extension();
-            $request->photo->move(public_path('portfolioPhoto'), $portfolio->photo);
-        }
-        $portfolio->type = $request->type;
-        $portfolio->details = $request->details;
-        $portfolio->save();
+        try {
+            $id = $request->portfolioId;
+            $portfolio = InfluencerPortfolio::find($id);
+            $portfolio->title = $request->title;
+            if ($request->photo) {
+                $portfolio->photo = time() . '.' . $request->photo->extension();
+                $request->photo->move(public_path('portfolioPhoto'), $portfolio->photo);
+            }
+            $portfolio->type = $request->type;
+            $portfolio->details = $request->details;
+            $portfolio->save();
 
-        return redirect('influencer/portfolio')->with('success', 'Updated Successfully..');
+            return redirect('influencer/portfolio')->with('success', 'Updated Successfully..');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function delete($id)
     {
-        $portfolio = InfluencerPortfolio::find($id)->delete();
-        return redirect('influencer/portfolio')->with('success', 'Deleted Successfully..');
+        try {
+            $portfolio = InfluencerPortfolio::find($id)->delete();
+            return redirect('influencer/portfolio')->with('success', 'Deleted Successfully..');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

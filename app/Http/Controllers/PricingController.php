@@ -23,15 +23,27 @@ class PricingController extends Controller
     }
     public function index()
     {
-        // return $freepack;
-        $subpack = Subscriptionpackage::all();
-        $user = User::where('id', '=', Auth::user()->id)->first();
-        return view('pricing.index', compact('user', 'subpack'));
+        try {
+            // return $freepack;
+            $subpack = Subscriptionpackage::all();
+            $user = User::where('id', '=', Auth::user()->id)->first();
+            return view('pricing.index', compact('user', 'subpack'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function payment()
     {
-        return view('pricing.payment');
+        try {
+            return view('pricing.payment');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function store(Request $request)
     {
@@ -39,25 +51,32 @@ class PricingController extends Controller
         $this->validate($request, [
             'amount' => 'required',
         ]);
-        $payId = rand(111, 999);
-        $user = User::where('id', '=', Auth::user()->id)->first();
-        $paymentDate = [
-            'receipt' => 'rcptid_11',
-            'amount' => ($request->amount * 100),
-            'currency' => 'INR',
-            'notes' => [
-                'order_id' => $payId,
-                'name' => $user->name,
-            ]
-        ];
-        // $user->package = "Silver";
-        // $user->save();
+
+        try {
+            $payId = rand(111, 999);
+            $user = User::where('id', '=', Auth::user()->id)->first();
+            $paymentDate = [
+                'receipt' => 'rcptid_11',
+                'amount' => ($request->amount * 100),
+                'currency' => 'INR',
+                'notes' => [
+                    'order_id' => $payId,
+                    'name' => $user->name,
+                ]
+            ];
+            // $user->package = "Silver";
+            // $user->save();
 
 
-        $razorPayment = $this->api->order->create($paymentDate);
-        // dd($razorPayment);
+            $razorPayment = $this->api->order->create($paymentDate);
+            // dd($razorPayment);
 
-        return view('pricing.confirmation', \compact('razorPayment', 'payId', 'user'));
+            return view('pricing.confirmation', \compact('razorPayment', 'payId', 'user'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
         // code..
         // $input = $request->all();
 
@@ -82,74 +101,85 @@ class PricingController extends Controller
 
     public function paymentSubmit(Request $request)
     {
+        try {
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, 'https://test.instamojo.com/v2/payment_requests/');
+            curl_setopt($ch, CURLOPT_HEADER, FALSE);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer y70kak2K0Rg7J4PAL8sdW0MutnGJEl'));
 
 
-        $ch = curl_init();
+            $payload = array(
+                'purpose' => 'FIFA 16',
+                'amount' => '2500',
+                'buyer_name' => 'John Doe',
+                'email' => 'rudrika@gmail.com',
+                'phone' => '9999999999',
+                'redirect_url' => 'http://www.example.com/redirect/',
+                'send_email' => 'True',
+                'webhook' => 'http://www.example.com/webhook/',
+                'allow_repeated_payments' => 'False',
+            );
 
-        curl_setopt($ch, CURLOPT_URL, 'https://test.instamojo.com/v2/payment_requests/');
-        curl_setopt($ch, CURLOPT_HEADER, FALSE);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer y70kak2K0Rg7J4PAL8sdW0MutnGJEl'));
-
-
-        $payload = array(
-            'purpose' => 'FIFA 16',
-            'amount' => '2500',
-            'buyer_name' => 'John Doe',
-            'email' => 'rudrika@gmail.com',
-            'phone' => '9999999999',
-            'redirect_url' => 'http://www.example.com/redirect/',
-            'send_email' => 'True',
-            'webhook' => 'http://www.example.com/webhook/',
-            'allow_repeated_payments' => 'False',
-        );
-
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
-        $response = curl_exec($ch);
-        curl_close($ch);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
+            $response = curl_exec($ch);
+            curl_close($ch);
 
 
-        // $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_URL, 'https://api.instamojo.com/v2/payment_requests/');
-        // curl_setopt($ch, CURLOPT_HEADER, FALSE);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-        // curl_setopt(
-        //     $ch,
-        //     CURLOPT_HTTPHEADER,
-        //     // array('Authorization: Bearer y70kak2K0Rg7J4PAL8sdW0MutnGJEl'));
-        //     array(
-        //         'X-Api-Key: 79d03ab566c6cecf245c42ca3cff96a5',
-        //         'X-Auth-Token: 26619d1358d84f3db3fc6e2991ec0508',
-        //     )
-        // );
+            // $ch = curl_init();
+            // curl_setopt($ch, CURLOPT_URL, 'https://api.instamojo.com/v2/payment_requests/');
+            // curl_setopt($ch, CURLOPT_HEADER, FALSE);
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+            // curl_setopt(
+            //     $ch,
+            //     CURLOPT_HTTPHEADER,
+            //     // array('Authorization: Bearer y70kak2K0Rg7J4PAL8sdW0MutnGJEl'));
+            //     array(
+            //         'X-Api-Key: 79d03ab566c6cecf245c42ca3cff96a5',
+            //         'X-Auth-Token: 26619d1358d84f3db3fc6e2991ec0508',
+            //     )
+            // );
 
-        // $payload = array(
-        //     'purpose' => 'FIFA 16',
-        //     'amount' => '2500',
-        //     'buyer_name' => 'John Doe',
-        //     'email' => 'jaydeep@aspireotech.com',
-        //     'phone' => '9999999999',
-        //     'redirect_url' => 'http://www.example.com/redirect/',
-        //     'send_email' => 'True',
-        //     'webhook' => 'http://www.example.com/webhook/',
-        //     'allow_repeated_payments' => 'False',
-        // );
+            // $payload = array(
+            //     'purpose' => 'FIFA 16',
+            //     'amount' => '2500',
+            //     'buyer_name' => 'John Doe',
+            //     'email' => 'jaydeep@aspireotech.com',
+            //     'phone' => '9999999999',
+            //     'redirect_url' => 'http://www.example.com/redirect/',
+            //     'send_email' => 'True',
+            //     'webhook' => 'http://www.example.com/webhook/',
+            //     'allow_repeated_payments' => 'False',
+            // );
 
-        // curl_setopt($ch, CURLOPT_POST, true);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
-        // $response = curl_exec($ch);
-        // curl_close($ch);
-        $response = \json_encode($response);
-        echo "<pre>";
-        print_r($response);
+            // curl_setopt($ch, CURLOPT_POST, true);
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
+            // $response = curl_exec($ch);
+            // curl_close($ch);
+            $response = \json_encode($response);
+            echo "<pre>";
+            print_r($response);
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function redirect()
     {
-        echo "<pre>";
-        print_r($_GET);
+        try {
+            echo "<pre>";
+            print_r($_GET);
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

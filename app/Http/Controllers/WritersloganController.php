@@ -20,39 +20,51 @@ class WritersloganController extends Controller
 
     public function index(Request $request)
     {
-        $userId = Auth::user()->id;
-        $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
-            ->where('writerslogans.userId', '=',  $userId)
-            ->get(['writerslogans.*', 'admincategories.name as categoryName']);
-        return view('writer.index', \compact('writer'));
-        // if (isset($_SESSION['status'])) {
-        //     $status = $_SESSION['status'];
-        // } else {
-        //     $status = $request->status;
-        // }
-        // if ($status == "Pending") {
-        //     $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
-        //         ->where('status', '=', $status)
-        //         ->paginate(1, ['writerslogans.*', 'admincategories.name as categoryName']);
-        //     return view('writer.index', \compact('writer'));
-        // } else if ($status == "Approved") {
-        //     $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
-        //         ->where('status', '=', $status)
-        //         ->paginate(1, ['writerslogans.*', 'admincategories.name as categoryName']);
-        //     return view('writer.index', \compact('writer'));
-        // } else {
-        //     $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
-        //         ->paginate(5, ['writerslogans.*', 'admincategories.name as categoryName']);
-        //     return view('writer.index', \compact('writer'));
-        // }
+        try {
+            $userId = Auth::user()->id;
+            $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
+                ->where('writerslogans.userId', '=',  $userId)
+                ->get(['writerslogans.*', 'admincategories.name as categoryName']);
+            return view('writer.index', \compact('writer'));
+            // if (isset($_SESSION['status'])) {
+            //     $status = $_SESSION['status'];
+            // } else {
+            //     $status = $request->status;
+            // }
+            // if ($status == "Pending") {
+            //     $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
+            //         ->where('status', '=', $status)
+            //         ->paginate(1, ['writerslogans.*', 'admincategories.name as categoryName']);
+            //     return view('writer.index', \compact('writer'));
+            // } else if ($status == "Approved") {
+            //     $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
+            //         ->where('status', '=', $status)
+            //         ->paginate(1, ['writerslogans.*', 'admincategories.name as categoryName']);
+            //     return view('writer.index', \compact('writer'));
+            // } else {
+            //     $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
+            //         ->paginate(5, ['writerslogans.*', 'admincategories.name as categoryName']);
+            //     return view('writer.index', \compact('writer'));
+            // }
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
 
     public function create()
     {
-        $category = Category::where('name', '!=', 'Individual')
-            ->get();
-        return view('writer.create', compact('category'));
+        try {
+            $category = Category::where('name', '!=', 'Individual')
+                ->get();
+            return view('writer.create', compact('category'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
 
@@ -63,16 +75,22 @@ class WritersloganController extends Controller
             'categoryId' => 'required',
         ]);
 
-        $userId = Auth::user()->id;
-        $writer = new Writerslogan();
-        $writer->userId = $userId;
-        $writer->title = $request->title;
-        $writer->categoryId = $request->categoryId;
-        $writer->status = "Pending";
+        try {
+            $userId = Auth::user()->id;
+            $writer = new Writerslogan();
+            $writer->userId = $userId;
+            $writer->title = $request->title;
+            $writer->categoryId = $request->categoryId;
+            $writer->status = "Pending";
 
-        $writer->save();
+            $writer->save();
 
-        return redirect('writer/index')->with('success', 'Slogan Created Successfully');
+            return redirect('writer/index')->with('success', 'Slogan Created Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
 
@@ -84,9 +102,15 @@ class WritersloganController extends Controller
 
     public function edit($id)
     {
-        $writer = Writerslogan::find($id);
-        $category = Category::all();
-        return view('writer.edit', \compact('writer', 'category'));
+        try {
+            $writer = Writerslogan::find($id);
+            $category = Category::all();
+            return view('writer.edit', \compact('writer', 'category'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
 
@@ -97,88 +121,112 @@ class WritersloganController extends Controller
             'categoryId' => 'required',
         ]);
 
-        $id = $request->writerId;
-        $writer =  Writerslogan::find($id);
-        $writer->title = $request->title;
-        $writer->categoryId = $request->categoryId;
-        $writer->status = "Pending";
-        $writer->save();
+        try {
+            $id = $request->writerId;
+            $writer =  Writerslogan::find($id);
+            $writer->title = $request->title;
+            $writer->categoryId = $request->categoryId;
+            $writer->status = "Pending";
+            $writer->save();
 
-        return redirect('writer/index')->with('success', 'Slogan Created Successfully');
+            return redirect('writer/index')->with('success', 'Slogan Created Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
 
     public function destroy($id)
     {
-        $writer = Writerslogan::find($id);
-        $writer->delete();
-        return redirect('writer/index')->with('success', 'Slogan Deleted Successfully');
+        try {
+            $writer = Writerslogan::find($id);
+            $writer->delete();
+            return redirect('writer/index')->with('success', 'Slogan Deleted Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function RegisterWriter()
     {
-        return view('new_writer');
+        try {
+            return view('new_writer');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function RegisterWriterstore(Request $request)
     {
-        $mobileno = $request->mobileno;
-        $email = $request->email;
-        $usercount = User::where('mobileno', '=', $mobileno)->get()->count();
-        $useremailcount = User::where('email', '=', $email)->get()->count();
-        if ($useremailcount > 0) {
+        try {
+            $mobileno = $request->mobileno;
+            $email = $request->email;
+            $usercount = User::where('mobileno', '=', $mobileno)->get()->count();
+            $useremailcount = User::where('email', '=', $email)->get()->count();
+            if ($useremailcount > 0) {
 
-            $user = User::where('email', '=', $email)->first();
-            $userId  = $user->id;
-            $userData = User::find($userId);
-            $userData->mobileno = $mobileno;
-            $userData->save();
-            if ($usercount > 0) {
-                $user = User::where('mobileno', '=', $mobileno)->first();
-
+                $user = User::where('email', '=', $email)->first();
+                $userId  = $user->id;
                 $userData = User::find($userId);
                 $userData->mobileno = $mobileno;
-                $userData->assignRole(['Writer', 'User']);
                 $userData->save();
+                if ($usercount > 0) {
+                    $user = User::where('mobileno', '=', $mobileno)->first();
+
+                    $userData = User::find($userId);
+                    $userData->mobileno = $mobileno;
+                    $userData->assignRole(['Writer', 'User']);
+                    $userData->save();
+                    return redirect('login');
+                }
+                return redirect('login');
+            } else {
+                $this->validate($request, [
+                    'name' => 'required',
+                    'username' => ['required', 'string', 'max:255'],
+                    'email' => 'required|email',
+                    'mobileno' => 'required',
+                    'password' => 'required|same:confirm-password',
+                ]);
+
+                $user = new User();
+                $user->name = $request->name;
+                $user->username = $request->username;
+                $user->email = $request->email;
+                $user->mobileno = $request->mobileno;
+                $user->password = Hash::make($request->password);
+                $user->assignRole(['Writer', 'User']);
+                $user->package = "FREE";
+                $user->save();
+
+                $category = category::where('name', '=', 'Individual')->first();
+                $card = new CardsModels();
+                $card->name = $user->name;
+                $card->user_id = $user->id;
+                $card->category = $category->id;
+                $card->save();
+
+                $payment = new Payment();
+                $payment->card_id = $card->id;
+                $payment->save();
+
+                $links = new Links();
+                $links->card_id  = $card->id;
+                $links->phone1  = $user->mobileno;
+                $links->save();
+
                 return redirect('login');
             }
-            return redirect('login');
-        } else {
-            $this->validate($request, [
-                'name' => 'required',
-                'username' => ['required', 'string', 'max:255'],
-                'email' => 'required|email',
-                'mobileno' => 'required',
-                'password' => 'required|same:confirm-password',
-            ]);
-
-            $user = new User();
-            $user->name = $request->name;
-            $user->username = $request->username;
-            $user->email = $request->email;
-            $user->mobileno = $request->mobileno;
-            $user->password = Hash::make($request->password);
-            $user->assignRole(['Writer', 'User']);
-            $user->package = "FREE";
-            $user->save();
-
-            $category = category::where('name', '=', 'Individual')->first();
-            $card = new CardsModels();
-            $card->name = $user->name;
-            $card->user_id = $user->id;
-            $card->category = $category->id;
-            $card->save();
-
-            $payment = new Payment();
-            $payment->card_id = $card->id;
-            $payment->save();
-
-            $links = new Links();
-            $links->card_id  = $card->id;
-            $links->phone1  = $user->mobileno;
-            $links->save();
-
-            return redirect('login');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
     }
 }
