@@ -16,8 +16,14 @@ class StoryController extends Controller
      */
     public function index()
     {
-        $story = Story::all();
-        return view('story.index', compact('story'));
+        try {
+            $story = Story::all();
+            return view('story.index', compact('story'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     /**
@@ -27,7 +33,13 @@ class StoryController extends Controller
      */
     public function create()
     {
-        return view('story.create');
+        try {
+            return view('story.create');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     /**
@@ -44,16 +56,22 @@ class StoryController extends Controller
             'description' => 'required',
         ]);
 
-        $userId = Auth::user()->id;
+        try {
+            $userId = Auth::user()->id;
 
-        $story = new Story();
-        $story->userId = $userId;
-        $story->title = $request->title;
-        $story->photo = time() . '.' . $request->photo->extension();
-        $request->photo->move(public_path('storyImg'), $story->photo);
-        $story->description = $request->description;
-        $story->save();
-        return redirect()->back()->with('success', 'story added successfully');
+            $story = new Story();
+            $story->userId = $userId;
+            $story->title = $request->title;
+            $story->photo = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('storyImg'), $story->photo);
+            $story->description = $request->description;
+            $story->save();
+            return redirect()->back()->with('success', 'story added successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     /**
@@ -75,8 +93,14 @@ class StoryController extends Controller
      */
     public function edit($id)
     {
-        $story = Story::find($id);
-        return view('story.edit', compact('story'));
+        try {
+            $story = Story::find($id);
+            return view('story.edit', compact('story'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     /**
@@ -93,16 +117,22 @@ class StoryController extends Controller
             'description' => 'required',
         ]);
 
-        $id = $request->storyId;
-        $story = Story::find($id);
-        $story->title = $request->title;
-        if ($request->photo) {
-            $story->photo = time() . '.' . $request->photo->extension();
-            $request->photo->move(public_path('storyImg'), $story->photo);
+        try {
+            $id = $request->storyId;
+            $story = Story::find($id);
+            $story->title = $request->title;
+            if ($request->photo) {
+                $story->photo = time() . '.' . $request->photo->extension();
+                $request->photo->move(public_path('storyImg'), $story->photo);
+            }
+            $story->description = $request->description;
+            $story->save();
+            return redirect()->back()->with('success', 'story updated successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
-        $story->description = $request->description;
-        $story->save();
-        return redirect()->back()->with('success', 'story updated successfully');
     }
 
     /**
@@ -113,7 +143,13 @@ class StoryController extends Controller
      */
     public function delete($id)
     {
-        $story = Story::find($id)->delete();
-        return redirect()->back()->with('success', 'story deleted successfully');
+        try {
+            $story = Story::find($id)->delete();
+            return redirect()->back()->with('success', 'story deleted successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

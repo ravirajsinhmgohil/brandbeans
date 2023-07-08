@@ -11,7 +11,12 @@ class CardsController extends Controller
     //
     function cards()
     {
-        return view('customer.cards');
+        try {
+            return view('customer.cards');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
-    
 }

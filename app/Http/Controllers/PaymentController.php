@@ -35,24 +35,30 @@ class PaymentController extends Controller
     public function update(Request $request)
     {
 
-        $id = Auth::user()->id;
-        //dd($id);
-        $cards = CardsModels::where('user_id', '=', $id)->get();
-        // return $cards;
-        $cardid = $cards[0]->id;
-        $payment1 = Payment::where('card_id', '=', $cardid)->first();
-        $id = $payment1->id;
+        try {
+            $id = Auth::user()->id;
+            //dd($id);
+            $cards = CardsModels::where('user_id', '=', $id)->get();
+            // return $cards;
+            $cardid = $cards[0]->id;
+            $payment1 = Payment::where('card_id', '=', $cardid)->first();
+            $id = $payment1->id;
 
-        $payment = Payment::find($id);
+            $payment = Payment::find($id);
 
-        $payment->bankName = $request->bankName;
-        $payment->accountHolderName = $request->accountHolderName;
-        $payment->accountNumber = $request->accountNumber;
-        $payment->accountType = $request->accountType;
-        $payment->ifscCode = $request->ifscCode;
-        $payment->upidetail = $request->upidetail;
-        $payment->save();
-        return \redirect()->back()->with('success', 'Payment Updated Successfully');
+            $payment->bankName = $request->bankName;
+            $payment->accountHolderName = $request->accountHolderName;
+            $payment->accountNumber = $request->accountNumber;
+            $payment->accountType = $request->accountType;
+            $payment->ifscCode = $request->ifscCode;
+            $payment->upidetail = $request->upidetail;
+            $payment->save();
+            return \redirect()->back()->with('success', 'Payment Updated Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function destroy(Payment $payment)
     {

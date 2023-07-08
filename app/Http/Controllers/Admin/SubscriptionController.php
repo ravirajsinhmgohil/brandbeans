@@ -20,26 +20,38 @@ class SubscriptionController extends Controller
     }
     public function index(Request $request)
     {
-        $type = $request->type;
-        if ($type == 'free') {
-            $user = User::where('package', '=', 'FREE')->get();
-            return view("adminSubscription.index", compact('user'));
-        } else if ($type == 'paid') {
-            $paiduser = User::join('razorpays', 'razorpays.user_id', '=', 'users.id')
-                ->where('package', '!=', 'FREE')
-                ->get(['users.*', 'razorpays.payment_id']);
-            return view("adminSubscription.index", compact('paiduser'));
-        } else {
-            $user = User::where('package', '=', 'FREE')->get();
-            return view("adminSubscription.index", compact('user'));
+        try {
+            $type = $request->type;
+            if ($type == 'free') {
+                $user = User::where('package', '=', 'FREE')->get();
+                return view("adminSubscription.index", compact('user'));
+            } else if ($type == 'paid') {
+                $paiduser = User::join('razorpays', 'razorpays.user_id', '=', 'users.id')
+                    ->where('package', '!=', 'FREE')
+                    ->get(['users.*', 'razorpays.payment_id']);
+                return view("adminSubscription.index", compact('paiduser'));
+            } else {
+                $user = User::where('package', '=', 'FREE')->get();
+                return view("adminSubscription.index", compact('user'));
+            }
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
     }
 
     public function create()
     {
-        $account = Account::all();
-        $subpack = Subscriptionpackage::all();
-        return view("adminSubscription.create", \compact('account', 'subpack'));
+        try {
+            $account = Account::all();
+            $subpack = Subscriptionpackage::all();
+            return view("adminSubscription.create", \compact('account', 'subpack'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function store(Request $request)
@@ -49,11 +61,17 @@ class SubscriptionController extends Controller
             'subscriptionPackageId' => 'required',
         ]);
 
-        $sub = new Subscription();
-        $sub->accountId = $request->accountId;
-        $sub->subscriptionPackageId = $request->subscriptionPackageId;
-        $sub->save();
-        return redirect('adminsubscription/index');
+        try {
+            $sub = new Subscription();
+            $sub->accountId = $request->accountId;
+            $sub->subscriptionPackageId = $request->subscriptionPackageId;
+            $sub->save();
+            return redirect('adminsubscription/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show(Subscription $sub)
@@ -62,10 +80,16 @@ class SubscriptionController extends Controller
 
     public function edit($id)
     {
-        $sub = Subscription::find($id);
-        $account = Account::all();
-        $subpack = Subscriptionpackage::all();
-        return view('adminSubscription.edit', compact('sub', 'account', 'subpack'));
+        try {
+            $sub = Subscription::find($id);
+            $account = Account::all();
+            $subpack = Subscriptionpackage::all();
+            return view('adminSubscription.edit', compact('sub', 'account', 'subpack'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function update(Request $request)
     {
@@ -73,19 +97,32 @@ class SubscriptionController extends Controller
             'accountId' => 'required',
             'subscriptionPackageId' => 'required',
         ]);
-        $id = $request->subid;
-        $sub = Subscription::find($id);
-        $sub->accountId = $request->accountId;
-        $sub->subscriptionPackageId = $request->subscriptionPackageId;
 
-        $sub->save();
-        return redirect('adminsubscription/index');
+        try {
+            $id = $request->subid;
+            $sub = Subscription::find($id);
+            $sub->accountId = $request->accountId;
+            $sub->subscriptionPackageId = $request->subscriptionPackageId;
+
+            $sub->save();
+            return redirect('adminsubscription/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function destroy($id)
     {
-        $sub = Subscription::find($id);
-        $sub->delete();
-        return redirect()->back();
+        try {
+            $sub = Subscription::find($id);
+            $sub->delete();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

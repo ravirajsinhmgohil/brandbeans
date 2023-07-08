@@ -12,9 +12,15 @@ class AccountController extends Controller
 
     public function create()
     {
-        $authid = Auth::User()->id;
-        $user = User::find($authid);
+        try {
+            $authid = Auth::User()->id;
+            $user = User::find($authid);
 
-        return view('account.account', \compact('user'));
+            return view('account.account', \compact('user'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

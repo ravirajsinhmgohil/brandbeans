@@ -27,13 +27,18 @@ class ServicesController extends Controller
     // {
     //     $card = Cardservices::find($id);
     //     $card->delete();
-        
+
     //     return redirect()->back()->with('success',"deleted successfully");
     // }
 
     function demo()
     {
-        return view('demo');
+        try {
+            return view('demo');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
-    
 }

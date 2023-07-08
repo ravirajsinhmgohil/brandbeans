@@ -18,13 +18,25 @@ class TemplatemasterController extends Controller
     }
     public function index()
     {
-        $template = Templatemaster::all();
-        return view("adminTemplate.index", compact('template'));
+        try {
+            $template = Templatemaster::all();
+            return view("adminTemplate.index", compact('template'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function create()
     {
-        return view("adminTemplate.create");
+        try {
+            return view("adminTemplate.create");
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function store(Request $request)
@@ -33,30 +45,36 @@ class TemplatemasterController extends Controller
             'photo' => 'required',
         ]);
 
-        $template = new Templatemaster();
-        $image = $request->photo;
-        $template->photo = time() . '.' . $request->photo->extension();
-        $request->photo->move(public_path('templateimages'), $template->photo);
-        $template->logoLeft = $request->logoLeft;
-        $template->logoBottom = $request->logoBottom;
-        $template->mobileLeft = $request->mobileLeft;
-        $template->mobileBottom = $request->mobileBottom;
-        $template->mobileFontsize = $request->mobileFontsize;
-        $template->mobileFontfamily = $request->mobileFontfamily;
-        $template->webLeft = $request->webLeft;
-        $template->webBottom = $request->webBottom;
-        $template->webFontsize = $request->webFontsize;
-        $template->webFontfamily = $request->webFontfamily;
-        $template->emailLeft = $request->emailLeft;
-        $template->emailBottom = $request->emailBottom;
-        $template->emailFontsize = $request->emailFontsize;
-        $template->emailFontfamily = $request->emailFontfamily;
-        $template->locationLeft = $request->locationLeft;
-        $template->locationBottom = $request->locationBottom;
-        $template->locationFontsize = $request->locationFontsize;
-        $template->locationFontfamily = $request->locationFontfamily;
-        $template->save();
-        return redirect('admintemplatemaster/index');
+        try {
+            $template = new Templatemaster();
+            $image = $request->photo;
+            $template->photo = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('templateimages'), $template->photo);
+            $template->logoLeft = $request->logoLeft;
+            $template->logoBottom = $request->logoBottom;
+            $template->mobileLeft = $request->mobileLeft;
+            $template->mobileBottom = $request->mobileBottom;
+            $template->mobileFontsize = $request->mobileFontsize;
+            $template->mobileFontfamily = $request->mobileFontfamily;
+            $template->webLeft = $request->webLeft;
+            $template->webBottom = $request->webBottom;
+            $template->webFontsize = $request->webFontsize;
+            $template->webFontfamily = $request->webFontfamily;
+            $template->emailLeft = $request->emailLeft;
+            $template->emailBottom = $request->emailBottom;
+            $template->emailFontsize = $request->emailFontsize;
+            $template->emailFontfamily = $request->emailFontfamily;
+            $template->locationLeft = $request->locationLeft;
+            $template->locationBottom = $request->locationBottom;
+            $template->locationFontsize = $request->locationFontsize;
+            $template->locationFontfamily = $request->locationFontfamily;
+            $template->save();
+            return redirect('admintemplatemaster/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show(Templatemaster $template)
@@ -65,8 +83,14 @@ class TemplatemasterController extends Controller
 
     public function edit($id)
     {
-        $template = Templatemaster::find($id);
-        return view('adminTemplate.edit', compact('template'));
+        try {
+            $template = Templatemaster::find($id);
+            return view('adminTemplate.edit', compact('template'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function update(Request $request)
     {
@@ -75,37 +99,49 @@ class TemplatemasterController extends Controller
             'photo' => 'required',
         ]);
 
-        $id = $request->templateid;
-        $template = Templatemaster::find($id);
-        $image = $request->photo;
-        $template->photo = time() . '.' . $request->photo->extension();
-        $request->photo->move(public_path('templateimages'), $template->photo);
-        $template->logoLeft = $request->logoLeft;
-        $template->logoBottom = $request->logoBottom;
-        $template->mobileLeft = $request->mobileLeft;
-        $template->mobileBottom = $request->mobileBottom;
-        $template->mobileFontsize = $request->mobileFontsize;
-        $template->mobileFontfamily = $request->mobileFontfamily;
-        $template->webLeft = $request->webLeft;
-        $template->webBottom = $request->webBottom;
-        $template->webFontsize = $request->webFontsize;
-        $template->webFontfamily = $request->webFontfamily;
-        $template->emailLeft = $request->emailLeft;
-        $template->emailBottom = $request->emailBottom;
-        $template->emailFontsize = $request->emailFontsize;
-        $template->emailFontfamily = $request->emailFontfamily;
-        $template->locationLeft = $request->locationLeft;
-        $template->locationBottom = $request->locationBottom;
-        $template->locationFontsize = $request->locationFontsize;
-        $template->locationFontfamily = $request->locationFontfamily;
-        $template->save();
-        return redirect('admintemplatemaster/index');
+        try {
+            $id = $request->templateid;
+            $template = Templatemaster::find($id);
+            $image = $request->photo;
+            $template->photo = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('templateimages'), $template->photo);
+            $template->logoLeft = $request->logoLeft;
+            $template->logoBottom = $request->logoBottom;
+            $template->mobileLeft = $request->mobileLeft;
+            $template->mobileBottom = $request->mobileBottom;
+            $template->mobileFontsize = $request->mobileFontsize;
+            $template->mobileFontfamily = $request->mobileFontfamily;
+            $template->webLeft = $request->webLeft;
+            $template->webBottom = $request->webBottom;
+            $template->webFontsize = $request->webFontsize;
+            $template->webFontfamily = $request->webFontfamily;
+            $template->emailLeft = $request->emailLeft;
+            $template->emailBottom = $request->emailBottom;
+            $template->emailFontsize = $request->emailFontsize;
+            $template->emailFontfamily = $request->emailFontfamily;
+            $template->locationLeft = $request->locationLeft;
+            $template->locationBottom = $request->locationBottom;
+            $template->locationFontsize = $request->locationFontsize;
+            $template->locationFontfamily = $request->locationFontfamily;
+            $template->save();
+            return redirect('admintemplatemaster/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function destroy($id)
     {
-        $template = Templatemaster::find($id);
-        $template->delete();
-        return redirect()->back();
+        try {
+            $template = Templatemaster::find($id);
+            $template->delete();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

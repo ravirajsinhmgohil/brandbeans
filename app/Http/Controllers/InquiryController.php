@@ -26,15 +26,21 @@ class InquiryController extends Controller
 
     public function store(Request $request)
     {
-        $cardid = $request->cardId;
-        $inq = new Inquiry();
-        $inq->card_id = $cardid;
-        $inq->name = $request->name;
-        $inq->email = $request->email;
-        $inq->phone = $request->phone;
-        $inq->message = $request->message;
-        $inq->save();
-        return \redirect()->back();
+        try {
+            $cardid = $request->cardId;
+            $inq = new Inquiry();
+            $inq->card_id = $cardid;
+            $inq->name = $request->name;
+            $inq->email = $request->email;
+            $inq->phone = $request->phone;
+            $inq->message = $request->message;
+            $inq->save();
+            return \redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show(Inquiry $inquiry)

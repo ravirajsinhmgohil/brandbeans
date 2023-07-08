@@ -9,7 +9,12 @@ class FeaturesController extends Controller
     //
     public function index()
     {
-        return view('features.index');
+        try {
+            return view('features.index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
-
 }

@@ -23,7 +23,7 @@ class CategoryController extends Controller
             $category = Category::all();
             return view("adminCategory.index", compact('category'));
         } catch (\Throwable $th) {
-
+            //throw $th;    
             return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }
@@ -31,7 +31,13 @@ class CategoryController extends Controller
 
     public function create()
     {
-        return view("adminCategory.create");
+        try {
+            return view("adminCategory.create");
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function store(Request $request)
@@ -40,28 +46,34 @@ class CategoryController extends Controller
             'name' => 'required',
         ]);
 
-        $category = new Category();
-        $category->name = $request->name;
-        if ($request->iconPath) {
-            $image = $request->iconPath;
-            $category->iconPath = time() . '.' . $request->iconPath->extension();
-            $request->iconPath->move(public_path('categoryimg'), $category->iconPath);
-        }
-        if ($request->type) {
-            if ($request->type == "isFestival") {
-                $category->isFestival = "yes";
-                $category->startDate = $request->startDate;
-                $category->endDate = $request->endDate;
-                $category->isBusiness = "no";
-            } else {
-                $category->isBusiness = "yes";
-                $category->isFestival = "no";
+        try {
+            $category = new Category();
+            $category->name = $request->name;
+            if ($request->iconPath) {
+                $image = $request->iconPath;
+                $category->iconPath = time() . '.' . $request->iconPath->extension();
+                $request->iconPath->move(public_path('categoryimg'), $category->iconPath);
             }
-        }
+            if ($request->type) {
+                if ($request->type == "isFestival") {
+                    $category->isFestival = "yes";
+                    $category->startDate = $request->startDate;
+                    $category->endDate = $request->endDate;
+                    $category->isBusiness = "no";
+                } else {
+                    $category->isBusiness = "yes";
+                    $category->isFestival = "no";
+                }
+            }
 
-        $category->sequence = $request->sequence;
-        $category->save();
-        return redirect('admincategory/index');
+            $category->sequence = $request->sequence;
+            $category->save();
+            return redirect('admincategory/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show(Category $category)
@@ -70,43 +82,60 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        //
-        $category = Category::find($id);
-        return view('adminCategory.edit', compact('category'));
+        try {
+            $category = Category::find($id);
+            return view('adminCategory.edit', compact('category'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function update(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
         ]);
-        $id = $request->id;
-        $category = Category::find($id);
-        $category->name = $request->name;
-        if ($request->iconPath) {
-            $image = $request->iconPath;
-            $category->iconPath = time() . '.' . $request->iconPath->extension();
-            $request->iconPath->move(public_path('categoryimg'), $category->iconPath);
-        }
-        if ($request->type) {
-            if ($request->type == "isFestival") {
-                $category->isFestival = "yes";
-                $category->startDate = $request->startDate;
-                $category->endDate = $request->endDate;
-                $category->isBusiness = "no";
-            } else {
-                $category->isBusiness = "yes";
-                $category->isFestival = "no";
+        try {
+            $id = $request->id;
+            $category = Category::find($id);
+            $category->name = $request->name;
+            if ($request->iconPath) {
+                $image = $request->iconPath;
+                $category->iconPath = time() . '.' . $request->iconPath->extension();
+                $request->iconPath->move(public_path('categoryimg'), $category->iconPath);
             }
+            if ($request->type) {
+                if ($request->type == "isFestival") {
+                    $category->isFestival = "yes";
+                    $category->startDate = $request->startDate;
+                    $category->endDate = $request->endDate;
+                    $category->isBusiness = "no";
+                } else {
+                    $category->isBusiness = "yes";
+                    $category->isFestival = "no";
+                }
+            }
+            $category->sequence = $request->sequence;
+            $category->save();
+            return redirect('admincategory/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
-        $category->sequence = $request->sequence;
-        $category->save();
-        return redirect('admincategory/index');
     }
 
     public function destroy($id)
     {
-        $category = Category::find($id);
-        $category->delete();
-        return redirect()->back();
+        try {
+            $category = Category::find($id);
+            $category->delete();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

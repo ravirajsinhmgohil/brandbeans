@@ -9,6 +9,12 @@ class BusinessController extends Controller
     //
     public function index()
     {
-        return view('business.index');
+        try {
+            return view('business.index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

@@ -31,13 +31,18 @@ class UserController extends Controller
     public function index(Request $request)
     {
         // 
-        $data = User::whereHas('roles', function ($query) {
-            return $query->where('name', '!=', 'User');
-        })->orderBy('id', 'DESC')->paginate(5);
-        return view('users.index', compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
-        // $data = User::all();
-
+        try {
+            $data = User::whereHas('roles', function ($query) {
+                return $query->where('name', '!=', 'User');
+            })->orderBy('id', 'DESC')->paginate(5);
+            return view('users.index', compact('data'))
+                ->with('i', ($request->input('page', 1) - 1) * 5);
+            // $data = User::all();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     /**
@@ -47,8 +52,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name', 'name')->all();
-        return view('users.create', compact('roles'));
+        try {
+            $roles = Role::pluck('name', 'name')->all();
+            return view('users.create', compact('roles'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     /**
@@ -67,37 +78,43 @@ class UserController extends Controller
             'mobileno' => 'required',
         ]);
 
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
+        try {
+            $input = $request->all();
+            $input['password'] = Hash::make($input['password']);
 
-        $input['username'] = $input['name'];
-        $input['package'] = "FREE";
-        $user = User::create($input);
-        $user->assignRole($request->input('roles'));
-        if ($request->profilePhoto) {
-            $user->profilePhoto = time() . '.' . $request->profilePhoto->extension();
-            $request->profilePhoto->move(public_path('profile'), $user->profilePhoto);
+            $input['username'] = $input['name'];
+            $input['package'] = "FREE";
+            $user = User::create($input);
+            $user->assignRole($request->input('roles'));
+            if ($request->profilePhoto) {
+                $user->profilePhoto = time() . '.' . $request->profilePhoto->extension();
+                $request->profilePhoto->move(public_path('profile'), $user->profilePhoto);
+            }
+            $user->save();
+
+            $userUpdate  = User::find($user->id);
+            $userUpdate->assignRole('User');
+            $userUpdate->save();
+
+            $card = new CardsModels();
+            $card->userid = $user->id;
+            $card->save();
+
+            $payment = new Payment();
+            $payment->card_id = $card->id;
+            $payment->save();
+
+            $links = new Links();
+            $links->card_id  = $card->id;
+            $links->phone1  = $user->mobileno;
+            $links->save();
+            return redirect()->route('users.index')
+                ->with('success', 'User created successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
-        $user->save();
-
-        $userUpdate  = User::find($user->id);
-        $userUpdate->assignRole('User');
-        $userUpdate->save();
-
-        $card = new CardsModels();
-        $card->userid = $user->id;
-        $card->save();
-
-        $payment = new Payment();
-        $payment->card_id = $card->id;
-        $payment->save();
-
-        $links = new Links();
-        $links->card_id  = $card->id;
-        $links->phone1  = $user->mobileno;
-        $links->save();
-        return redirect()->route('users.index')
-            ->with('success', 'User created successfully');
     }
 
     /**
@@ -108,10 +125,16 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
-        return view('users.show', compact('user', 'roles', 'userRole'));
+        try {
+            $user = User::find($id);
+            $roles = Role::pluck('name', 'name')->all();
+            $userRole = $user->roles->pluck('name', 'name')->all();
+            return view('users.show', compact('user', 'roles', 'userRole'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     /**
@@ -122,11 +145,17 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
+        try {
+            $user = User::find($id);
+            $roles = Role::pluck('name', 'name')->all();
+            $userRole = $user->roles->pluck('name', 'name')->all();
 
-        return view('users.edit', compact('user', 'roles', 'userRole'));
+            return view('users.edit', compact('user', 'roles', 'userRole'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     /**
@@ -145,21 +174,27 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
-        $input = $request->all();
-        // if (!empty($input['password'])) {
-        //     $input['password'] = Hash::make($input['password']);
-        // } else {
-        //     $input = Arr::except($input, array('password'));
-        // }
+        try {
+            $input = $request->all();
+            // if (!empty($input['password'])) {
+            //     $input['password'] = Hash::make($input['password']);
+            // } else {
+            //     $input = Arr::except($input, array('password'));
+            // }
 
-        $user = User::find($id);
-        $user->update($input);
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
+            $user = User::find($id);
+            $user->update($input);
+            DB::table('model_has_roles')->where('model_id', $id)->delete();
 
-        $user->assignRole($request->input('roles'));
+            $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
-            ->with('success', 'User updated successfully');
+            return redirect()->route('users.index')
+                ->with('success', 'User updated successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     /**
@@ -170,8 +205,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-        return redirect()->route('users.index')
-            ->with('success', 'User deleted successfully');
+        try {
+            User::find($id)->delete();
+            return redirect()->route('users.index')
+                ->with('success', 'User deleted successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }
