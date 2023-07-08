@@ -9,27 +9,63 @@ class HomepageController extends Controller
     //
     public function homepage()
     {
-        return view('wcard.homepage');
+        try {
+            return view('wcard.homepage');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     function about()
     {
-        return view('otherpages.about');
+        try {
+            return view('otherpages.about');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     function contact()
     {
-        return view('otherpages.contact');
+        try {
+            return view('otherpages.contact');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     function privacy()
     {
-        return view('otherpages.privacy');
+        try {
+            return view('otherpages.privacy');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     function refund()
     {
-        return view('otherpages.refund');
+        try {
+            return view('otherpages.refund');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     function term()
     {
-        return view('otherpages.terms');
+        try {
+            return view('otherpages.terms');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

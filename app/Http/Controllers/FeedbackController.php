@@ -11,12 +11,18 @@ class FeedbackController extends Controller
 {
     public function index()
     {
-        $authid = Auth::User()->id;
+        try {
+            $authid = Auth::User()->id;
 
-        $details = CardsModels::where('user_id', '=', $authid)->first();
-        $id = $details->id;
-        $feed = Feedback::where('card_id', '=', $id)->get();
-        return View('feed.feedback', \compact('feed'));
+            $details = CardsModels::where('user_id', '=', $authid)->first();
+            $id = $details->id;
+            $feed = Feedback::where('card_id', '=', $id)->get();
+            return View('feed.feedback', \compact('feed'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function create()
@@ -31,15 +37,22 @@ class FeedbackController extends Controller
             'email' => 'required',
             'message' => 'required',
         ]);
-        $cardid = $request->cardId;
-        $qr = new Feedback();
-        $qr->card_id = $cardid;
-        $qr->name = $request->name;
-        $qr->email = $request->email;
-        $qr->message = $request->message;
-        $qr->star = "5";
-        $qr->save();
-        return \redirect()->back()->with('success', 'Feedback Added Successfully');
+
+        try {
+            $cardid = $request->cardId;
+            $qr = new Feedback();
+            $qr->card_id = $cardid;
+            $qr->name = $request->name;
+            $qr->email = $request->email;
+            $qr->message = $request->message;
+            $qr->star = "5";
+            $qr->save();
+            return \redirect()->back()->with('success', 'Feedback Added Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show(Feedback $feedback)

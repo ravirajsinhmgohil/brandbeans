@@ -82,8 +82,14 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
-        $slider = Slider::find($id);
-        $slider->delete();
-        return \redirect()->back()->with('success', 'Slider Deleted Successfully');
+        try {
+            $slider = Slider::find($id);
+            $slider->delete();
+            return \redirect()->back()->with('success', 'Slider Deleted Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

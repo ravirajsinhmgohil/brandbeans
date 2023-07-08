@@ -12,14 +12,26 @@ class OfferController extends Controller
 
     public function index()
     {
-        $offer = Offer::all();
-        return view('offer.index', \compact('offer'));
+        try {
+            $offer = Offer::all();
+            return view('offer.index', \compact('offer'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
 
     public function create()
     {
-        return view('offer.create');
+        try {
+            return view('offer.create');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function store(Request $request)
@@ -38,23 +50,29 @@ class OfferController extends Controller
             'titlePositionLeft' => 'required',
         ]);
 
-        $offer = new Offer();
-        $offer->title = $request->title;
-        $image = $request->poster;
-        $offer->poster = time() . '.' . $request->poster->extension();
-        $request->poster->move(public_path('poster'), $offer->poster);
+        try {
+            $offer = new Offer();
+            $offer->title = $request->title;
+            $image = $request->poster;
+            $offer->poster = time() . '.' . $request->poster->extension();
+            $request->poster->move(public_path('poster'), $offer->poster);
 
-        $offer->fontSize = $request->fontSize;
-        $offer->fontFamily = $request->fontFamily;
-        $offer->fontColor = $request->fontColor;
-        $offer->noOfProduct = $request->noOfProduct;
-        $offer->posterHeight = $request->posterHeight;
-        $offer->posterWidth = $request->posterWidth;
-        $offer->titlePositionTop = $request->titlePositionTop;
-        $offer->titlePositionLeft = $request->titlePositionLeft;
-        $offer->save();
+            $offer->fontSize = $request->fontSize;
+            $offer->fontFamily = $request->fontFamily;
+            $offer->fontColor = $request->fontColor;
+            $offer->noOfProduct = $request->noOfProduct;
+            $offer->posterHeight = $request->posterHeight;
+            $offer->posterWidth = $request->posterWidth;
+            $offer->titlePositionTop = $request->titlePositionTop;
+            $offer->titlePositionLeft = $request->titlePositionLeft;
+            $offer->save();
 
-        return redirect('offer/index')->with('success', 'Offer Created Successfully');
+            return redirect('offer/index')->with('success', 'Offer Created Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show()
@@ -64,8 +82,14 @@ class OfferController extends Controller
 
     public function edit($id)
     {
-        $offer = Offer::find($id);
-        return view('offer.edit', \compact('offer'));
+        try {
+            $offer = Offer::find($id);
+            return view('offer.edit', \compact('offer'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function update(Request $request)
@@ -82,41 +106,59 @@ class OfferController extends Controller
             'titlePositionLeft' => 'required',
         ]);
 
-        $id = $request->offerId;
-        $offer =  Offer::find($id);
-        $offer->title = $request->title;
-        if ($request->poster) {
-            $image = $request->poster;
-            $offer->poster = time() . '.' . $request->poster->extension();
-            $request->poster->move(public_path('poster'), $offer->poster);
+        try {
+            $id = $request->offerId;
+            $offer =  Offer::find($id);
+            $offer->title = $request->title;
+            if ($request->poster) {
+                $image = $request->poster;
+                $offer->poster = time() . '.' . $request->poster->extension();
+                $request->poster->move(public_path('poster'), $offer->poster);
+            }
+
+            $offer->fontSize = $request->fontSize;
+            $offer->fontFamily = $request->fontFamily;
+            $offer->fontColor = $request->fontColor;
+            $offer->noOfProduct = $request->noOfProduct;
+            $offer->posterHeight = $request->posterHeight;
+            $offer->posterWidth = $request->posterWidth;
+            $offer->titlePositionTop = $request->titlePositionTop;
+            $offer->titlePositionLeft = $request->titlePositionLeft;
+            $offer->save();
+
+            return redirect('offer/index')->with('success', 'Offer Update Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
-
-        $offer->fontSize = $request->fontSize;
-        $offer->fontFamily = $request->fontFamily;
-        $offer->fontColor = $request->fontColor;
-        $offer->noOfProduct = $request->noOfProduct;
-        $offer->posterHeight = $request->posterHeight;
-        $offer->posterWidth = $request->posterWidth;
-        $offer->titlePositionTop = $request->titlePositionTop;
-        $offer->titlePositionLeft = $request->titlePositionLeft;
-        $offer->save();
-
-        return redirect('offer/index')->with('success', 'Offer Update Successfully');
     }
 
     public function destroy($id)
     {
-        $offer = Offer::find($id);
-        $offer->delete();
-        $offerdetail = Offerdetail::where('offerId', '=', $id)->delete();
-        return redirect()->back()->with('success', 'Offer deleted Successfully');
+        try {
+            $offer = Offer::find($id);
+            $offer->delete();
+            $offerdetail = Offerdetail::where('offerId', '=', $id)->delete();
+            return redirect()->back()->with('success', 'Offer deleted Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function offerdetail($id)
     {
-        $offerData = Offerdetail::where('offerId', '=', $id)->get();
-        $offerId  = $id;
-        return view('offer.offerdetails', \compact('offerId', 'offerData'));
+        try {
+            $offerData = Offerdetail::where('offerId', '=', $id)->get();
+            $offerId  = $id;
+            return view('offer.offerdetails', \compact('offerId', 'offerData'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     function offerdetailstore(Request $request)
@@ -128,39 +170,63 @@ class OfferController extends Controller
             'imageWidth' => 'required',
         ]);
 
-        $offer = new Offerdetail();
-        $offer->offerId = $request->offerId;
-        $offer->positionLeft = $request->positionLeft;
-        $offer->positionBottom = $request->positionBottom;
-        $offer->imageHeight = $request->imageHeight;
-        $offer->imageWidth = $request->imageWidth;
-        $offer->save();
+        try {
+            $offer = new Offerdetail();
+            $offer->offerId = $request->offerId;
+            $offer->positionLeft = $request->positionLeft;
+            $offer->positionBottom = $request->positionBottom;
+            $offer->imageHeight = $request->imageHeight;
+            $offer->imageWidth = $request->imageWidth;
+            $offer->save();
 
-        return redirect()->back()->with('success', 'Offer detail Created Successfully');
+            return redirect()->back()->with('success', 'Offer detail Created Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     function offerdetailedit($id)
     {
-        $offerdetails = Offerdetail::find($id);
-        return view('offer.offerdetailedit', \compact('offerdetails'));
+        try {
+            $offerdetails = Offerdetail::find($id);
+            return view('offer.offerdetailedit', \compact('offerdetails'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     function offerdetailupdate(Request $request)
     {
-        $id = $request->offerdetailId;
-        $offer = Offerdetail::find($id);
-        $offer->positionLeft = $request->positionLeft;
-        $offer->positionBottom = $request->positionBottom;
-        $offer->imageHeight = $request->imageHeight;
-        $offer->imageWidth = $request->imageWidth;
-        $offer->save();
+        try {
+            $id = $request->offerdetailId;
+            $offer = Offerdetail::find($id);
+            $offer->positionLeft = $request->positionLeft;
+            $offer->positionBottom = $request->positionBottom;
+            $offer->imageHeight = $request->imageHeight;
+            $offer->imageWidth = $request->imageWidth;
+            $offer->save();
 
-        return redirect()->back()->with('success', 'Offer detail Update Successfully');
+            return redirect()->back()->with('success', 'Offer detail Update Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     function offerdetaildelete($id)
     {
-        $offerdetail = Offerdetail::find($id)->delete();
-        return redirect()->back()->with('success', 'Deleted Successfully');
+        try {
+            $offerdetail = Offerdetail::find($id)->delete();
+            return redirect()->back()->with('success', 'Deleted Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

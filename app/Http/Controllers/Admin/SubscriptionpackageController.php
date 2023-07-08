@@ -18,13 +18,25 @@ class SubscriptionpackageController extends Controller
     }
     public function index()
     {
-        $subpack = Subscriptionpackage::all();
-        return view("adminSubPack.index", compact('subpack'));
+        try {
+            $subpack = Subscriptionpackage::all();
+            return view("adminSubPack.index", compact('subpack'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function create()
     {
-        return view("adminSubPack.create");
+        try {
+            return view("adminSubPack.create");
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function store(Request $request)
@@ -35,24 +47,31 @@ class SubscriptionpackageController extends Controller
             'priceType' => 'required',
             'details' => 'required',
         ]);
-        if ($request->priceType == "Paid") {
-            $this->validate($request, [
-                'price' => 'required',
-                'discount' => 'required',
-            ]);
-        }
-        $subpack = new Subscriptionpackage();
-        $subpack->title = $request->title;
-        $subpack->subscriptionType = $request->subscriptionType;
-        $subpack->priceType = $request->priceType;
-        if ($request->priceType == "Paid") {
-            $subpack->price = $request->price;
-            $subpack->discount = $request->discount;
-        }
-        $subpack->details = $request->details;
 
-        $subpack->save();
-        return redirect('adminsubscriptionpackage/index');
+        try {
+            if ($request->priceType == "Paid") {
+                $this->validate($request, [
+                    'price' => 'required',
+                    'discount' => 'required',
+                ]);
+            }
+            $subpack = new Subscriptionpackage();
+            $subpack->title = $request->title;
+            $subpack->subscriptionType = $request->subscriptionType;
+            $subpack->priceType = $request->priceType;
+            if ($request->priceType == "Paid") {
+                $subpack->price = $request->price;
+                $subpack->discount = $request->discount;
+            }
+            $subpack->details = $request->details;
+
+            $subpack->save();
+            return redirect('adminsubscriptionpackage/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show(Subscriptionpackage $subpack)
@@ -62,8 +81,14 @@ class SubscriptionpackageController extends Controller
     public function edit($id)
     {
         //
-        $subpack = Subscriptionpackage::find($id);
-        return view('adminSubPack.edit', compact('subpack'));
+        try {
+            $subpack = Subscriptionpackage::find($id);
+            return view('adminSubPack.edit', compact('subpack'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function update(Request $request)
     {
@@ -73,38 +98,57 @@ class SubscriptionpackageController extends Controller
             'priceType' => 'required',
             'details' => 'required',
         ]);
-        if ($request->priceType == "Paid") {
-            $this->validate($request, [
-                'price' => 'required',
-                'discount' => 'required',
-            ]);
+
+        try {
+            if ($request->priceType == "Paid") {
+                $this->validate($request, [
+                    'price' => 'required',
+                    'discount' => 'required',
+                ]);
+            }
+            $id = $request->subpackid;
+            $subpack = Subscriptionpackage::find($id);
+            $subpack->title = $request->title;
+            $subpack->subscriptionType = $request->subscriptionType;
+            $subpack->priceType = $request->priceType;
+            if ($request->priceType == "Paid") {
+                $subpack->price = $request->price;
+                $subpack->discount = $request->discount;
+            }
+            $subpack->details = $request->details;
+            $subpack->save();
+            return redirect('adminsubscriptionpackage/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
-        $id = $request->subpackid;
-        $subpack = Subscriptionpackage::find($id);
-        $subpack->title = $request->title;
-        $subpack->subscriptionType = $request->subscriptionType;
-        $subpack->priceType = $request->priceType;
-        if ($request->priceType == "Paid") {
-            $subpack->price = $request->price;
-            $subpack->discount = $request->discount;
-        }
-        $subpack->details = $request->details;
-        $subpack->save();
-        return redirect('adminsubscriptionpackage/index');
     }
 
     public function destroy($id)
     {
-        $subpack = Subscriptionpackage::find($id);
-        $subpack->delete();
-        return redirect()->back();
+        try {
+            $subpack = Subscriptionpackage::find($id);
+            $subpack->delete();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function packagedetail($id)
     {
-        $subpack = Subscriptionpackage::find($id);
-        $details = Subscriptiondetail::where('packageId', '=', $id)->get();
-        return view('adminSubPack.subscriptiondetails', \compact('subpack', 'details'));
+        try {
+            $subpack = Subscriptionpackage::find($id);
+            $details = Subscriptiondetail::where('packageId', '=', $id)->get();
+            return view('adminSubPack.subscriptiondetails', \compact('subpack', 'details'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function packagedetailstore(Request $request)
@@ -112,18 +156,31 @@ class SubscriptionpackageController extends Controller
         $this->validate($request, [
             'title' => 'required',
         ]);
-        $id = $request->packageId;
-        $subddetail = new Subscriptiondetail();
-        $subddetail->packageId = $id;
-        $subddetail->title = $request->title;
-        $subddetail->save();
-        return redirect()->back()->with('success', 'Title Added Successfully');
+
+        try {
+            $id = $request->packageId;
+            $subddetail = new Subscriptiondetail();
+            $subddetail->packageId = $id;
+            $subddetail->title = $request->title;
+            $subddetail->save();
+            return redirect()->back()->with('success', 'Title Added Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function detaildelete($id)
     {
-        $subpackdet = Subscriptiondetail::find($id);
-        $subpackdet->delete();
-        return redirect()->back();
+        try {
+            $subpackdet = Subscriptiondetail::find($id);
+            $subpackdet->delete();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

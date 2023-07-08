@@ -11,18 +11,30 @@ class AdminbusinessController extends Controller
 {
     public function index()
     {
-        $business = Business::join('accounts', 'accounts.id', '=', 'businesses.accountId')
-            ->get([
-                'businesses.*',
-                'accounts.loginName'
-            ]);
-        return view("adminBusiness.index", compact('business'));
+        try {
+            $business = Business::join('accounts', 'accounts.id', '=', 'businesses.accountId')
+                ->get([
+                    'businesses.*',
+                    'accounts.loginName'
+                ]);
+            return view("adminBusiness.index", compact('business'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function create()
     {
-        $account = Account::all();
-        return view("adminBusiness.create", compact('account'));
+        try {
+            $account = Account::all();
+            return view("adminBusiness.create", compact('account'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function store(Request $request)
@@ -34,13 +46,19 @@ class AdminbusinessController extends Controller
             'detail2' => 'required',
         ]);
 
-        $business = new Business();
-        $business->accountId = $request->accountId;
-        $business->businessName = $request->businessName;
-        $business->detail1 = $request->detail1;
-        $business->detail2 = $request->detail2;
-        $business->save();
-        return redirect('adminbusiness/index');
+        try {
+            $business = new Business();
+            $business->accountId = $request->accountId;
+            $business->businessName = $request->businessName;
+            $business->detail1 = $request->detail1;
+            $business->detail2 = $request->detail2;
+            $business->save();
+            return redirect('adminbusiness/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show(Business $business)
@@ -49,9 +67,15 @@ class AdminbusinessController extends Controller
 
     public function edit($id)
     {
-        $account = Account::all();
-        $business = Business::find($id);
-        return view('adminBusiness.edit', compact('business', 'account'));
+        try {
+            $account = Account::all();
+            $business = Business::find($id);
+            return view('adminBusiness.edit', compact('business', 'account'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function update(Request $request)
     {
@@ -61,20 +85,33 @@ class AdminbusinessController extends Controller
             'detail1' => 'required',
             'detail2' => 'required',
         ]);
-        $id = $request->businessid;
-        $business = Business::find($id);
-        $business->accountId = $request->accountId;
-        $business->businessName = $request->businessName;
-        $business->detail1 = $request->detail1;
-        $business->detail2 = $request->detail2;
-        $business->save();
-        return redirect('adminbusiness/index');
+
+        try {
+            $id = $request->businessid;
+            $business = Business::find($id);
+            $business->accountId = $request->accountId;
+            $business->businessName = $request->businessName;
+            $business->detail1 = $request->detail1;
+            $business->detail2 = $request->detail2;
+            $business->save();
+            return redirect('adminbusiness/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function destroy($id)
     {
-        $business = Business::find($id);
-        $business->delete();
-        return redirect()->back();
+        try {
+            $business = Business::find($id);
+            $business->delete();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

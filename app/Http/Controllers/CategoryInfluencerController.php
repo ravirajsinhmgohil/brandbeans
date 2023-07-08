@@ -10,13 +10,25 @@ class CategoryInfluencerController extends Controller
 {
     public function index()
     {
-        $influencerCategory = CategoryInfluencer::all();
-        return view('influencer.category.index', \compact('influencerCategory'));
+        try {
+            $influencerCategory = CategoryInfluencer::all();
+            return view('influencer.category.index', \compact('influencerCategory'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function create()
     {
-        return view('influencer.category.create');
+        try {
+            return view('influencer.category.create');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function store(Request $request)
@@ -26,13 +38,19 @@ class CategoryInfluencerController extends Controller
             'categoryIcon' => 'required',
         ]);
 
-        $category = new CategoryInfluencer();
-        $category->name = $request->name;
-        $category->categoryIcon = time() . '.' . $request->categoryIcon->extension();
-        $request->categoryIcon->move(public_path('influencerCategory'), $category->categoryIcon);
-        $category->save();
+        try {
+            $category = new CategoryInfluencer();
+            $category->name = $request->name;
+            $category->categoryIcon = time() . '.' . $request->categoryIcon->extension();
+            $request->categoryIcon->move(public_path('influencerCategory'), $category->categoryIcon);
+            $category->save();
 
-        return redirect('influencer/category/index')->with('success', 'Category Added Successfully..');
+            return redirect('influencer/category/index')->with('success', 'Category Added Successfully..');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show()
@@ -42,8 +60,14 @@ class CategoryInfluencerController extends Controller
 
     public function edit($id)
     {
-        $category = CategoryInfluencer::find($id);
-        return view('influencer.category.edit', \compact('category'));
+        try {
+            $category = CategoryInfluencer::find($id);
+            return view('influencer.category.edit', \compact('category'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function update(Request $request)
@@ -51,21 +75,34 @@ class CategoryInfluencerController extends Controller
         $this->validate($request, [
             'name' => 'required',
         ]);
-        $id = $request->influencerCategoryId;
-        $category = CategoryInfluencer::find($id);
-        $category->name = $request->name;
-        if ($request->categoryIcon) {
-            $category->categoryIcon = time() . '.' . $request->categoryIcon->extension();
-            $request->categoryIcon->move(public_path('influencerCategory'), $category->categoryIcon);
-        }
-        $category->save();
 
-        return redirect('influencer/category/index')->with('success', 'Category Updated Successfully..');
+        try {
+            $id = $request->influencerCategoryId;
+            $category = CategoryInfluencer::find($id);
+            $category->name = $request->name;
+            if ($request->categoryIcon) {
+                $category->categoryIcon = time() . '.' . $request->categoryIcon->extension();
+                $request->categoryIcon->move(public_path('influencerCategory'), $category->categoryIcon);
+            }
+            $category->save();
+
+            return redirect('influencer/category/index')->with('success', 'Category Updated Successfully..');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function destroy($id)
     {
-        CategoryInfluencer::find($id)->delete();
-        return redirect('influencer/category/index')->with('success', 'Category deleted Successfully..');
+        try {
+            CategoryInfluencer::find($id)->delete();
+            return redirect('influencer/category/index')->with('success', 'Category deleted Successfully..');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

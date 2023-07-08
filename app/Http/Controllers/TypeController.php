@@ -11,13 +11,25 @@ class TypeController extends Controller
 
     public function index()
     {
-        $type = Type::all();
-        return view('type.index', compact('type'));
+        try {
+            $type = Type::all();
+            return view('type.index', compact('type'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function create()
     {
-        return view('type.create');
+        try {
+            return view('type.create');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function store(Request $request)
@@ -26,17 +38,29 @@ class TypeController extends Controller
             'title' => 'required',
         ]);
 
-        $type = new Type();
-        $type->title = $request->title;
-        $type->save();
+        try {
+            $type = new Type();
+            $type->title = $request->title;
+            $type->save();
 
-        return redirect('type/index')->with('success', 'Type Created Successfully');
+            return redirect('type/index')->with('success', 'Type Created Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function edit($id)
     {
-        $type = Type::find($id);
-        return view('type.edit', \compact('type'));
+        try {
+            $type = Type::find($id);
+            return view('type.edit', \compact('type'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function update(Request $request)
@@ -45,18 +69,30 @@ class TypeController extends Controller
             'title' => 'required',
         ]);
 
-        $id = $request->typeId;
-        $type =  Type::find($id);
-        $type->title = $request->title;
-        $type->save();
+        try {
+            $id = $request->typeId;
+            $type =  Type::find($id);
+            $type->title = $request->title;
+            $type->save();
 
-        return redirect('type/index')->with('success', 'Type Created Successfully');
+            return redirect('type/index')->with('success', 'Type Created Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function destroy($id)
     {
-        $type = Type::find($id)->delete();
+        try {
+            $type = Type::find($id)->delete();
 
-        return redirect()->back()->with('success', 'Delete Successfully');
+            return redirect()->back()->with('success', 'Delete Successfully');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

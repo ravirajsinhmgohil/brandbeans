@@ -28,23 +28,35 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->hasRole(['Admin', 'Writer', 'Designer', 'Influencer', 'Brand'])) {
-            return view('home');
-        } else {
-            $id = Auth::user()->id;
-            $data = CardsModels::join('users', 'users.id', '=', 'cards.user_id')->where('users.id', '=', $id)->get(['cards.*', 'users.email']);
-            // return $data;
-            return view('account.card', compact('data'));
+        try {
+            if (Auth::user()->hasRole(['Admin', 'Writer', 'Designer', 'Influencer', 'Brand'])) {
+                return view('home');
+            } else {
+                $id = Auth::user()->id;
+                $data = CardsModels::join('users', 'users.id', '=', 'cards.user_id')->where('users.id', '=', $id)->get(['cards.*', 'users.email']);
+                // return $data;
+                return view('account.card', compact('data'));
+            }
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
     }
 
     public function home2()
     {
-        // $homecard = CardsModels::all();
-        $id = Auth::User()->id;
-        $cardshow = CardsModels::join('users', 'users.id', '=', 'cards.user_id')->where('users.id', '=', $id)->get(['users.email', 'cards.*']);
-        $link = Links::join('cards', 'cards.id', '=', 'cardlinkes.card_id')->where('cards.user_id', '=', $id)->get(['cardlinkes.*']);
-        // return $cardshow;
-        return view('layout.home1', compact('cardshow', 'link'));
+        try {
+            // $homecard = CardsModels::all();
+            $id = Auth::User()->id;
+            $cardshow = CardsModels::join('users', 'users.id', '=', 'cards.user_id')->where('users.id', '=', $id)->get(['users.email', 'cards.*']);
+            $link = Links::join('cards', 'cards.id', '=', 'cardlinkes.card_id')->where('cards.user_id', '=', $id)->get(['cardlinkes.*']);
+            // return $cardshow;
+            return view('layout.home1', compact('cardshow', 'link'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

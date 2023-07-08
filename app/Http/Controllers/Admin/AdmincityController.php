@@ -19,51 +19,86 @@ class AdmincityController extends Controller
     }
     public function index()
     {
-        $city = City::join('states', 'states.id', '=', 'cities.statid')
-            ->where('cities.is_delete', '=', 'Active')
-            ->get(['cities.*', 'states.sname']);
-        return view('admincity.index', compact('city'));
+        try {
+            $city = City::join('states', 'states.id', '=', 'cities.statid')
+                ->where('cities.is_delete', '=', 'Active')
+                ->get(['cities.*', 'states.sname']);
+            return view('admincity.index', compact('city'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function create()
     {
-        $state = State::all();
-        return view('admincity.create', compact('state'));
+        try {
+            $state = State::all();
+            return view('admincity.create', compact('state'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function store(REQUEST $request)
     {
-        $city = new City();
-        $city->city = $request->cityname;
-        $city->statid = $request->statename;
-        $city->is_delete = 'Active';
-        $city->save();
-        return redirect('admincity/index');
+        try {
+            $city = new City();
+            $city->city = $request->cityname;
+            $city->statid = $request->statename;
+            $city->is_delete = 'Active';
+            $city->save();
+            return redirect('admincity/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
     public function edit($id)
     {
-        $city = City::find($id);
-        $state = State::all();
-        return view('admincity.edit', compact('city', 'state'));
+        try {
+            $city = City::find($id);
+            $state = State::all();
+            return view('admincity.edit', compact('city', 'state'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function update(Request $request)
     {
-
-        $id = $request->cityid;
-        // return $id;
-        $city = City::find($id);
-        // return $city;
-        $city->city = $request->cityname;
-        $city->statid = $request->statename;
-        $city->save();
-        return redirect('admincity/index');
+        try {
+            $id = $request->cityid;
+            // return $id;
+            $city = City::find($id);
+            // return $city;
+            $city->city = $request->cityname;
+            $city->statid = $request->statename;
+            $city->save();
+            return redirect('admincity/index');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function delete($id)
     {
-        $city = City::find($id);
-        $city->is_delete = "Deactive";
-        $city->save();
-        // return $city;
-        return redirect()->back();
+        try {
+            $city = City::find($id);
+            $city->is_delete = "Deactive";
+            $city->save();
+            // return $city;
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

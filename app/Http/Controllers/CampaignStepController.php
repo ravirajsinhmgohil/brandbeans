@@ -12,15 +12,27 @@ class CampaignStepController extends Controller
 {
     public function index()
     {
-        $step = CampaignStep::with('campaign')->get();
-        return view('brand.campaignStep.index', compact('step'));
+        try {
+            $step = CampaignStep::with('campaign')->get();
+            return view('brand.campaignStep.index', compact('step'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function create()
     {
-        $userId = Auth::user()->id;
-        $campaign = Campaign::where('userId', '=', $userId)->get();
-        return view('brand.campaignStep.create', \compact('campaign'));
+        try {
+            $userId = Auth::user()->id;
+            $campaign = Campaign::where('userId', '=', $userId)->get();
+            return view('brand.campaignStep.create', \compact('campaign'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function store(Request $request)
@@ -30,13 +42,20 @@ class CampaignStepController extends Controller
             'title' => 'required',
             'detail' => 'required',
         ]);
-        $campaign = new CampaignStep();
-        $campaign->campaignId = $request->campaignId;
-        $campaign->title = $request->title;
-        $campaign->detail = $request->detail;
-        $campaign->save();
 
-        return redirect('brand/campaign/step/index')->with('success', 'Campaign step Added Successfully..');
+        try {
+            $campaign = new CampaignStep();
+            $campaign->campaignId = $request->campaignId;
+            $campaign->title = $request->title;
+            $campaign->detail = $request->detail;
+            $campaign->save();
+
+            return redirect('brand/campaign/step/index')->with('success', 'Campaign step Added Successfully..');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function show()
@@ -46,9 +65,15 @@ class CampaignStepController extends Controller
 
     public function edit($id)
     {
-        $step = CampaignStep::find($id);
-        $campaign = Campaign::all();
-        return view('brand.campaignStep.edit', compact('step', 'campaign'));
+        try {
+            $step = CampaignStep::find($id);
+            $campaign = Campaign::all();
+            return view('brand.campaignStep.edit', compact('step', 'campaign'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function update(Request $request)
@@ -58,19 +83,32 @@ class CampaignStepController extends Controller
             'title' => 'required',
             'detail' => 'required',
         ]);
-        $id = $request->campaignStepId;
-        $campaign = CampaignStep::find($id);
-        $campaign->campaignId = $request->campaignId;
-        $campaign->title = $request->title;
-        $campaign->detail = $request->detail;
-        $campaign->save();
 
-        return redirect('brand/campaign/step/index')->with('success', 'Campaign step updated Successfully..');
+        try {
+            $id = $request->campaignStepId;
+            $campaign = CampaignStep::find($id);
+            $campaign->campaignId = $request->campaignId;
+            $campaign->title = $request->title;
+            $campaign->detail = $request->detail;
+            $campaign->save();
+
+            return redirect('brand/campaign/step/index')->with('success', 'Campaign step updated Successfully..');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 
     public function delete($id)
     {
-        CampaignStep::find($id)->delete();
-        return redirect('brand/campaign/step/index')->with('success', 'Campaign step deleted Successfully..');
+        try {
+            CampaignStep::find($id)->delete();
+            return redirect('brand/campaign/step/index')->with('success', 'Campaign step deleted Successfully..');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
+        }
     }
 }

@@ -12,15 +12,21 @@ class CardController extends Controller
     // all card show
     public function index()
     {
-        $id = Auth::user()->id;
-        $data = CardsModels::join('users', 'users.id', '=', 'cards.user_id')->where('users.id', '=', $id)->get(['cards.*', 'users.email']);
-        // return $data;
-        $availcard = CardsModels::where('user_id', '=', $id)->count();
-        if ($availcard > 0) {
-            return view('account.card', compact('data'));
-        } else {
+        try {
+            $id = Auth::user()->id;
+            $data = CardsModels::join('users', 'users.id', '=', 'cards.user_id')->where('users.id', '=', $id)->get(['cards.*', 'users.email']);
+            // return $data;
+            $availcard = CardsModels::where('user_id', '=', $id)->count();
+            if ($availcard > 0) {
+                return view('account.card', compact('data'));
+            } else {
 
-            return view('account.card', compact('data', 'availcard'));
+                return view('account.card', compact('data', 'availcard'));
+            }
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+            // return view("adminCategory.index", compact('category'));
         }
     }
     // public function view()
