@@ -3263,4 +3263,60 @@ class ApiController extends Controller
         ];
         return response($response, 200);
     }
+
+    function brandCampainStepStore(Request $request)
+    {
+        $rules = array(
+            'campaignId' => 'required',
+            'title' => 'required',
+            'detail' => 'required',
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        $step = new CampaignStep();
+        $step->campaignId = $request->campaignId;
+        $step->title = $request->title;
+        $step->detail = $request->detail;
+        $step->save();
+        $response = [
+            'status' => 201,
+            'data' => $step,
+        ];
+        return response($response, 201);
+    }
+    function brandCampainStepEdit($id, Request $request)
+    {
+        $rules = array(
+            'campaignId' => 'required',
+            'title' => 'required',
+            'detail' => 'required',
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $step =  CampaignStep::find($id);
+        $step->campaignId = $request->campaignId;
+        $step->title = $request->title;
+        $step->detail = $request->detail;
+        $step->save();
+        $response = [
+            'status' => 201,
+            'data' => $step,
+        ];
+        return response($response, 201);
+    }
+    function brandCampainStepDelete($id)
+    {
+        $step = CampaignStep::find($id)->delete();
+        $response = [
+            'status' => 200,
+            'message' => 'Deleted successfuly',
+            'data' => $step,
+        ];
+        return response($response, 200);
+    }
 }

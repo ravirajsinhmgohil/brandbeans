@@ -30,7 +30,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -41,7 +40,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -88,7 +86,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -142,13 +139,10 @@ class CampaignController extends Controller
                     ->where('applies.userId', '=', DB::raw('users.id'))
                     ->get();
             }
-
-
             return view('brand.appliers.index', \compact('appliers', 'counter'));
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -166,7 +160,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -182,7 +175,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -198,7 +190,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -212,7 +203,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -226,7 +216,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
