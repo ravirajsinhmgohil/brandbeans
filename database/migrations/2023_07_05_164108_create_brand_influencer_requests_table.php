@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('brandId');
             $table->integer('influencerId');
+            $table->string('isBrandInitiate');
             $table->timestamps();
         });
     }

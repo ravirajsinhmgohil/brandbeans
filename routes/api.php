@@ -275,3 +275,19 @@ Route::get('/influencer-campaign-content-view/{id?}', [ApiController::class, 'in
 
 
 // Brand
+
+
+// Campaign
+
+Route::get('/brand-campaign-list/{id?}', [ApiController::class, 'brandCampainList']);
+Route::post('/brand-campaign-store', [ApiController::class, 'brandCampainStore']);
+Route::post('/brand-campaign-edit/{id?}', [ApiController::class, 'brandCampainEdit']);
+Route::get('/brand-campaign-delete/{id?}', [ApiController::class, 'brandCampainDelete']);
+
+
+// Campaign Step
+
+Route::get('/brand-campaign-step-list/{userId?}', [ApiController::class, 'brandCampainStepList']);
+Route::post('/brand-campaign-store', [ApiController::class, 'brandCampainStore']);
+Route::post('/brand-campaign-edit/{id?}', [ApiController::class, 'brandCampainEdit']);
+Route::get('/brand-campaign-delete/{id?}', [ApiController::class, 'brandCampainDelete']);

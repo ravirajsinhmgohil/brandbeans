@@ -38,6 +38,8 @@ use App\Models\InfluencerProfile;
 use App\Models\InfluencerPortfolio;
 use App\Models\CheckApply;
 use App\Models\Apply;
+use App\Models\Campaign;
+use App\Models\CampaignStep;
 use Carbon\Carbon;
 use Validator;
 use DB;
@@ -3106,6 +3108,159 @@ class ApiController extends Controller
             'Data' => $items
         ];
 
+        return response($response, 200);
+    }
+
+
+    // Brand 
+
+    function brandCampainList($id)
+    {
+        $campaign = Campaign::where('userId', '=', $id)->get();
+        if ($campaign) {
+            $response = [
+                'status' => 200,
+                'data' => $campaign,
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['No List Found']
+            ], 200);
+        }
+    }
+
+    function brandCampainStore(Request $request)
+    {
+        $rules = array(
+            'title' => 'required',
+            'userId' => 'required',
+            'detail' => 'required',
+            'price' => 'required',
+            'photo' => 'required',
+            'rule' => 'required',
+            'eligibleCriteria' => 'required',
+            'targetGender' => 'required',
+            'targetAgeGroup' => 'required',
+            'startDate' => 'required',
+            'endDate' => 'required',
+            'applyForLastDate' => 'required',
+            'task' => 'required',
+            'maxApplication' => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $campaign = new Campaign();
+        $campaign->title = $request->title;
+        $campaign->userId = $request->userId;
+        $campaign->detail = $request->detail;
+        $campaign->price = $request->price;
+        $campaign->photo = time() . '.' . $request->photo->extension();
+        $request->photo->move(public_path('campaignPhoto'), $campaign->photo);
+        $campaign->rule = $request->rule;
+        $campaign->eligibleCriteria = $request->eligibleCriteria;
+        $campaign->targetGender = $request->targetGender;
+        $campaign->targetAgeGroup = $request->targetAgeGroup;
+        $campaign->startDate = $request->startDate;
+        $campaign->endDate = $request->endDate;
+        $campaign->applyForLastDate = $request->applyForLastDate;
+        $campaign->task = $request->task;
+        $campaign->maxApplication = $request->maxApplication;
+        $campaign->status = "Active";
+        $campaign->save();
+
+        if ($campaign) {
+            $response = [
+                'status' => 200,
+                'data' => $campaign,
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['No List Found']
+            ], 200);
+        }
+    }
+    function brandCampainEdit($id, Request $request)
+    {
+        $rules = array(
+            'title' => 'required',
+            'detail' => 'required',
+            'price' => 'required',
+            'rule' => 'required',
+            'eligibleCriteria' => 'required',
+            'targetGender' => 'required',
+            'targetAgeGroup' => 'required',
+            'startDate' => 'required',
+            'endDate' => 'required',
+            'applyForLastDate' => 'required',
+            'task' => 'required',
+            'maxApplication' => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $campaign = Campaign::find($id);
+        $campaign->title = $request->title;
+        $campaign->detail = $request->detail;
+        $campaign->price = $request->price;
+        if ($request->photo) {
+            $campaign->photo = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('campaignPhoto'), $campaign->photo);
+        }
+        $campaign->rule = $request->rule;
+        $campaign->eligibleCriteria = $request->eligibleCriteria;
+        $campaign->targetGender = $request->targetGender;
+        $campaign->targetAgeGroup = $request->targetAgeGroup;
+        $campaign->startDate = $request->startDate;
+        $campaign->endDate = $request->endDate;
+        $campaign->applyForLastDate = $request->applyForLastDate;
+        $campaign->task = $request->task;
+        $campaign->maxApplication = $request->maxApplication;
+        $campaign->status = "Active";
+        $campaign->save();
+
+        if ($campaign) {
+            $response = [
+                'status' => 200,
+                'data' => $campaign,
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['No List Found']
+            ], 200);
+        }
+    }
+
+    function brandCampainDelete($id)
+    {
+        $campaign = Campaign::find($id)->delete();
+        $response = [
+            'status' => 200,
+            'message' => "deleted Successfully",
+        ];
+        return response($response, 200);
+    }
+
+    // Campaign Step
+
+    function brandCampainStepList($userId)
+    {
+        $step = CampaignStep::with(['campaign' => function ($query) use ($userId) {
+            $query->where('userId', '=', $userId);
+        }])->get();
+        $response = [
+            'status' => 200,
+            'data' => $step,
+        ];
         return response($response, 200);
     }
 }

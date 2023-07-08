@@ -6,6 +6,285 @@
 	},
 	"item": [
 		{
+			"name": "Brand",
+			"item": [
+				{
+					"name": "campaign",
+					"item": [
+						{
+							"name": "brand-campaign-list/UserId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-list/271",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-list",
+										"271"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-store",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "userId",
+											"value": "273",
+											"type": "default"
+										},
+										{
+											"key": "title",
+											"value": "new Campaign",
+											"type": "default"
+										},
+										{
+											"key": "detail",
+											"value": "details details details details details ",
+											"type": "default"
+										},
+										{
+											"key": "price",
+											"value": "1500",
+											"type": "default"
+										},
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "/C:/Users/perfe/OneDrive/Pictures/Saved Pictures/123.jpg"
+										},
+										{
+											"key": "rule",
+											"value": "rulerulerulerulerulerulerulerulerulerulerule",
+											"type": "default"
+										},
+										{
+											"key": "eligibleCriteria",
+											"value": "15-35",
+											"type": "default"
+										},
+										{
+											"key": "targetGender",
+											"value": "male-female",
+											"type": "default"
+										},
+										{
+											"key": "targetAgeGroup",
+											"value": "15-35",
+											"type": "default"
+										},
+										{
+											"key": "startDate",
+											"value": "2023-05-06",
+											"type": "default"
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-06",
+											"type": "default"
+										},
+										{
+											"key": "applyForLastDate",
+											"value": "2023-06-07",
+											"type": "default"
+										},
+										{
+											"key": "task",
+											"value": "task1 task2 task3",
+											"type": "default"
+										},
+										{
+											"key": "maxApplication",
+											"value": "15",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-store",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-store"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-edit/id",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "new Campaign",
+											"type": "default"
+										},
+										{
+											"key": "detail",
+											"value": "details details details details details ",
+											"type": "default"
+										},
+										{
+											"key": "price",
+											"value": "1500",
+											"type": "default"
+										},
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "/C:/Users/perfe/OneDrive/Pictures/Saved Pictures/123.jpg"
+										},
+										{
+											"key": "rule",
+											"value": "rulerulerulerulerulerulerulerulerulerulerule",
+											"type": "default"
+										},
+										{
+											"key": "eligibleCriteria",
+											"value": "15-35",
+											"type": "default"
+										},
+										{
+											"key": "targetGender",
+											"value": "male-female",
+											"type": "default"
+										},
+										{
+											"key": "targetAgeGroup",
+											"value": "15-35",
+											"type": "default"
+										},
+										{
+											"key": "startDate",
+											"value": "2023-05-06",
+											"type": "default"
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-06",
+											"type": "default"
+										},
+										{
+											"key": "applyForLastDate",
+											"value": "2023-06-07",
+											"type": "default"
+										},
+										{
+											"key": "task",
+											"value": "task1 task2 task3",
+											"type": "default"
+										},
+										{
+											"key": "maxApplication",
+											"value": "15",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-edit/5",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-edit",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-delete/id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-delete/5",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-delete",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Campaign Step",
+					"item": [
+						{
+							"name": "brand-campaign-step-list/brandUserId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-step-list/271",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-step-list",
+										"271"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "login",
 			"request": {
 				"method": "POST",
@@ -3271,6 +3550,29 @@
 						"api",
 						"influencer-campaign-content-view",
 						"270"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/list",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"list"
 					]
 				}
 			},
