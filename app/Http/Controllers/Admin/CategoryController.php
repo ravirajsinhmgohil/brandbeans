@@ -21,10 +21,10 @@ class CategoryController extends Controller
         try {
             //code...
             $category = Category::all();
-            return view("adminCategory.indx", compact('category'));
+            return view("adminCategory.index", compact('category'));
         } catch (\Throwable $th) {
-            //throw $th;
-            return redirect('servererror');
+
+            return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }
     }
