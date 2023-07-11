@@ -45,6 +45,10 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
+
+	<!-- Toastr -->
+	<link rel="stylesheet" href="{{ asset('assets/plugin/toastr/toastr.css')}}">
+
 </head>
 
 <body>
@@ -383,7 +387,7 @@
 	<!-- -------------------- -->
 
 	<!-- Full Screen Plugin -->
-	<script src="assets/plugin/fullscreen/jquery.fullscreen-min.js"></script>
+	<script src="{{ asset('assets/plugin/fullscreen/jquery.fullscreen-min.js')}}"></script>
 
 
 
@@ -392,6 +396,12 @@
 	<script src="{{ asset('assets/scripts/fileUpload.demo.min.js') }}"></script>
 
 	<script src="{{ asset('assets/scripts/main.min.js') }}"></script>
+
+
+	<!-- Toastr -->
+	<script src="{{ asset('assets/plugin/toastr/toastr.min.js')}}"></script>
+	<script src="{{ asset('assets/scripts/toastr.demo.min.js')}}"></script>
+
 
 </body>
 

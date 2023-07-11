@@ -72,4 +72,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(InfluencerProfile::class, 'userId', 'id');
     }
+
+    public function content()
+    {
+        return $this->hasMany(CheckApply::class, 'userId', 'id');
+    }
 }

@@ -3319,4 +3319,122 @@ class ApiController extends Controller
         ];
         return response($response, 200);
     }
+
+
+    // brand campaign appliers
+    function brandCampaignAppliers($userId)
+    {
+        $appliers = Apply::with(['campaign' => function ($query) use ($userId) {
+            $query->where('userId', '=', $userId);
+        }])->with('user')->get();
+        $response = [
+            'status' => 200,
+            'data' => $appliers,
+        ];
+        return response($response, 200);
+    }
+    // approval 
+    function brandCampaignApplierApproval($campaignId, $userId)
+    {
+        $applier = Apply::where('campaignId', '=', $campaignId)
+            ->where('userId', '=', $userId)
+            ->first();
+        $applier->status = "Approved";
+        $applier->save();
+        $response = [
+            'status' => 200,
+            'data' => $applier,
+        ];
+        return response($response, 200);
+    }
+    // on hold
+    function brandCampaignApplierOnHold($campaignId, $userId)
+    {
+        $applier = Apply::where('campaignId', '=', $campaignId)
+            ->where('userId', '=', $userId)
+            ->first();
+        $applier->status = "On Hold";
+        $applier->save();
+        $response = [
+            'status' => 200,
+            'data' => $applier,
+        ];
+        return response($response, 200);
+    }
+    // reject
+    function brandCampaignApplierReject($campaignId, $userId)
+    {
+        $applier = Apply::where('campaignId', '=', $campaignId)
+            ->where('userId', '=', $userId)
+            ->first();
+        $applier->status = "Rejected";
+        $applier->save();
+        $response = [
+            'status' => 200,
+            'data' => $applier,
+        ];
+        return response($response, 200);
+    }
+
+
+    // applier influencer content 
+    function brandCampaignApplierContent($campaignId, $userId)
+    {
+        $applier = Campaign::where('id', '=', $campaignId)
+            ->with(['AppliedInfluencer' => function ($query) use ($userId) {
+                $query->with('user.content')
+                    ->where('userId', '=', $userId);
+            }])->get();
+
+        $response = [
+            'status' => 200,
+            'data' => $applier,
+        ];
+        return response($response, 200);
+    }
+
+    // content approval 
+    function brandCampaignApplierContentApproval($id)
+    {
+        $applier = CheckApply::find($id);
+        $applier->status = "Approved";
+        $applier->save();
+        $response = [
+            'status' => 200,
+            'data' => $applier,
+        ];
+        return response($response, 200);
+    }
+    // on hold
+    function brandCampaignApplierContentPending($id)
+    {
+        $applier = CheckApply::find($id);
+        $applier->status = "Pending";
+        $applier->save();
+        $response = [
+            'status' => 200,
+            'data' => $applier,
+        ];
+        return response($response, 200);
+    }
+    // reject
+    function brandCampaignApplierContentReject(Request $request, $id)
+    {
+        $rules = array(
+            'remark' => 'required',
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        $applier = CheckApply::find($id);
+        $applier->status = "Rejected";
+        $applier->remark = $request->remark;
+        $applier->save();
+        $response = [
+            'status' => 200,
+            'data' => $applier,
+        ];
+        return response($response, 200);
+    }
 }

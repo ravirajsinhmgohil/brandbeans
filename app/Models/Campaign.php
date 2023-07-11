@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Campaign extends Model
 {
     use HasFactory;
+
+    function AppliedInfluencer()
+    {
+        return $this->hasMany(Apply::class, 'campaignId', 'id');
+    }
 }

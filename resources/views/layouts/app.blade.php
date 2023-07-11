@@ -51,6 +51,10 @@
     <link rel="stylesheet" href="{{ asset('assets/plugin/modal/remodal/remodal.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/plugin/modal/remodal/remodal-default-theme.css')}}">
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('assets/plugin/toastr/toastr.css')}}">
+
+
 </head>
 
 <body>
@@ -390,9 +394,7 @@
     <!-- -------------------- -->
 
     <!-- Full Screen Plugin -->
-    <script src="assets/plugin/fullscreen/jquery.fullscreen-min.js"></script>
-
-
+    <script src="{{ asset('assets/plugin/fullscreen/jquery.fullscreen-min.js')}}"></script>
 
     <!-- Dropify -->
     <script src="{{ asset('assets/plugin/dropify/js/dropify.min.js') }}"></script>
@@ -400,10 +402,12 @@
 
     <script src="{{ asset('assets/scripts/main.min.js') }}"></script>
 
-
     <!-- Remodal -->
     <script src="{{ asset('assets/plugin/modal/remodal/remodal.min.js')}}"></script>
 
+    <!-- Toastr -->
+    <script src="{{ asset('assets/plugin/toastr/toastr.min.js')}}"></script>
+    <script src="{{ asset('assets/scripts/toastr.demo.min.js')}}"></script>
 
 </body>
 

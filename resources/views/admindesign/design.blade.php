@@ -75,9 +75,19 @@
                             <td class="text-primary">{!! $data->slugName !!}</td>
                             <td>{{ $data->title }}</td>
                             <td>{{ $data->sequence }}</td>
+
+
+                            @if($data->mediaType == "Photo")
                             <td><a href="{{ url('designsourceimg') }}/{{ $data->sourcePath }}" target="_blank">
                                     <img src="{{ url('designsourceimg') }}/{{ $data->sourcePath }}" class="img-thumbnail" style="width:50px;height:50px">
-                                </a></td>
+                                </a>
+                            </td>
+
+                            @else
+                            <td> <video width="300" class="img-thumbnail" height="300" controls>
+                                    <source src="{{ url('designsourceimg') }}/{{ $data->sourcePath }}" type="video/mp4">
+                                </video></td>
+                            @endif
                             <td>
                                 <a href="{{ url('designpreviewpath') }}/{{ $data->previewPath }}" target="_blank">
                                     <img src="{{ url('designpreviewpath') }}/{{ $data->previewPath }}" class="img-thumbnail" style="width:50px;height:50px">

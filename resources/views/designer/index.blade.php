@@ -56,18 +56,17 @@
                             <td>{!!$data->title !!}</td>
                             <td>{!!$data->category->name !!}</td>
                             <td>
+
                                 <?php
-                                $flag = true;
+                                $counter = 0;
                                 foreach ($slugCount as $slugCountData) {
                                     if ($slugCountData->slugId === $data->id) {
-                                        $flag = false;
+                                        $counter++;
                                     }
                                 }
                                 ?>
-
-                                @if($flag)
-                                <a class="btn btn-primary btn-sm" href="{{ route('design.create') }}/{{$data->id}}/{{$data->categoryId}}">Add Design</a>
-                                @endif
+                                @if($counter < 4) <a class="btn btn-primary btn-sm" href="{{ route('design.create') }}/{{$data->id}}/{{$data->categoryId}}">Add Design</a>
+                                    @endif
                             </td>
 
                         </tr>

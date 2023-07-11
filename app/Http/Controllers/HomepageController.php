@@ -9,63 +9,33 @@ class HomepageController extends Controller
     //
     public function homepage()
     {
-        try {
-            return view('wcard.homepage');
-        } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
-        }
+
+        return view('wcard.homepage');
     }
 
     function about()
     {
-        try {
-            return view('otherpages.about');
-        } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
-        }
+
+        return view('otherpages.about');
     }
     function contact()
     {
-        try {
-            return view('otherpages.contact');
-        } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
-        }
+
+        return view('otherpages.contact');
     }
     function privacy()
     {
-        try {
-            return view('otherpages.privacy');
-        } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
-        }
+
+        return view('otherpages.privacy');
     }
     function refund()
     {
-        try {
-            return view('otherpages.refund');
-        } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
-        }
+
+        return view('otherpages.refund');
     }
     function term()
     {
-        try {
-            return view('otherpages.terms');
-        } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
-            // return view("adminCategory.index", compact('category'));
-        }
+
+        return view('otherpages.terms');
     }
 }

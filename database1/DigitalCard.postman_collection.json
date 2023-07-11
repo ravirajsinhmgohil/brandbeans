@@ -279,8 +279,642 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "brand-campaign-step-store",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "campaignId",
+											"value": "4",
+											"type": "default"
+										},
+										{
+											"key": "title",
+											"value": "new steps",
+											"type": "default"
+										},
+										{
+											"key": "detail",
+											"value": "ancvancancanc",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-step-store",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-step-store"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-step-edit/id",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "campaignId",
+											"value": "4",
+											"type": "default"
+										},
+										{
+											"key": "title",
+											"value": "new updated step",
+											"type": "default"
+										},
+										{
+											"key": "detail",
+											"value": "new updated details",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-step-edit/6",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-step-edit",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-step-delete/id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-step-delete/6",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-step-delete",
+										"6"
+									]
+								}
+							},
+							"response": []
 						}
 					]
+				},
+				{
+					"name": "appliers",
+					"item": [
+						{
+							"name": "brand-campaign-appliers/brandId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-appliers/271",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-appliers",
+										"271"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-applier-approval/campaignId/userId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-applier-approval/3/270",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-applier-approval",
+										"3",
+										"270"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-applier-onHold/campaignId/userId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-applier-onHold/3/270",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-applier-onHold",
+										"3",
+										"270"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-applier-rejected/campaignId/userId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-applier-rejected/3/270",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-applier-rejected",
+										"3",
+										"270"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-applier-content/campaignId/userId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-applier-content/1/270",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-applier-content",
+										"1",
+										"270"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-applier-content-approval/id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-applier-content-approval/3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-applier-content-approval",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-applier-content-pending/id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-applier-content-pending/3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-applier-content-pending",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "brand-campaign-applier-content-rejected/Id",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "remark",
+											"value": "bakwas",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/brand-campaign-applier-content-rejected/3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"brand-campaign-applier-content-rejected",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "influencer",
+			"item": [
+				{
+					"name": "influencer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/influencer",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"influencer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Influencer-Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/influencer-category",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"influencer-category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "influencer-profile/userId",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "mobileno",
+									"value": "9876543210",
+									"type": "default"
+								},
+								{
+									"key": "address",
+									"value": "new address",
+									"type": "default"
+								},
+								{
+									"key": "categoryId",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "profilePhoto",
+									"type": "file",
+									"src": "/C:/Users/perfe/OneDrive/Pictures/Saved Pictures/desktop-wallpaper-the-best-16-default-pfp-aesthetic-kidcore-pfp-icon.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/influencer-profile/270",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"influencer-profile",
+								"270"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "influencer-portfolio-store/userId",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userId",
+									"value": "270",
+									"type": "default"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/perfe/OneDrive/Pictures/Saved Pictures/ad.4165ebedd1efc48251b9.png"
+								},
+								{
+									"key": "type",
+									"value": "image",
+									"type": "default"
+								},
+								{
+									"key": "details",
+									"value": "new image from api",
+									"type": "default"
+								},
+								{
+									"key": "title",
+									"value": "image 3",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/influencer-portfolio-store/270",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"influencer-portfolio-store",
+								"270"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "brand-list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/brand-list",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"brand-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "influencer-campaign-apply",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userId",
+									"value": "272",
+									"type": "default"
+								},
+								{
+									"key": "campaignId",
+									"value": "4",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/influencer-campaign-apply",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"influencer-campaign-apply"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "influencer-campaign-list/userId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/influencer-campaign-list/270",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"influencer-campaign-list",
+								"270"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "influencer-campaign-content-store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "campaignId",
+									"value": "4",
+									"type": "default"
+								},
+								{
+									"key": "userId",
+									"value": "270",
+									"type": "default"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/perfe/OneDrive/Pictures/Saved Pictures/defaultslider.png"
+								},
+								{
+									"key": "fileType",
+									"value": "Photo",
+									"description": "Photo/Video",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/influencer-campaign-content-store",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"influencer-campaign-content-store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "influencer-campaign-content-view/userId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/influencer-campaign-content-view/270",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"influencer-campaign-content-view",
+								"270"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -3243,313 +3877,6 @@
 						"api",
 						"package",
 						"check"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Influencer-Category",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/influencer-category",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"influencer-category"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "influencer",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/influencer",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"influencer"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "influencer-profile/userId",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "mobileno",
-							"value": "9876543210",
-							"type": "default"
-						},
-						{
-							"key": "address",
-							"value": "new address",
-							"type": "default"
-						},
-						{
-							"key": "categoryId",
-							"value": "1",
-							"type": "default"
-						},
-						{
-							"key": "profilePhoto",
-							"type": "file",
-							"src": "/C:/Users/perfe/OneDrive/Pictures/Saved Pictures/desktop-wallpaper-the-best-16-default-pfp-aesthetic-kidcore-pfp-icon.jpg"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/influencer-profile/270",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"influencer-profile",
-						"270"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "influencer-portfolio-store/userId",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "userId",
-							"value": "270",
-							"type": "default"
-						},
-						{
-							"key": "photo",
-							"type": "file",
-							"src": "/C:/Users/perfe/OneDrive/Pictures/Saved Pictures/ad.4165ebedd1efc48251b9.png"
-						},
-						{
-							"key": "type",
-							"value": "image",
-							"type": "default"
-						},
-						{
-							"key": "details",
-							"value": "new image from api",
-							"type": "default"
-						},
-						{
-							"key": "title",
-							"value": "image 3",
-							"type": "default"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/influencer-portfolio-store/270",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"influencer-portfolio-store",
-						"270"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "brand-list",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/brand-list",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"brand-list"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "influencer-campaign-apply",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "userId",
-							"value": "272",
-							"type": "default"
-						},
-						{
-							"key": "campaignId",
-							"value": "4",
-							"type": "default"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/influencer-campaign-apply",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"influencer-campaign-apply"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "influencer-campaign-list/userId",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/influencer-campaign-list/270",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"influencer-campaign-list",
-						"270"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "influencer-campaign-content-store",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "campaignId",
-							"value": "4",
-							"type": "default"
-						},
-						{
-							"key": "userId",
-							"value": "270",
-							"type": "default"
-						},
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/C:/Users/perfe/OneDrive/Pictures/Saved Pictures/defaultslider.png"
-						},
-						{
-							"key": "fileType",
-							"value": "Photo",
-							"description": "Photo/Video",
-							"type": "default"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/influencer-campaign-content-store",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"influencer-campaign-content-store"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "influencer-campaign-content-view/userId",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/influencer-campaign-content-view/270",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"influencer-campaign-content-view",
-						"270"
 					]
 				}
 			},
