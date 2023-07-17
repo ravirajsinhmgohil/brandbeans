@@ -16,6 +16,8 @@ use App\Models\Payment;
 use App\Models\Qrcode;
 use App\Models\Servicedetail;
 use App\Models\Slider;
+use App\Models\CategoryInfluencer;
+use App\Models\InfluencerProfile;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Hash;
@@ -119,7 +121,9 @@ class DemoController extends Controller
                 ->where('cardservices.card_id', '=', $id)
                 ->get(['cardservices.*']);
 
+            $influencer = InfluencerProfile::where('userId', '=', $authid)->first();
             $category = Categories::all();
+            $influencerCategory = CategoryInfluencer::all();
             // $category = Admin::all();
             $data = User::where('id', '=', $authid)->get();
             $link = Links::join('cards', 'cards.id', '=', 'cardlinkes.card_id')
@@ -154,7 +158,7 @@ class DemoController extends Controller
             // if ($linkcount > 0) {
             //     return view('demo', compact('linkcount', 'inq', 'cardvideo', 'feed', 'id', 'details', 'qr', 'links', 'data1', 'category', 'cardimage', 'servicedetail', 'payment', 'admincategory', 'users'));
             // } else {
-            return view('demo', compact('authid', 'userurl', 'category', 'slider', 'bro', 'linkcount', 'inq', 'cardvideo', 'feed', 'id', 'details', 'qr', 'links', 'data1', 'category', 'cardimage', 'servicedetail', 'payment', 'admincategory', 'users'));
+            return view('demo', compact('authid', 'userurl', 'influencer', 'influencerCategory', 'category', 'slider', 'bro', 'linkcount', 'inq', 'cardvideo', 'feed', 'id', 'details', 'qr', 'links', 'data1', 'category', 'cardimage', 'servicedetail', 'payment', 'admincategory', 'users'));
             // }
         } catch (\Throwable $th) {
             //throw $th;    
@@ -215,9 +219,21 @@ class DemoController extends Controller
                 $request->profilePhoto->move(public_path('profile'), $user->profilePhoto);
             }
             $user->save();
+
+            $influencer = InfluencerProfile::where('userId', '=', $id)->first();
+            $influencer->categoryId = $request->categoryId;
+            $influencer->address = $request->address;
+            $influencer->contactNo = $user->mobileno;
+            $influencer->publicLocation = $request->publicLocation;
+            $influencer->city = $details->city;
+            $influencer->state = $details->state;
+            $influencer->gender = $request->gender;
+            $influencer->pinCode = $request->pinCode;
+            $influencer->dob = $request->dob;
+            $influencer->save();
             return redirect()->back()->with('success', 'Details Updated successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
+            // throw $th;
             return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }

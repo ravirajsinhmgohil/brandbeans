@@ -64,11 +64,10 @@
                         <h4 class="box-title" style="background-color: #03acf0;">
                             <i class="fa fa-user ico"></i>Details
                         </h4>
-
                     </div>
 
                     <div class="fs-5 pe-5">
-                        <div class="" style="">
+                        <div class="">
                             <!-- {{ config('app.username')}} -->
                             <div class="col-md-4 text-center pt-4 pe-4"><a href="{{route('account.viewcard')}}/{{$userurl}}" target="_blank"><i class="fa fa-ey text-white btn fs-4" style="background-color: #002e6e;">Preview</i></a></div>
                             <div class="dropdown js__drop_down">
@@ -102,6 +101,7 @@
                                         @else
                                         <span style="font-size: small;" class="text-danger">No Phone no. Found</span>
                                         @endif
+
 
                                     </div>
                                     <div class="row py-3">
@@ -162,7 +162,7 @@
                             </div>
                             <div class="col-md-6 pb-1">
                                 <div class="row">
-                                    <div class="col-md-4"><label class="fs-4">Company Name</label></div>
+                                    <div class="col-md-4"><label class="fs-4">Company Name:</label></div>
                                     <div class="col-md-7">
                                         <input type="text" class="fs-4 form-control" id="companyname" name="companyname" value="{{ $details->companyname }}">
                                     </div>
@@ -170,7 +170,7 @@
                             </div>
                             <div class="col-md-6 pb-1">
                                 <div class="row">
-                                    <div class="col-md-4"><label class="fs-4">Username</label></div>
+                                    <div class="col-md-4"><label class="fs-4">Username:</label></div>
                                     <div class="col-md-7">
                                         <input type="text" class="fs-4 form-control" id="username" name="username" value="{{ $users->username }}">
                                     </div>
@@ -178,7 +178,7 @@
                             </div>
                             <div class="col-md-6 pb-1">
                                 <div class="row">
-                                    <div class="col-md-4"><label class="fs-4">State</label></div>
+                                    <div class="col-md-4"><label class="fs-4">State:</label></div>
                                     <div class="col-md-7">
                                         <input type="text" class="fs-4 form-control" id="state" name="state" value="{{ $details->state }}">
                                     </div>
@@ -232,12 +232,62 @@
 
                             <div class="col-md-6 pb-1">
                                 <div class="row">
-                                    <div class="col-md-4"><label class="fs-4">Year of Establish</label></div>
+                                    <div class="col-md-4"><label class="fs-4">Year of Establish:</label></div>
                                     <div class="col-md-7">
                                         <input type="text" class="fs-4 form-control" id="year" name="year" value="{{ $details->year }}">
                                     </div>
                                 </div>
                             </div>
+                            @role('Influencer')
+                            <div class="col-md-6 pb-1">
+                                <div class="row">
+                                    <div class="col-md-4"><label class="fs-4">Address:</label></div>
+                                    <div class="col-md-7">
+                                        <textarea type="ext" class="fs-4 form-control" id="year" name="year">{{ $influencer->address }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 pb-1">
+                                <div class="row">
+                                    <div class="col-md-4"><label class="fs-4">Public Location:</label></div>
+                                    <div class="col-md-7">
+                                        <input type="text" class="fs-4 form-control" name="publicLocation" value="{{$influencer->publicLocation}}" id="publicLocation">
+                                    </div>
+                                    <div class="col-md-4"><label class="fs-4">Gender:</label></div>
+                                    <div class="col-md-7">
+                                        <label class="fs-4" style="padding-left:20px;"><input type="radio" class="fs-4" name="gender" value="Male" id="gender">Male</label>
+                                        <label class="fs-4" style="padding-left:20px;"><input type="radio" class="fs-4" name="gender" value="Female" id="gender">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 pb-1">
+                                <div class="row">
+                                    <div class="col-md-4"><label class="fs-4">Pin Code:</label></div>
+                                    <div class="col-md-7">
+                                        <input type="text" class="fs-4 form-control" name="pinCode" value="{{$influencer->pinCode}}" id="pinCode">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 pb-1">
+                                <div class="row">
+
+                                    <div class="col-md-4"><label class="fs-4">Date of Birth:</label></div>
+                                    <div class="col-md-7">
+                                        <input type="date" class="fs-4 form-control" name="dob" value="{{$influencer->dob}}" id="dob">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 pb-1">
+                                <div class="row">
+
+                                </div>
+                            </div>
+
+                            @endrole
 
                         </div>
                         <div class="row">
@@ -250,6 +300,26 @@
                                 </div>
                             </div>
                         </div>
+                        @role('Influencer')
+
+                        <div class="card-content">
+                            <div class="col-md-2 pb-1">
+                                <label class="fs-4">Influencer Category:</label>
+                            </div>
+                            <div class="col-md-10 pb-1">
+                                <div class="row">
+                                    @foreach($influencerCategory as $influencerCategory)
+                                    <div class="col-md-3">
+                                        <label for="categoryId" class="fs-4">{{$influencerCategory->name}}</label>
+                                        <input type="checkbox" value="{{$influencerCategory->id}}" {{ $influencerCategory->id == $influencer->categoryId ? 'checked' : '' }}class="fs-4" name="categoryId" id="categoryId">
+
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                        @endrole
                         <div class="text-center">
                             <button type="submit" style="background-color: #002e6e; color: white;" id="update_data" value="" class="btn btn-sm">Update</button><br>
                         </div>
@@ -258,6 +328,7 @@
             </div>
         </div>
     </div>
+
     <!-- Links -->
     <div class="row">
         <div class="col-md-6">
@@ -273,7 +344,7 @@
                                 <div class="row">
                                     <div class="col-md-12 pb-1">
                                         <div class="row">
-                                            <div class="col-md-4"><label class="fs-4"> <i class="fa fa-phone ico text-success"></i> Phone Number</label></div>
+                                            <div class="col-md-4"><label class="fs-4"> <i class="fa fa-phone ico text-success"></i> Phone Number:</label></div>
                                             <div class="col-md-7">
                                                 <input type="text" class="form-control fs-4" id="phone1" name="phone1" value="{{$links->phone1}}">
                                             </div>

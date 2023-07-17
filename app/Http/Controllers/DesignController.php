@@ -39,35 +39,10 @@ class DesignController extends Controller
             $slugCount =  Design::where('userId', '=', $userId)
                 ->get();
 
-            // $designerCount = DB::table('writerslogans')
-            //     ->crossJoin('designs')
-            //     ->select('writerslogans.*', 'designs.*')
-            //     ->where('writerslogans.id', '!=', DB::raw('designs.slugId'))
-            //     ->where('designs.userId', '=', $userId)
-            //     ->where('writerslogans.status', '=', 'Approved')
-            //     ->get();
-
-
-
-            // $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
-            //     ->where('writerslogans.status', '=', "Approved")
-            //     ->get(['writerslogans.*', 'admincategories.name as categoryName']);
-            // foreach ($writer  as $slugs) {
-            //     $slugId = $slugs->id;
-            //     // $slugcount =  Design::where('slugId', '=', $slugId)
-            //     //     ->where('slugId', '=', $slugs->id)
-            //     //     ->get()->count();
-            //     $slugcount = Design::where('slugId', '=', $slugId)
-            //         ->where('userId', '=', $userId)
-            //         ->get()->count();
-            // }
-
-
             return view('designer.index', \compact('writer', 'slugCount'));
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -79,7 +54,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -127,7 +101,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -143,7 +116,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -155,7 +127,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -192,7 +163,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -205,7 +175,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -233,7 +202,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -258,7 +226,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -289,7 +256,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -311,7 +277,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -366,7 +331,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
     public function reject(Request $request)
@@ -383,7 +347,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -394,7 +357,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -450,7 +412,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 }
