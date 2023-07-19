@@ -51,6 +51,10 @@
     <link rel="stylesheet" href="{{ asset('assets/plugin/modal/remodal/remodal.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/plugin/modal/remodal/remodal-default-theme.css')}}">
 
+
+    <!-- drop down  -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('assets/plugin/toastr/toastr.css')}}">
 </head>
@@ -166,6 +170,17 @@
     <script src="{{ asset('assets/plugin/toastr/toastr.min.js')}}"></script>
     <script src="{{ asset('assets/scripts/toastr.demo.min.js')}}"></script>
 
+
+    <!-- dropdown -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dropdown').select2({
+                placeholder: 'Select a dropdown',
+                allowClear: true,
+            });
+        });
+    </script>
 </body>
 
 </html>

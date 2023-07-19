@@ -219,9 +219,11 @@ class DemoController extends Controller
                 $request->profilePhoto->move(public_path('profile'), $user->profilePhoto);
             }
             $user->save();
+            $influencerCategory = $request->categoryId;
+            $categoryData = implode(",", $influencerCategory);
 
             $influencer = InfluencerProfile::where('userId', '=', $id)->first();
-            $influencer->categoryId = $request->categoryId;
+            $influencer->categoryId = $categoryData;
             $influencer->address = $request->address;
             $influencer->contactNo = $user->mobileno;
             $influencer->publicLocation = $request->publicLocation;
@@ -233,8 +235,8 @@ class DemoController extends Controller
             $influencer->save();
             return redirect()->back()->with('success', 'Details Updated successfully');
         } catch (\Throwable $th) {
-            // throw $th;
-            return view('servererror');
+            throw $th;
+            // return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }
     }

@@ -47,6 +47,7 @@ use App\Http\Controllers\DesignController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\InfluencerController;
 use App\Http\Controllers\InfluencerPortfolioController;
+use App\Http\Controllers\InfluencerStepController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PaymentController;
@@ -313,6 +314,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('influencer/campaign/appliersCreate/{campaignId?}/{userId?}', [InfluencerController::class, 'appliersCreate'])->name('brand.campaign.appliersCreate');
     Route::post('influencer/campaign/appliersCreateStore', [InfluencerController::class, 'appliersCreateStore'])->name('brand.campaign.appliersCreateStore');
 
+    Route::get('influencer/campaign/camapign/step/{campaignId?}', [InfluencerStepController::class, 'index'])->name('brand.campaign.campaign.step');
 
     // influencer Portfolio
     Route::get('influencer/portfolio', [InfluencerPortfolioController::class, 'index'])->name('influencer.portfolio.index');

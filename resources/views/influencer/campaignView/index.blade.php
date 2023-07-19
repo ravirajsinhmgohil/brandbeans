@@ -80,6 +80,7 @@
                                     <p class="card-text"><b>Status</b>:
                                         <span class="text-success">{{$data->status }}</span>
                                     </p>
+                                    <a class="btn btn-success btn-sm" href="{{route('brand.campaign.campaign.step')}}/{{$data->id}}">Campaign Steps</a>
 
                                 </div>
                             </div>

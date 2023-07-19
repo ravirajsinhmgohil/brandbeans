@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="{{asset('assets/styles/style.min.css')}}">
 
 	<!-- bootstrap 5 css -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> -->
 
 	<!-- mCustomScrollbar -->
 	<link rel="stylesheet" href="{{asset('assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css')}}">
@@ -48,6 +48,11 @@
 
 	<!-- Toastr -->
 	<link rel="stylesheet" href="{{ asset('assets/plugin/toastr/toastr.css')}}">
+
+
+	<!-- drop down  -->
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 
 </head>
 
@@ -403,6 +408,16 @@
 	<script src="{{ asset('assets/scripts/toastr.demo.min.js')}}"></script>
 
 
+	<!-- dropdown -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.js-example-basic-single').select2({
+				theme: "classic"
+			});
+		});
+	</script>
 </body>
 
 </html>

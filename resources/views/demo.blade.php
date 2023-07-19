@@ -308,10 +308,17 @@
                             </div>
                             <div class="col-md-10 pb-1">
                                 <div class="row">
+                                    <?php
+                                    // $data = "apple,banana";
+                                    // $categoryData = explode(',', $data);
+                                    // {{$categoryData}}
+                                    ?>
                                     @foreach($influencerCategory as $influencerCategory)
                                     <div class="col-md-3">
                                         <label for="categoryId" class="fs-4">{{$influencerCategory->name}}</label>
-                                        <input type="checkbox" value="{{$influencerCategory->id}}" {{ $influencerCategory->id == $influencer->categoryId ? 'checked' : '' }}class="fs-4" name="categoryId" id="categoryId">
+                                        {{$influencerCategory->id}}
+
+                                        <input type="checkbox" value="{{$influencerCategory->id}}" class="fs-4" name="categoryId[]" id="categoryId" {{ old('categoryId', $influencerCategory->id) == $influencer->categoryId ? 'checked' : '' }}>
 
                                     </div>
                                     @endforeach

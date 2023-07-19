@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('header','Media')
+
+<style>
+    span.select2.select2-container.select2-container--classic {
+        width: 100% !important;
+    }
+</style>
 @section('content')
 
 
@@ -27,9 +33,6 @@
 </div>
 @endif
 
-
-
-
 <div class="box-content card danger">
     <!-- /.box-title -->
     <div class="" style="padding: 12px 10px 12px 10px; display: flex; justify-content: space-between; background-color: #03ACF0; color:white;">
@@ -44,10 +47,10 @@
     <!-- /.dropdown js__dropdown -->
     <div class="card-content">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <form action="{{route('adminmedia.index')}}" method="get">
                     @csrf
-                    <select name="category" class="form-control" id="category">
+                    <select name="category" class="form-control" id="dropdown">
                         <option selected disabled>--select your category--</option>
                         @foreach($category as $category)
                         <option>{{$category->name}}</option>
@@ -107,5 +110,7 @@
     </div>
     <!-- /.card-content -->
 </div>
+
+
 
 @endsection
