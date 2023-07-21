@@ -21,6 +21,7 @@ use App\Models\Razorpay;
 use App\Models\Servicedetail;
 use App\Models\Subscriptionpackage;
 use App\Models\Templatemaster;
+use App\Models\TemplateDetail;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Slider;
@@ -1632,11 +1633,16 @@ class ApiController extends Controller
 
     function templateview()
     {
-        $template = Templatemaster::all();
+        $template = Templatemaster::with('email')
+            ->with('contact')
+            ->with('website')
+            ->with('location')
+            ->get();
+        // $template = TemplateDetail::all();
 
         if ($template) {
             $response = [
-                'Template Data' => $template,
+                'data' => $template,
             ];
 
             return response($response, 200);

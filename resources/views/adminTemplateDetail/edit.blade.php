@@ -44,21 +44,56 @@
 
 
 
-        <form action="{{route('admintemplatemaster.update')}}" class="was-validated" enctype="multipart/form-data" novalidate method="post" style="margin-top: 15px;">
+        <form action="{{route('adminTemplateDetail.update')}}" class="was-validated" enctype="multipart/form-data" novalidate method="post" style="margin-top: 15px;">
             @csrf
-            <input type="hidden" name="templateid" id="id" value="{{$template->id}}">
-            <label for="exampleInputPassword1" class="form-label">Photo</label>
-            <div class="row margin-bottom-10">
+            <input type="hidden" name="templateDetailId" id="id" value="{{$template->id}}">
+            <div class="mb-3">
+                <label for="" class="form-label">Title</label>
+                <input type="text" class="form-control" value="{{$template->title}}" id="title" name="title" require>
+            </div>
+
+            <div class="row margin-top-10">
                 <div class="col-md-6">
-                    <input type="file" accept='image/*' onchange="readURL(this,'#img1')" class="form-control" id="image" name="photo" require>
+                    <label for="" class="form-label">Icon</label>
+                    <input type="file" accept='image/*' onchange="readURL(this,'#img1')" class="form-control" id="image" name="icon" require>
                 </div>
                 <div class="col-md-6">
                     <label for="image"></label>
-                    <img src="{{url('asset/img/default.jpg')}}" alt="{{__('main image')}}" id="img1" style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'>
+                    <img src="{{asset('templateIcon')}}/{{$template->icon}}" alt="{{__('main image')}}" id="img1" style='min-height:100px;min-width:100px;max-height:100px;max-width:100px'>
                 </div>
             </div>
-
-
+            <br>
+            <div class="mb-3">
+                <label for="" class="form-label">Bottom</label>
+                <input type="text" class="form-control" value="{{$template->bottom}}" id="bottom" name="bottom" require>
+            </div>
+            <br>
+            <div class="mb-3">
+                <label for="" class="form-label">Left</label>
+                <input type="text" class="form-control" id="left" value="{{$template->left}}" name="left" require>
+            </div>
+            <br>
+            <div class="mb-3">
+                <label for="" class="form-label">Height</label>
+                <input type="text" class="form-control" id="height" value="{{$template->height}}" name="height" require>
+            </div>
+            <br>
+            <div class="mb-3">
+                <label for="" class="form-label">Width</label>
+                <input type="text" class="form-control" id="width" value="{{$template->width}}" name="width" require>
+            </div>
+            <br>
+            <div class="mb-3">
+                <label for="" class="form-label">Font Size</label>
+                <input type="text" class="form-control" id="fontSize" value="{{$template->fontSize}}" name="fontSize" require>
+            </div>
+            <br>
+            <div>
+                <label for="textColor" class="form-label">Text Color</label>
+                <br>
+                <input type="color" class="form-control-color" id="textColor" value="{{$template->textColor}}" name="textColor" require>
+            </div>
+            <br>
             <div class="text-center">
                 <button type="submit" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">Submit</button>
             </div>

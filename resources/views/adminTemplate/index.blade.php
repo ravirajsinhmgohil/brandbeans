@@ -48,24 +48,6 @@
                 <thead>
                     <tr>
                         <th> Photo</th>
-                        <th> Logo Left</th>
-                        <th> Logo Bottom</th>
-                        <th> Mobile Left</th>
-                        <th> Mobile Bottom</th>
-                        <th> Mobile Fontsize</th>
-                        <th> Mobile Fontfamily</th>
-                        <th> website Left</th>
-                        <th> website Bottom</th>
-                        <th> website Fontsize</th>
-                        <th> website Fontfamily</th>
-                        <th> Email Left</th>
-                        <th> Email Bottom</th>
-                        <th> Email Fontsize</th>
-                        <th> Email Fontfamily</th>
-                        <th> Location Left</th>
-                        <th> Location Bottom</th>
-                        <th> Location Fontsize</th>
-                        <th> Location Fontfamily</th>
                         <th> Option</th>
                     </tr>
                 </thead>
@@ -73,25 +55,11 @@
                     @foreach($template as $template)
                     <tr>
                         <td><img src="{{asset('templateimages')}}/{{$template->photo}}" class="img-thumbnail" style="width:50px;height:50px"></td>
-                        <td>{{$template->logoLeft}}</td>
-                        <td>{{$template->logoBottom}}</td>
-                        <td>{{$template->mobileLeft}}</td>
-                        <td>{{$template->mobileBottom}}</td>
-                        <td>{{$template->mobileFontsize}}</td>
-                        <td>{{$template->mobileFontfamily}}</td>
-                        <td>{{$template->webLeft}}</td>
-                        <td>{{$template->webBottom}}</td>
-                        <td>{{$template->webFontsize}}</td>
-                        <td>{{$template->webFontfamily}}</td>
-                        <td>{{$template->emailLeft}}</td>
-                        <td>{{$template->emailBottom}}</td>
-                        <td>{{$template->emailFontsize}}</td>
-                        <td>{{$template->emailFontfamily}}</td>
-                        <td>{{$template->locationLeft}}</td>
-                        <td>{{$template->locationBottom}}</td>
-                        <td>{{$template->locationFontsize}}</td>
-                        <td>{{$template->locationFontfamily}}</td>
-                        <td><a class="btn btn-primary btn-sm" href="{{route('admintemplatemaster.edit',$template->id)}}">Edit</a> <a class="btn btn-danger btn-sm" href="{{route('admintemplatemaster.delete',$template->id)}}">Delete</a></td>
+
+                        <td><a class="btn btn-primary btn-sm" href="{{route('admintemplatemaster.edit',$template->id)}}">Edit</a>
+                            <a class="btn btn-danger btn-sm" href="{{route('admintemplatemaster.delete',$template->id)}}">Delete</a>
+                            <a href="{{ route('adminTemplateDetail.index') }}/{{$template->id}}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">Template Detail</a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

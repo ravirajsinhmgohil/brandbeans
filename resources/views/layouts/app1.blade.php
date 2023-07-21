@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="{{asset('assets/styles/style.min.css')}}">
 
 	<!-- bootstrap 5 css -->
-	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 	<!-- mCustomScrollbar -->
 	<link rel="stylesheet" href="{{asset('assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css')}}">

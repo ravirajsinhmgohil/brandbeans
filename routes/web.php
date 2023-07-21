@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\SubscriptionpackageController;
 use App\Http\Controllers\Admin\TemplatemasterController;
+use App\Http\Controllers\TemplateDetailController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BrochureController;
@@ -198,6 +199,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('admintemplatemaster/update', [TemplatemasterController::class, 'update'])->name('admintemplatemaster.update');
     Route::get('admintemplatemaster/delete/{id?}', [TemplatemasterController::class, 'destroy'])->name('admintemplatemaster.delete');
 
+    // Template Master
+    Route::get('adminTemplateDetail/index/{id?}', [TemplateDetailController::class, 'index'])->name('adminTemplateDetail.index');
+    Route::get('adminTemplateDetail/create', [TemplateDetailController::class, 'create'])->name('adminTemplateDetail.create');
+    Route::post('adminTemplateDetail/store', [TemplateDetailController::class, 'store'])->name('adminTemplateDetail.store');
+    Route::get('adminTemplateDetail/edit/{id}', [TemplateDetailController::class, 'edit'])->name('adminTemplateDetail.edit');
+    Route::post('adminTemplateDetail/update', [TemplateDetailController::class, 'update'])->name('adminTemplateDetail.update');
+    Route::get('adminTemplateDetail/delete/{id?}', [TemplateDetailController::class, 'destroy'])->name('adminTemplateDetail.delete');
 
     // Subscription
 

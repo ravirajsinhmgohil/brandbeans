@@ -34,7 +34,7 @@ class UserController extends Controller
         try {
             $data = User::whereHas('roles', function ($query) {
                 return $query->where('name', '!=', 'User');
-            })->orderBy('id', 'DESC')->paginate(5);
+            })->orderBy('id', 'DESC')->paginate(10);
             return view('users.index', compact('data'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
             // $data = User::all();
