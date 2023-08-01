@@ -51,7 +51,7 @@
                 <select name="mediaType" id="mediaType" class="form-control" required>
                     <option selected disabled>--Select your Media Type--</option>
                     @if($media->mediaType == 'Photo')
-                    <option value="Photo">Photo</option>
+                    <option value="Photo" selected>Photo</option>
                     <option value="Video">Video</option>
                     @else
                     <option value="Video" selected>Video</option>

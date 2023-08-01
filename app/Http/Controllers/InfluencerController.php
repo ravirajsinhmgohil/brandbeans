@@ -47,18 +47,23 @@ class InfluencerController extends Controller
     public function brands()
     {
         try {
+            // $brand = User::whereHas(
+            //     'roles',
+            //     function ($q) {
+            //         $q->where('name', 'Brand');
+            //     }
+            // )->with('brand')->get();
             $brand = User::whereHas(
                 'roles',
                 function ($q) {
                     $q->where('name', 'Brand');
                 }
-            )->with('brand')->get();
+            )->whereHas('brand')->get();
 
             return view('influencer.brandView.index', \compact('brand'));
         } catch (\Throwable $th) {
-            //throw $th;    
+            // throw $th;
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 

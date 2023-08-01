@@ -322,7 +322,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('influencer/campaign/appliersCreate/{campaignId?}/{userId?}', [InfluencerController::class, 'appliersCreate'])->name('brand.campaign.appliersCreate');
     Route::post('influencer/campaign/appliersCreateStore', [InfluencerController::class, 'appliersCreateStore'])->name('brand.campaign.appliersCreateStore');
 
-    Route::get('influencer/campaign/camapign/step/{campaignId?}', [InfluencerStepController::class, 'index'])->name('brand.campaign.campaign.step');
+    Route::get('influencer/campaign/step/{campaignId?}', [InfluencerStepController::class, 'index'])->name('brand.campaign.campaign.step');
+    Route::post('influencer/campaign/step', [InfluencerStepController::class, 'store'])->name('influencer.campaign.step.store');
 
     // influencer Portfolio
     Route::get('influencer/portfolio', [InfluencerPortfolioController::class, 'index'])->name('influencer.portfolio.index');
@@ -535,3 +536,6 @@ Route::post('reseller/user/store', [ResellerController::class, 'userStore'])->na
 Route::get('reseller/user/delete/{id?}', [ResellerController::class, 'userdestroy'])->name('reseller.user.delete');
 Route::get('reseller/user/edit/{id?}', [ResellerController::class, 'userEdit'])->name('reseller.user.edit');
 Route::post('reseller/user/update', [ResellerController::class, 'userUpdate'])->name('reseller.user.update');
+
+
+Route::get('/galleryImages', [HomepageController::class, 'gallery']);

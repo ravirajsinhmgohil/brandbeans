@@ -69,12 +69,39 @@
                                             <td>{{$data->title}}</td>
                                             <td>{{$data->detail}}</td>
                                             <td>
-                                                <form action="" method="post">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-success btn-sm">Done</button>
-                                                </form>
+                                                <?php
+                                                $counter = 0;
+                                                foreach ($content as $contentData) {
+                                                    if ($contentData->stepId === $data->id) {
+                                                        $counter++;
+                                                    }
+                                                }
+                                                ?>
+                                                @if($counter < 1) <button class="btn btn-sm btn-success" data-remodal-target="remodal-{{$data->id}}" href="#">Upload Step</button>
+                                                    @endif
+
+                                                    <div class="remodal" data-remodal-id="remodal-{{$data->id}}" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+                                                        <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+                                                        <div class="remodal-content">
+                                                            <h2 id="modal1Title">Upload your content Proof</h2>
+                                                            <p id="modal1Desc">
+                                                            <form action="{{route('influencer.campaign.step.store')}}" method="post" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <input type="hidden" value="{{$data->id}}" name="stepId">
+                                                                <input type="hidden" value="{{request('campaignId')}} " name="campaignId">
+                                                                <label for="uploadActivityPhoto">Upload Screenshot</label>
+                                                                <input type="file" class="form-control" name="uploadActivityPhoto" id="uploadActivityPhoto">
+                                                                <span><b>OR</b></span>
+                                                                <br>
+                                                                <label for="uploadActivityPhoto">Upload URL</label>
+                                                                <input type="text" class="form-control" name="uploadActivityLink" id="uploadActivityLink" placeholder="Put your URL here..">
+                                                                <br>
+                                                                <button type="submit" class="btn btn-success btn-sm">Submit</button>
+                                                            </form>
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                             </td>
-                                            <td><a href="#" class="btn btn-primary btn-sm">upload step</a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

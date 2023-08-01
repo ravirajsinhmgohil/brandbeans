@@ -87,8 +87,8 @@ class TemplateDetailController extends Controller
 
         try {
             $id = $request->templateDetailId;
+            $templateId = $request->templateId;
             $template = TemplateDetail::find($id);
-            $template->templateId = $id;
             $template->title = $request->title;
             if ($request->icon) {
                 $image = $request->icon;

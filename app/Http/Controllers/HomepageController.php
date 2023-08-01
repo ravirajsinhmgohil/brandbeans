@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class HomepageController extends Controller
@@ -37,5 +38,12 @@ class HomepageController extends Controller
     {
 
         return view('otherpages.terms');
+    }
+
+    function gallery()
+    {
+        $collection = Category::all();
+
+        return view('account.gallery', \compact('collection'));
     }
 }

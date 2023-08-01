@@ -43,7 +43,7 @@
     <div class="" style="padding: 12px 10px 12px 10px; display: flex; justify-content: space-between; background-color: #03ACF0; color:white;">
         <div class="">
             <h4 class="">
-                My Work
+                Influencer post
             </h4>
         </div>
 
@@ -182,11 +182,72 @@
                 </div>
                 @endforeach
 
-
             </div>
         </div>
     </div>
 </div>
+<!-- new card for steps -->
+<div class="box-content card ">
+
+    <div class="" style="padding: 12px 10px 12px 10px; display: flex; justify-content: space-between; background-color: #03ACF0; color:white;">
+        <div >
+            <h4 class="">
+                Followed Steps
+            </h4>
+        </div>
+        <button class="btn btn-sm btn" style="background-color: #002E6E; color:white;">Comfirm Step</button>
+
+    </div>
+    <div class="card-content">
+        <div class="container-fluid">
+
+
+            <div class="activity-list" style="padding-top: 10px;">
+                @foreach($steps as $steps)
+                <div class="activity-item">
+                    <?php
+                    $counter = 0;
+                    foreach ($followedStep as $followedStepData) {
+                        if ($followedStepData->stepId === $steps->id) {
+                            $counter++;
+                        }
+                    }
+                    ?>
+                    <div class="bar @if($counter > 0)bg-success  @else bg-danger @endif">
+                        <div class="dot @if($counter > 0)bg-success @else bg-danger @endif"></div>
+                    </div>
+                    <div class="content">
+                        <div class="date"> {{$steps->title}}</div>
+                        <div class="text">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{$steps->detail}}
+                                </div>
+                                <div class="col-md-6">
+
+
+                                    @if($counter > 0) &nbsp; <i class="fa fa-check text-success" title="Done"></i>
+                                    @else
+                                    &nbsp; <i class="fa fa-times text-danger" title="Not Done"></i>
+                                    @endif
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                @endforeach
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
 
 
 @endsection

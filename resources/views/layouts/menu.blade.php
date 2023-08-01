@@ -138,9 +138,7 @@
 @endrole
 
 @role('Influencer')
-<li>
-    <a class="text-white waves-effect" href="{{route('influencer.profile')}}"><i class="text-white menu-icon fa fa-user"></i><span>Profile</span></a>
-</li>
+
 <li>
     <a class="text-white waves-effect" href="{{route('influencer.portfolio.index')}}"><i class="text-white menu-icon fa fa-image"></i><span>Portfolio</span></a>
 </li>
@@ -148,9 +146,6 @@
     <a class="text-white waves-effect" href="{{route('influencer.brands')}}"><i class="text-white menu-icon fa fa-bullhorn"></i><span>Brands</span></a>
 </li>
 
-<li>
-    <a class="text-white waves-effect" href="{{route('influencer.campaignApplyList')}}"><i class="text-white menu-icon fa fa-users"></i><span>My Applied Campaign</span></a>
-</li>
 <li>
     <a class="text-white waves-effect" href="{{route('influencer.campaignApplyList')}}"><i class="text-white menu-icon fa fa-users"></i><span>My Applied Campaign</span></a>
 </li>

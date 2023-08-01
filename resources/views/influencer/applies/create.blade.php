@@ -36,7 +36,7 @@
             <h4 class="">Add Media</h4>
         </div>
         <div class="">
-            <a href="{{ route('brand.campaign.index') }}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">BACK</a>
+            <a href="{{ route('influencer.campaignApplyList') }}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">BACK</a>
         </div>
     </div>
     <div class="card-content">

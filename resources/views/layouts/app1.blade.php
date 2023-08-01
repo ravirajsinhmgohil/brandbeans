@@ -92,7 +92,7 @@
 
 					@include('layouts.menu')
 
-					<br><br>
+					<br><br> 
 				</ul>
 
 			</div>

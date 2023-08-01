@@ -309,9 +309,10 @@
                             <div class="col-md-10 pb-1">
                                 <div class="row">
                                     <?php
-                                    // $data = "apple,banana";
-                                    // $categoryData = explode(',', $data);
-                                    // {{$categoryData}}
+                                    // $data = "['apple','banana']";
+                                    $data = $influencer->categoryId;
+                                    $category7Data = (explode(',', $data));
+
                                     ?>
                                     @foreach($influencerCategory as $influencerCategory)
                                     <div class="col-md-3">

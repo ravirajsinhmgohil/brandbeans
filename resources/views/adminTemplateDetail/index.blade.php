@@ -36,7 +36,7 @@
             <h4 class="">Template Details</h4>
         </div>
         <div class="">
-            <a href="{{ route('adminTemplateDetail.create') }}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">ADD</a>
+            <!-- <a href="{{ route('adminTemplateDetail.create') }}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">ADD</a> -->
             <!-- /.sub-menu -->
         </div>
     </div>
@@ -51,7 +51,13 @@
 
             <div class="mb-3">
                 <label for="" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" require>
+                <select name="title" id="title" class="form-control">
+                    <option selected disabled>Select title</option>
+                    <option value="email">Email</option>
+                    <option value="location">Location</option>
+                    <option value="contact">Contact</option>
+                    <option value="website">Website</option>
+                </select>
             </div>
 
             <div class="row margin-top-10">
@@ -101,8 +107,9 @@
             </div>
         </form>
 
-
-
+        <br>
+        <br>
+        <br>
 
         <div class="table-responsive">
             <table id="example" class="table table-bordered" style="margin-top: 15px;">

@@ -46,10 +46,16 @@
 
         <form action="{{route('adminTemplateDetail.update')}}" class="was-validated" enctype="multipart/form-data" novalidate method="post" style="margin-top: 15px;">
             @csrf
-            <input type="hidden" name="templateDetailId" id="id" value="{{$template->id}}">
+            <input type="hiddevn" name="templateDetailId" id="id" value="{{$template->id}}">
             <div class="mb-3">
                 <label for="" class="form-label">Title</label>
-                <input type="text" class="form-control" value="{{$template->title}}" id="title" name="title" require>
+                <select name="title" id="title" class="form-control">
+                    <option selected disabled>Select title</option>
+                    <option value="email" {{old('title', $template->title) === 'email' ? "selected" : ''}}>Email</option>
+                    <option value="location" {{old('title', $template->title) === 'location' ? "selected" : ''}}>Location</option>
+                    <option value="contact" {{old('title', $template->title) === 'contact' ? "selected" : ''}}>Contact</option>
+                    <option value="website" {{old('title', $template->title) === 'website' ? "selected" : ''}}>Website</option>
+                </select>
             </div>
 
             <div class="row margin-top-10">

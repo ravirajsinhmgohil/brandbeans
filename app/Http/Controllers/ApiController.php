@@ -189,6 +189,7 @@ class ApiController extends Controller
 
                 $cardData = CardsModels::where('id', '=', $card_id)->first();
                 $userData = User::where('id', '=', $cardData->user_id)->first();
+                $role = $userData->getRoleNames();
                 $userId = $cardData->user_id;
 
                 $token = $userData->createToken('my-app-token')->plainTextToken;
@@ -206,6 +207,8 @@ class ApiController extends Controller
 
                 $card = CardsModels::where('user_id', '=', $user->id)->get();
                 $token = $user->createToken('my-app-token')->plainTextToken;
+                $role = $user->getRoleNames();
+
                 $response = [
                     'User Data' => $user,
                     'Card Data' => $card,
