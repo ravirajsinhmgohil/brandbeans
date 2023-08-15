@@ -15,7 +15,9 @@ class TypedetailController extends Controller
     public function index()
     {
         try {
-            $typedetail = Typedetail::join('types', 'types.id', '=', 'typedetails.typeId')->get(['typedetails.*', 'types.title']);
+            $typedetail = Typedetail::join('types', 'types.id', '=', 'typedetails.typeId')
+                ->orderBy('id', 'DESC')
+                ->get(['typedetails.*', 'types.title']);
             return view('typedetail.index', compact('typedetail'));
         } catch (\Throwable $th) {
             //throw $th;    

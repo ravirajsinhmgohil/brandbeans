@@ -34,6 +34,7 @@ class DesignController extends Controller
 
             $writer = Writerslogan::with('category')
                 ->where('status', '=', "Approved")
+                ->orderBy('id', 'DESC')
                 ->get();
 
             $slugCount =  Design::where('userId', '=', $userId)
@@ -186,16 +187,19 @@ class DesignController extends Controller
                 $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
                     ->join('users', 'users.id', '=', 'writerslogans.userId')
                     ->where('writerslogans.status', '=', 'Approved')
+                    ->orderBy('id', 'DESC')
                     ->get(['writerslogans.*', 'admincategories.name as categoryName', 'users.name as userName']);
             } else if ($type == 'Rejected') {
                 $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
                     ->join('users', 'users.id', '=', 'writerslogans.userId')
                     ->where('writerslogans.status', '=', 'Rejected')
+                    ->orderBy('id', 'DESC')
                     ->get(['writerslogans.*', 'admincategories.name as categoryName', 'users.name as userName']);
             } else {
                 $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
                     ->join('users', 'users.id', '=', 'writerslogans.userId')
                     ->where('writerslogans.status', '=', 'Pending')
+                    ->orderBy('id', 'DESC')
                     ->get(['writerslogans.*', 'admincategories.name as categoryName', 'users.name as userName']);
             }
             return view('admindesign.slogan', \compact('writer'));

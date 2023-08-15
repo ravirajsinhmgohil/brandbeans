@@ -178,6 +178,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('adminMedia/delete/{id?}', [MediaController::class, 'destroy'])->name('adminmedia.delete');
     Route::get('adminMedia/downloads', [MediaController::class, 'downloads'])->name('admindownload.index');
 
+    // select Category Page
+    Route::get('adminMedia/select-category', [MediaController::class, 'selectCategory'])->name('adminmedia.selectCategory');
+
 
     // Account Post
 
@@ -215,6 +218,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('adminsubscription/edit/{id}', [SubscriptionController::class, 'edit'])->name('adminsubscription.edit');
     Route::post('adminsubscription/update', [SubscriptionController::class, 'update'])->name('adminsubscription.update');
     Route::get('adminsubscription/delete/{id?}', [SubscriptionController::class, 'destroy'])->name('adminsubscription.delete');
+
+    // Update User Status
+    Route::put('/users/{id}/update-status', [SubscriptionController::class, 'updateStatus'])->name('users.updateStatus');
 
     // Subscription Package
 
@@ -366,6 +372,36 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('brand/campaign/step/edit/{id?}', [CampaignStepController::class, 'edit'])->name('brand.campaign.step.edit');
     Route::post('brand/campaign/step/update', [CampaignStepController::class, 'update'])->name('brand.campaign.step.update');
     Route::get('brand/campaign/step/delete/{id?}', [CampaignStepController::class, 'delete'])->name('brand.campaign.step.delete');
+
+
+
+    // by madhvi
+
+    /* Admin Side Reseller */
+    Route::get('reseller/index', [ResellerController::class, 'index'])->name('reseller.index');
+    Route::get('reseller/create', [ResellerController::class, 'create'])->name('reseller.create');
+    Route::post('reseller/store', [ResellerController::class, 'store'])->name('reseller.store');
+    Route::get('reseller/delete/{id?}', [ResellerController::class, 'destroy'])->name('reseller.delete');
+    Route::get('reseller/edit/{id?}', [ResellerController::class, 'edit'])->name('reseller.edit');
+    Route::post('reseller/update', [ResellerController::class, 'update'])->name('reseller.update');
+
+
+    // reseller passbook View
+    Route::get('reseller/passbook', [ResellerController::class, 'passbook'])->name('reseller.passbook');
+    Route::get('reseller/addAmount/{userId}', [ResellerController::class, 'resellerAddAmount'])->name('reseller.addAmount');
+    Route::post('resellerPackage/store', [ResellerController::class, 'resellerPackageStore'])->name('resellerPackage.store');
+
+
+
+    /* reseller side add user */
+    Route::get('reseller/user/index', [ResellerController::class, 'userIndex'])->name('reseller.user.index');
+    Route::get('reseller/user/create', [ResellerController::class, 'userCreate'])->name('reseller.user.create');
+    Route::post('reseller/user/store', [ResellerController::class, 'userStore'])->name('reseller.user.store');
+    Route::get('reseller/user/delete/{id?}', [ResellerController::class, 'userdestroy'])->name('reseller.user.delete');
+    Route::get('reseller/user/edit/{id?}', [ResellerController::class, 'userEdit'])->name('reseller.user.edit');
+    Route::post('reseller/user/update', [ResellerController::class, 'userUpdate'])->name('reseller.user.update');
+
+    // 
 });
 
 Route::get('Admin/layouts/create', [LayoutsController::class, 'create'])->name('admin.layouts.create');
@@ -516,26 +552,3 @@ Route::controller(OtpController::class)->group(function () {
     Route::post('auth/loginotp/{id?}', 'loginotp')->name('auth.loginotp');
     Route::post('otp/generate', 'generate')->name('otp.generate');
 });
-
-// by madhvi
-
-/* Admin Side Reseller */
-Route::get('reseller/index', [ResellerController::class, 'index'])->name('reseller.index');
-Route::get('reseller/create', [ResellerController::class, 'create'])->name('reseller.create');
-Route::post('reseller/store', [ResellerController::class, 'store'])->name('reseller.store');
-Route::get('reseller/delete/{id?}', [ResellerController::class, 'destroy'])->name('reseller.delete');
-Route::get('reseller/edit/{id?}', [ResellerController::class, 'edit'])->name('reseller.edit');
-Route::post('reseller/update', [ResellerController::class, 'update'])->name('reseller.update');
-
-
-
-/* reseller side add user */
-Route::get('reseller/user/index', [ResellerController::class, 'userIndex'])->name('reseller.user.index');
-Route::get('reseller/user/create', [ResellerController::class, 'userCreate'])->name('reseller.user.create');
-Route::post('reseller/user/store', [ResellerController::class, 'userStore'])->name('reseller.user.store');
-Route::get('reseller/user/delete/{id?}', [ResellerController::class, 'userdestroy'])->name('reseller.user.delete');
-Route::get('reseller/user/edit/{id?}', [ResellerController::class, 'userEdit'])->name('reseller.user.edit');
-Route::post('reseller/user/update', [ResellerController::class, 'userUpdate'])->name('reseller.user.update');
-
-
-Route::get('/galleryImages', [HomepageController::class, 'gallery']);

@@ -17,7 +17,7 @@ class TemplateDetailController extends Controller
     {
         $tempDetail = TemplateDetail::with(['Template' => function ($query) use ($id) {
             $query->where('id', '=', $id);
-        }])->where('templateId', '=', $id)->get();
+        }])->where('templateId', '=', $id)->orderBy('id', 'DESC')->get();
         return view('adminTemplateDetail.index', \compact('tempDetail'));
     }
 

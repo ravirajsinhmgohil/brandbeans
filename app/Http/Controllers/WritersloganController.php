@@ -24,6 +24,7 @@ class WritersloganController extends Controller
             $userId = Auth::user()->id;
             $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
                 ->where('writerslogans.userId', '=',  $userId)
+                ->orderBy('id', 'DESC')
                 ->get(['writerslogans.*', 'admincategories.name as categoryName']);
             return view('writer.index', \compact('writer'));
             // if (isset($_SESSION['status'])) {

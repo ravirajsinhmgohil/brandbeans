@@ -25,7 +25,11 @@ class InfluencerController extends Controller
     {
         try {
             $id = Auth::user()->id;
-            $profile = InfluencerProfile::with('profile')->with('category')->where('userId', '=', $id)->first();
+            $profile = InfluencerProfile::with('profile')
+                ->with('category')
+                ->where('userId', '=', $id)
+                ->orderBy('id', 'DESC')
+                ->first();
             return view('influencer.influencerProfile.index', \compact('profile'));
         } catch (\Throwable $th) {
             //throw $th;    
@@ -71,7 +75,7 @@ class InfluencerController extends Controller
     {
         try {
             $userId = Auth::user()->id;
-            $campaign = Campaign::where('userId', '=', $id)->get();
+            $campaign = Campaign::where('userId', '=', $id)->orderBy('id', 'DESC')->get();
             foreach ($campaign as $campaignId) {
                 $campaignCountData = Apply::where('userId', '=', $userId)
                     ->where('campaignId', '=', $campaignId->id)
@@ -110,7 +114,10 @@ class InfluencerController extends Controller
         try {
             $userId = Auth::user()->id;
 
-            $campaignList = Apply::with('campaign')->where('userId', '=', $userId)->get();
+            $campaignList = Apply::with('campaign')
+                ->where('userId', '=', $userId)
+                ->orderBy('id', 'DESC')
+                ->get();
             // $campaignList = Apply::join('campaigns', 'campaigns.id', '=', 'applies.campaignId')
             //     ->where('applies.userId', '=', $userId)
             //     ->get();

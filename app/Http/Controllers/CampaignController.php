@@ -27,7 +27,7 @@ class CampaignController extends Controller
     {
         try {
             $userId = Auth::user()->id;
-            $campaign = Campaign::where('userId', '=', $userId)->get();
+            $campaign = Campaign::where('userId', '=', $userId)->orderBy('id', 'DESC')->get();
             return view('brand.campaign.index', \compact('campaign'));
         } catch (\Throwable $th) {
             //throw $th;    

@@ -25,15 +25,19 @@ class ReferController extends Controller
                 $refer_code = $refer->myrefer;
                 $user = User::where('refer', '=', $refer_code)
                     ->where('package', '=', 'FREE')
+                    ->orderBy('id', 'DESC')
                     ->get();
                 return view('refer.index', \compact('user'));
             } else if ($type == 'paid') {
                 $user = User::where('refer', '=', $refer_code)
                     ->where('package', '!=', 'FREE')
+                    ->orderBy('id', 'DESC')
                     ->get();
                 return view('refer.index', \compact('user'));
             } else {
-                $user = User::where('refer', '=', $refer_code)->get();
+                $user = User::where('refer', '=', $refer_code)
+                    ->orderBy('id', 'DESC')
+                    ->get();
                 return view('refer.index', \compact('user'));
             }
         } catch (\Throwable $th) {

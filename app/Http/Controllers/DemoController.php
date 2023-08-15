@@ -219,6 +219,7 @@ class DemoController extends Controller
                 $request->profilePhoto->move(public_path('profile'), $user->profilePhoto);
             }
             $user->save();
+            
             $influencerCategory = $request->categoryId;
             $categoryData = implode(",", $influencerCategory);
 

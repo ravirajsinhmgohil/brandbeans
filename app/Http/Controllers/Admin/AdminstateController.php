@@ -20,7 +20,7 @@ class AdminstateController extends Controller
     public function index()
     {
         try {
-            $state = State::where('is_delete', '=', 'Active')->get();
+            $state = State::where('is_delete', '=', 'Active')->orderBy('id', 'DESC')->get();
             // return $state;
             return view('adminstate.index', compact('state'));
         } catch (\Throwable $th) {

@@ -13,7 +13,7 @@ class OfferController extends Controller
     public function index()
     {
         try {
-            $offer = Offer::all();
+            $offer = Offer::orderBy('id', 'DESC')->get();
             return view('offer.index', \compact('offer'));
         } catch (\Throwable $th) {
             //throw $th;    

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomepageController extends Controller
 {
     //
+
     public function homepage()
     {
 
@@ -40,10 +42,5 @@ class HomepageController extends Controller
         return view('otherpages.terms');
     }
 
-    function gallery()
-    {
-        $collection = Category::all();
-
-        return view('account.gallery', \compact('collection'));
-    }
+    
 }

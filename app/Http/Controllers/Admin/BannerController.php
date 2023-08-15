@@ -18,7 +18,7 @@ class BannerController extends Controller
     function index()
     {
         try {
-            $banner = Banner::all();
+            $banner = Banner::orderBy('id', 'DESC')->get();
             return view('banner.index', \compact('banner'));
         } catch (\Throwable $th) {
             //throw $th;    

@@ -22,6 +22,7 @@ class AdmincityController extends Controller
         try {
             $city = City::join('states', 'states.id', '=', 'cities.statid')
                 ->where('cities.is_delete', '=', 'Active')
+                ->orderBy('id', 'DESC')
                 ->get(['cities.*', 'states.sname']);
             return view('admincity.index', compact('city'));
         } catch (\Throwable $th) {

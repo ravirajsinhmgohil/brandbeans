@@ -17,7 +17,7 @@ class StoryController extends Controller
     public function index()
     {
         try {
-            $story = Story::all();
+            $story = Story::orderBy('id', 'DESC')->get();
             return view('story.index', compact('story'));
         } catch (\Throwable $th) {
             //throw $th;    

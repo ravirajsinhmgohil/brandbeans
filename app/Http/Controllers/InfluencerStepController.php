@@ -13,7 +13,9 @@ class InfluencerStepController extends Controller
 {
     public function index($campaignId)
     {
-        $campaignStep = CampaignStep::where('campaignId', '=', $campaignId)->get();
+        $campaignStep = CampaignStep::where('campaignId', '=', $campaignId)
+            ->orderBy('id', 'DESC')
+            ->get();
 
         $influencerId = Auth::user()->id;
         $content = CampaignInfluencerActivityStep::where('influencerId', '=', $influencerId)

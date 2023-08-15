@@ -25,30 +25,72 @@ class MediaController extends Controller
             $category = Category::all();
             $submit = $request->submit;
             $name = $request->category;
+            $title = $request->title;
+
+
+            if (isset($name) && isset($title)) {
+                // return "hehre";
+
+                $media = Media::join('admincategories', 'admincategories.id', '=', 'media.category')
+                    ->where('admincategories.name', '=', $name)
+                    ->where('media.title', 'like', '%' . $title . '%')
+                    ->orderBy('id', 'DESC')
+                    ->paginate(20, ['media.*', 'admincategories.name']);
+            } else {
+                $media = Media::join('admincategories', 'admincategories.id', '=', 'media.category')
+                    ->orderBy('id', 'DESC')
+                    ->paginate(20, ['media.*', 'admincategories.name']);
+            }
             if (isset($name)) {
                 // return "hehre";
 
                 $media = Media::join('admincategories', 'admincategories.id', '=', 'media.category')
                     ->where('admincategories.name', '=', $name)
-                    ->paginate(10, ['media.*', 'admincategories.name']);
+                    ->orderBy('id', 'DESC')
+                    ->paginate(20, ['media.*', 'admincategories.name']);
             } else {
                 $media = Media::join('admincategories', 'admincategories.id', '=', 'media.category')
-                    ->paginate(10, ['media.*', 'admincategories.name']);
+                    ->orderBy('id', 'DESC')
+                    ->paginate(20, ['media.*', 'admincategories.name']);
             }
+
+            if (isset($title)) {
+                // return "hehre";
+
+                $media = Media::join('admincategories', 'admincategories.id', '=', 'media.category')
+                    ->where('media.title', 'like', '%' . $title . '%')
+                    ->orderBy('id', 'DESC')
+                    ->paginate(20, ['media.*', 'admincategories.name']);
+            } else {
+                $media = Media::join('admincategories', 'admincategories.id', '=', 'media.category')
+                    ->orderBy('id', 'DESC')
+                    ->paginate(20, ['media.*', 'admincategories.name']);
+            }
+
+
             return view("adminMedia.index", compact('media', 'category'));
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
+            throw $th;
+            // return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }
     }
 
+    public function selectCategory()
+    {
+        $category = Category::all();
+        return view('adminMedia.selectCategory', \compact('category'));
+    }
 
-    public function create()
+
+
+    public function create(Request $request)
     {
         try {
+            $id = $request->category;
+            $categoryId = Category::find($id);
             $category = Category::select('id', 'name')->get();
-            return view("adminMedia.create", \compact('category'));
+            return view("adminMedia.create", \compact('category', 'categoryId'));
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
@@ -81,8 +123,8 @@ class MediaController extends Controller
                 $media->endDate = $request->endDate;
             } else {
                 $date1 = Carbon::now();
-                $date1 = $date1->addDays(1)->toDateString();
-                $media->endDate = $date1;
+                $date2 = $date1->addDays(1)->toDateString();
+                $media->endDate = $date2;
             }
 
             $image = $request->sourcePath;
@@ -102,9 +144,9 @@ class MediaController extends Controller
                 $media->isPremium = "no";
             }
             $media->save();
-            return redirect('adminMedia/index');
+            return redirect()->back()->with('success', 'Media inserted successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
+            // throw $th;
             return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }
@@ -152,8 +194,8 @@ class MediaController extends Controller
                 $media->endDate = $request->endDate;
             } else {
                 $date1 = Carbon::now();
-                $date1 = $date1->addDays(1)->toDateString();
-                $media->endDate = $date1;
+                $date2 = $date1->addDays(1)->toDateString();
+                $media->endDate = $date2;
             }
             if ($request->previewPath) {
                 $image = $request->previewPath;
@@ -169,7 +211,7 @@ class MediaController extends Controller
             $media->save();
             return redirect('adminMedia/index');
         } catch (\Throwable $th) {
-            //throw $th;    
+            // throw $th;
             return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }
@@ -192,28 +234,53 @@ class MediaController extends Controller
     {
 
         try {
-            $startDate = $request->startDate;
-            $endDate = $request->endDate;
-            $submit = $request->submit;
-            $date = Carbon::now()->toDateString();
+            $category = Category::all();
+            $startDateOld = $request->startDate;
+            $startDate = Carbon::parse($startDateOld)->format('Y/m/d');
+            $endDateOld = $request->endDate;
+            $endDate = Carbon::parse($endDateOld)->format('Y/m/d');
+            $dateOld = Carbon::now()->toDateString();
+            $date = Carbon::parse($dateOld)->format('Y/m/d');
+            $categoryName = $request->category;
+            $name = $request->name;
+            // return $date;
             // return [$startDate, $endDate];
-            if (isset($startDate) || isset($endDate)) {
-                $mymedia = Mymedia::join('admincategories', 'admincategories.id', '=', 'mymedia.categoryId')
-                    ->join('users', 'users.id', '=', 'mymedia.userId')
-                    ->whereBetween('mymedia.date', [$startDate, $endDate])
-                    ->get(['mymedia.*', 'admincategories.name as categoryname', 'users.name as username']);
-            } else {
+
+            if (isset($startDateOld) && isset($endDateOld)) {
                 // return $date;
                 $mymedia = Mymedia::join('admincategories', 'admincategories.id', '=', 'mymedia.categoryId')
                     ->join('users', 'users.id', '=', 'mymedia.userId')
-                    ->where('mymedia.date', '=', $date)
-                    ->get(['mymedia.*', 'admincategories.name as categoryname', 'users.name as username']);
+                    // ->where('mymedia.date', $startDate)
+                    ->whereBetween('mymedia.date', [$startDate, $endDate])
+                    ->get(['mymedia.*', 'admincategories.name as categoryname', 'users.name as username', 'users.package']);
+            } else if (isset($startDateOld)) {
+
+                $mymedia = Mymedia::join('admincategories', 'admincategories.id', '=', 'mymedia.categoryId')
+                    ->join('users', 'users.id', '=', 'mymedia.userId')
+                    ->where('mymedia.date', $startDate)
+                    ->get(['mymedia.*', 'admincategories.name as categoryname', 'users.name as username', 'users.package']);
+            } else {
+                $mymedia = Mymedia::join('admincategories', 'admincategories.id', '=', 'mymedia.categoryId')
+                    ->join('users', 'users.id', '=', 'mymedia.userId')
+                    ->get(['mymedia.*', 'admincategories.name as categoryname', 'users.name as username', 'users.package']);
             }
 
-            return view('adminMedia.downloads', \compact('mymedia'));
+            if (isset($categoryName)) {
+                $mymedia = Mymedia::join('admincategories', 'admincategories.id', '=', 'mymedia.categoryId')
+                    ->join('users', 'users.id', '=', 'mymedia.userId')
+                    ->where('admincategories.name', 'like', '%' . $categoryName . '%')
+                    ->get(['mymedia.*', 'admincategories.name as categoryname', 'users.name as username', 'users.package']);
+            } else {
+                $mymedia = Mymedia::join('admincategories', 'admincategories.id', '=', 'mymedia.categoryId')
+                    ->join('users', 'users.id', '=', 'mymedia.userId')
+                    ->get(['mymedia.*', 'admincategories.name as categoryname', 'users.name as username', 'users.package']);
+            }
+
+
+            return view('adminMedia.downloads', \compact('mymedia', 'category'));
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
+            throw $th;
+            // return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }
     }

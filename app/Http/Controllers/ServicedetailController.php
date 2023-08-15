@@ -13,7 +13,7 @@ class ServicedetailController extends Controller
     public function index()
     {
         try {
-            $servicedetail = Servicedetail::all();
+            $servicedetail = Servicedetail::orderBy('id', 'DESC')->get();
             // return $servicedetail;
             return view('demo', compact('servicedetail'));
         } catch (\Throwable $th) {

@@ -19,7 +19,7 @@ class TemplatemasterController extends Controller
     public function index()
     {
         try {
-            $template = Templatemaster::all();
+            $template = Templatemaster::orderBy('id', 'DESC')->get();
             return view("adminTemplate.index", compact('template'));
         } catch (\Throwable $th) {
             //throw $th;    

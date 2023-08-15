@@ -16,7 +16,7 @@ class AdminaccountController extends Controller
             // $account = User::role('name', '!=', 'Admin')->get();
             $account = User::whereDoesntHave('roles', function ($q) {
                 $q->where('name', 'Admin');
-            })->get();
+            })->orderBy('id', 'DESC')->get();
             return view("adminAccount.index", compact('account'));
         } catch (\Throwable $th) {
             //throw $th;    
@@ -114,6 +114,6 @@ class AdminaccountController extends Controller
             //throw $th;    
             return view('servererror');
             // return view("adminCategory.index", compact('category'));
-        } 
+        }
     }
 }

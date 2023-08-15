@@ -41,6 +41,8 @@ use App\Models\CheckApply;
 use App\Models\Apply;
 use App\Models\Campaign;
 use App\Models\CampaignStep;
+use App\Models\CampaignInfluencerActivity;
+use App\Models\CampaignInfluencerActivityStep;
 use Carbon\Carbon;
 use Validator;
 use DB;
@@ -1733,7 +1735,7 @@ class ApiController extends Controller
                 ->where('userId', '=', $userId)
 
                 ->count();
-            if ($count < 6) {
+            if ($count < 3) {
                 $media = new Mymedia();
                 $media->userId = $userId;
                 $media->categoryId = $categoryId;
@@ -3120,6 +3122,62 @@ class ApiController extends Controller
         return response($response, 200);
     }
 
+    function stepList($campaignId)
+    {
+        $list = CampaignStep::where('campaignId', '=', $campaignId)->get();
+        $response = [
+            'status' => true,
+            'Data' => $list
+        ];
+
+        return response($response, 200);
+    }
+    function followedStep(Request $request)
+    {
+        $rules = array(
+            'campaignId'  => "required",
+            'influencerId'  => "required",
+            'stepId'  => "required",
+            'uploadActivityPhoto'  => "required_without_all:uploadActivityLink",
+            'uploadActivityLink'  => "required_without_all:uploadActivityPhoto",
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $campaignId = $request->campaignId;
+        $influencerId = $request->influencerId;
+        $stepId = $request->stepId;
+
+        $step = new  CampaignInfluencerActivity();
+        $step->campaignId = $campaignId;
+        $step->influencerId = $influencerId;
+        $step->save();
+
+
+        $steps = new CampaignInfluencerActivityStep();
+        $steps->campaignInfluencerActivityId = $step->id;
+        $steps->campaignId = $step->campaignId;
+        $steps->influencerId = $step->influencerId;
+        $steps->stepId = $stepId;
+        if ($request->uploadActivityPhoto) {
+            $steps->uploadActivityPhoto = time() . '.' . $request->uploadActivityPhoto->extension();
+            $request->uploadActivityPhoto->move(public_path('uploadActivityPhoto'), $steps->uploadActivityPhoto);
+        }
+        $steps->uploadActivityLink = $request->uploadActivityLink;
+        $steps->save();
+
+        $response = [
+            'status' => true,
+            'Data' => $steps,
+        ];
+
+        return response($response, 200);
+    }
+
+
 
     // Brand 
 
@@ -3269,6 +3327,19 @@ class ApiController extends Controller
         $response = [
             'status' => 200,
             'data' => $step,
+        ];
+        return response($response, 200);
+    }
+
+    function influencerFollowedSteps($campaignId, $influencerId)
+    {
+        $steps = CampaignInfluencerActivity::with('campaignInfluencerActivityStep')
+            ->where('campaignId', '=', $campaignId)
+            ->where('influencerId', '=', $influencerId)
+            ->get();
+        $response = [
+            'status' => 200,
+            'data' => $steps,
         ];
         return response($response, 200);
     }

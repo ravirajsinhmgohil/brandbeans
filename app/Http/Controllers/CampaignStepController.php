@@ -13,7 +13,7 @@ class CampaignStepController extends Controller
     public function index()
     {
         try {
-            $step = CampaignStep::with('campaign')->get();
+            $step = CampaignStep::with('campaign')->orderBy('id', 'DESC')->get();
             return view('brand.campaignStep.index', compact('step'));
         } catch (\Throwable $th) {
             //throw $th;    

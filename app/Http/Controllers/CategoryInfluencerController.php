@@ -11,7 +11,7 @@ class CategoryInfluencerController extends Controller
     public function index()
     {
         try {
-            $influencerCategory = CategoryInfluencer::all();
+            $influencerCategory = CategoryInfluencer::orderBy('id', 'DESC')->get();
             return view('influencer.category.index', \compact('influencerCategory'));
         } catch (\Throwable $th) {
             //throw $th;    

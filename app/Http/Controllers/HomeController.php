@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
 use App\Models\CardsModels;
-use App\Models\Users;
+use App\Models\User;
 use App\Models\Links;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +29,40 @@ class HomeController extends Controller
     {
         try {
             if (Auth::user()->hasRole(['Admin', 'Writer', 'Designer', 'Influencer', 'Brand'])) {
-                return view('home');
+                $users = User::count();
+                $paidUsers = User::where('package', '!=', 'FREE')->count();
+                $freeUsers = User::where('package', '=', 'FREE')->count();
+                $influencer = User::whereHas(
+                    'roles',
+                    function ($q) {
+                        $q->where('name', 'Influencer');
+                    }
+                )->count();
+                $brand = User::whereHas(
+                    'roles',
+                    function ($q) {
+                        $q->where('name', 'Brand');
+                    }
+                )->count();
+                $reseller = User::whereHas(
+                    'roles',
+                    function ($q) {
+                        $q->where('name', 'Reseller');
+                    }
+                )->count();
+                $writer = User::whereHas(
+                    'roles',
+                    function ($q) {
+                        $q->where('name', 'Writer');
+                    }
+                )->count();
+                $designer = User::whereHas(
+                    'roles',
+                    function ($q) {
+                        $q->where('name', 'Designer');
+                    }
+                )->count();
+                return view('home', \compact('users', 'paidUsers', 'freeUsers', 'influencer', 'brand', 'reseller', 'writer', 'designer'));
             } else {
                 $id = Auth::user()->id;
                 $data = CardsModels::join('users', 'users.id', '=', 'cards.user_id')->where('users.id', '=', $id)->get(['cards.*', 'users.email']);

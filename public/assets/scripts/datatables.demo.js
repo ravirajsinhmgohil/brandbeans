@@ -4,57 +4,57 @@
  * Module/App: Data Tables
  */
 
-(function($) {
+(function ($) {
 	"use strict";
 
 	if ($('#example').length)
 		$('#example').DataTable();
 
 	if ($('#example-scroll-y').length)
-		$('#example-scroll-y').DataTable( {
-			"scrollY":        "200px",
+		$('#example-scroll-y').DataTable({
+			"scrollY": "200px",
 			"scrollCollapse": true,
-			"paging":         false
-		} );
+			"paging": false
+		});
 
-	if ($('#example-row-grouping').length){
+	if ($('#example-row-grouping').length) {
 		var table = $('#example-row-grouping').DataTable({
 			"columnDefs": [
 				{ "visible": false, "targets": 2 }
 			],
-			"order": [[ 2, 'asc' ]],
+			"order": [[2, 'desc']],
 			"displayLength": 25,
-			"drawCallback": function ( settings ) {
+			"drawCallback": function (settings) {
 				var api = this.api();
-				var rows = api.rows( {page:'current'} ).nodes();
-				var last=null;
-	 
-				api.column(2, {page:'current'} ).data().each( function ( group, i ) {
-					if ( last !== group ) {
-						$(rows).eq( i ).before(
-							'<tr class="group"><td colspan="5">'+group+'</td></tr>'
+				var rows = api.rows({ page: 'current' }).nodes();
+				var last = null;
+
+				api.column(2, { page: 'current' }).data().each(function (group, i) {
+					if (last !== group) {
+						$(rows).eq(i).before(
+							'<tr class="group"><td colspan="5">' + group + '</td></tr>'
 						);
-	 
+
 						last = group;
 					}
-				} );
+				});
 			}
-		} );
-	 
+		});
+
 		// Order by the grouping
-		$('#example-row-grouping tbody').on( 'click', 'tr.group', function () {
+		$('#example-row-grouping tbody').on('click', 'tr.group', function () {
 			var currentOrder = table.order()[0];
-			if ( currentOrder[0] === 2 && currentOrder[1] === 'asc' ) {
-				table.order( [ 2, 'desc' ] ).draw();
+			if (currentOrder[0] === 2 && currentOrder[1] === 'desc') {
+				table.order([2, 'desc']).draw();
 			}
 			else {
-				table.order( [ 2, 'asc' ] ).draw();
+				table.order([2, 'desc']).draw();
 			}
 			return false;
-		} );
+		});
 	}
 
-	if ($('#example-edit').length){
+	if ($('#example-edit').length) {
 		$('#example-edit').DataTable();
 		$('#example-edit').editableTableWidget();
 	}

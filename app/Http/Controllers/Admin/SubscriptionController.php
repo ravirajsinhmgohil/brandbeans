@@ -23,22 +23,37 @@ class SubscriptionController extends Controller
         try {
             $type = $request->type;
             if ($type == 'free') {
-                $user = User::where('package', '=', 'FREE')->get();
+                $user = User::where('package', '=', 'FREE')->orderBy('id', 'DESC')->get();
                 return view("adminSubscription.index", compact('user'));
             } else if ($type == 'paid') {
-                $paiduser = User::join('razorpays', 'razorpays.user_id', '=', 'users.id')
-                    ->where('package', '!=', 'FREE')
-                    ->get(['users.*', 'razorpays.payment_id']);
+                // $paiduser = User::join('razorpays', 'razorpays.user_id', '=', 'users.id')
+                //     ->where('package', '!=', 'FREE')
+                //     ->get(['users.*', 'razorpays.payment_id']);
+                $paiduser = User::with('razor')->orderBy('id', 'DESC')->where('package', '!=', 'FREE')->get();
                 return view("adminSubscription.index", compact('paiduser'));
             } else {
-                $user = User::where('package', '=', 'FREE')->get();
+                $user = User::where('package', '=', 'FREE')->orderBy('id', 'DESC')->get();
                 return view("adminSubscription.index", compact('user'));
             }
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
+            throw $th;
+            // return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }
+    }
+    public function updateStatus(Request $request, $id)
+    {
+        // Find the user by ID
+        $user = User::findOrFail($id);
+
+        // Update the user status based on the current status
+        $user->status = $user->status === 'Active' ? 'Inactive' : 'Active';
+
+        // Save the changes to the database
+        $user->save();
+
+        // Redirect back to the previous page (or any other response)
+        return back()->with('success', 'User status updated successfully.');
     }
 
     public function create()

@@ -273,6 +273,9 @@ Route::get('/influencer-campaign-list/{id?}', [ApiController::class, 'campaignAp
 Route::post('/influencer-campaign-content-store', [ApiController::class, 'addContentforCampaign']);
 Route::get('/influencer-campaign-content-view/{id?}', [ApiController::class, 'influencerContentforCampaignView']);
 
+// followed Step by influencer
+Route::get('/influencer-campaign-stepList/{campaignId?}', [ApiController::class, 'stepList']);
+Route::post('/influencer-campaign-step', [ApiController::class, 'followedStep']);
 
 // Brand
 
@@ -291,6 +294,9 @@ Route::get('/brand-campaign-step-list/{userId?}', [ApiController::class, 'brandC
 Route::post('/brand-campaign-step-store', [ApiController::class, 'brandCampainStepStore']);
 Route::post('/brand-campaign-step-edit/{id?}', [ApiController::class, 'brandCampainStepEdit']);
 Route::get('/brand-campaign-step-delete/{id?}', [ApiController::class, 'brandCampainStepDelete']);
+
+// influencer followed steps
+Route::get('/influencer-steps/{campaignId?}/{influencerId?}', [ApiController::class, 'influencerFollowedSteps']);
 
 
 // brand campaign appliers

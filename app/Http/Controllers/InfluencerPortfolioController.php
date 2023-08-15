@@ -12,7 +12,7 @@ class InfluencerPortfolioController extends Controller
     public function index()
     {
         try {
-            $portfolio = InfluencerPortfolio::all();
+            $portfolio = InfluencerPortfolio::orderBy('id', 'DESC')->get();
             return view('influencer.portfolio.index', compact('portfolio'));
         } catch (\Throwable $th) {
             //throw $th;    

@@ -45,7 +45,7 @@
 
             <div class="table-responsive" style="margin-top: 15px;">
 
-                <table id="example" class="table table-bordered table-responsive">
+                <table class="table table-bordered table-responsive">
                     <thead>
                         <tr>
                             <th> Title</th>

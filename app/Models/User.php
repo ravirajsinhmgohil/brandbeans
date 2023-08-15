@@ -29,6 +29,7 @@ class User extends Authenticatable
         'captcha',
         'refer',
         'myrefer',
+        'status',
     ];
 
     /**
@@ -76,5 +77,15 @@ class User extends Authenticatable
     public function content()
     {
         return $this->hasMany(CheckApply::class, 'userId', 'id');
+    }
+
+    public function razor()
+    {
+        return $this->hasMany(Razorpay::class, 'user_id', 'id');
+    }
+
+    public function package()
+    {
+        return $this->hasMany(Subscriptionpackage::class, 'title', 'package');
     }
 }
