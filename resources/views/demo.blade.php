@@ -23,7 +23,7 @@
 
         /* .modal-backdrop.show {
 
-                                                            } */
+                                                                } */
         .dialogmodel1 {
             margin-top: 100px;
         }
@@ -765,7 +765,7 @@
             //     window.location.href = mailToLink;
             // });
             $('#shareWithWhatsapp').click(function() {
-                var win = window.open('https://wa.me/' + copiedLink, '_blank');
+                var win = window.open('https://wa.me/send' + copiedLink, '_blank');
                 win.focus();
             });
             $(document).on('click', '.ctoCb', function() {

@@ -35,16 +35,16 @@
                 <h4 class="">User Details</h4>
             </div>
             <div class="">
-                <a href="{{ route('adminsubscription.create') }}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">ADD</a>
-                <!-- /.sub-menu -->
+                <a href="{{ route('adminsubscription.index') }}?type=free" id="sp1" class="btn btn-sm btn-danger margin-bottom-10">FREE</a>
+                <a href="{{ route('adminsubscription.index') }}?type=paid" id="sp2" class="btn btn-sm btn-success margin-bottom-10" style="margin-left: 5px; ">PAID</a>
+                <a href="{{ route('adminsubscription.index') }}" id="sp2" class="btn btn-sm margin-bottom-10" style="margin-left: 5px; ">Reset</a>
+
             </div>
+
         </div>
         <!-- /.dropdown js__dropdown -->
         <div class="card-content">
             <div class="" style="display: flex; justify-content: end;">
-                <a href="{{ route('adminsubscription.index') }}?type=free" id="sp1" class="btn btn-sm btn-danger margin-bottom-10">FREE</a>
-                <a href="{{ route('adminsubscription.index') }}?type=paid" id="sp2" class="btn btn-sm btn-primary margin-bottom-10" style="margin-left: 5px; ">PAID</a>
-                <a href="{{ route('adminsubscription.index') }}" id="sp2" class="btn btn-sm margin-bottom-10" style="margin-left: 5px; ">Reset</a>
             </div>
             <div class="table-responsive">
                 <?php

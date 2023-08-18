@@ -388,8 +388,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     // reseller passbook View
     Route::get('reseller/passbook', [ResellerController::class, 'passbook'])->name('reseller.passbook');
+    Route::get('reseller/passbook/code', [ResellerController::class, 'passbookCode'])->name('reseller.passbook.code');
     Route::get('reseller/addAmount/{userId}', [ResellerController::class, 'resellerAddAmount'])->name('reseller.addAmount');
     Route::post('resellerPackage/store', [ResellerController::class, 'resellerPackageStore'])->name('resellerPackage.store');
+    Route::get('reseller/payment/status', [ResellerController::class, 'adminPaymentStatus'])->name('reseller.admin.adminPaymentStatus');
+    Route::put('/reseller/{id}/update-status', [ResellerController::class, 'updateStatus'])->name('reseller.payment.updateStatus');
 
 
 

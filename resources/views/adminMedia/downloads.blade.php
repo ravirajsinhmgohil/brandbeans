@@ -78,7 +78,7 @@
 
             </div>
             <div class="table-responsive" style="margin-top: 15px;">
-                <table id="example" class="table table-bordered">
+                <table id="" class="table table-bordered">
                     <thead>
                         <tr>
                             <th> Category</th>

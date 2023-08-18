@@ -59,9 +59,9 @@
             <li>
                 <a class="text-white waves-effect" href="{{ route('influencer.index') }}"><span>Influencer Category</span></a>
             </li>
-            {{-- <li>
-                <a class="text-white waves-effect" href="#"><span>Influencer Category</span></a>
-            </li> --}}
+            <li>
+                <a class="text-white waves-effect" href="{{ route('reseller.admin.adminPaymentStatus') }}"><span>Reseller Payments</span></a>
+            </li>
         </ul>
     </li>
 

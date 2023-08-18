@@ -38,7 +38,7 @@
 
                                     </h4>
                                     <div class="js__card_content">
-                                        <a href="{{ route('accountpost.index') }}d">
+                                        <a href="{{ route('accountpost.index') }}?type=Paid">
                                             <span class="fs-2"> {{ $paidUsers }}</span>
                                         </a>
                                     </div>

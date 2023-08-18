@@ -61,32 +61,32 @@
                         </select>
                     </div>
 
-                    <div id="toshow" style="display: none;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <?php
-                                
-                                use Carbon\Carbon;
-                                
-                                $date = Carbon::now()->toDateString();
-                                $date1 = Carbon::now();
-                                $date1 = $date1->addDays(1)->toDateString();
-                                ?>
-                                <label for="exampleInputEmail1" class="form-label">Starting Date</label>
-                                <input type="date" style="width: 100%;" value="{{ $date }}" id="startDate" class="form-control" aria-describedby="emailHelp" name="startDate">
-                                <script>
-                                    $('#startDate').attr('min', new Date().toISOString().split('T')[0])
-                                </script>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="exampleInputEmail1" class="form-label">End Date</label>
-                                <input type="date" style="width: 100%;" class="form-control" value="{{ $date1 }}" id="endDate" aria-describedby="emailHelp" name="endDate">
-                                <script>
-                                    $('#endDate').attr('min', new Date().toISOString().split('T')[0])
-                                </script>
-                            </div>
+                    {{-- <div id="toshow" style="display: none;"> --}}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <?php
+                            
+                            use Carbon\Carbon;
+                            
+                            $date = Carbon::now()->toDateString();
+                            $date1 = Carbon::now();
+                            $date1 = $date1->addDays(1)->toDateString();
+                            ?>
+                            <label for="exampleInputEmail1" class="form-label">Starting Date</label>
+                            <input type="date" style="width: 100%;" value="{{ $date }}" id="startDate" class="form-control" aria-describedby="emailHelp" name="startDate">
+                            <script>
+                                $('#startDate').attr('min', new Date().toISOString().split('T')[0])
+                            </script>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="exampleInputEmail1" class="form-label">End Date</label>
+                            <input type="date" style="width: 100%;" class="form-control" value="{{ $date1 }}" id="endDate" aria-describedby="emailHelp" name="endDate">
+                            <script>
+                                $('#endDate').attr('min', new Date().toISOString().split('T')[0])
+                            </script>
                         </div>
                     </div>
+                    {{-- </div> --}}
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" required>

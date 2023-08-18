@@ -16,6 +16,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Twilio\Rest\Events\V1\SubscriptionPage;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class ResellerController extends Controller
@@ -44,7 +45,6 @@ class ResellerController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -53,13 +53,124 @@ class ResellerController extends Controller
         $existUser = User::where('mobileno', '=', $request->mobileno)
             ->first();
 
-        if ($existUser) {
+        if ($existUser->id) {
+            if ($existUser->hasRole('Reseller') && $existUser->hasRole('User')) {
+                return redirect()->back()->with('warning', 'This user already has a role of Reseller');
+            } else if ($existUser->hasRole('Reseller')) {
+                $this->validate($request, [
+                    'mobileno' => 'required',
+                ]);
 
-            $oldUser = User::find($existUser->id);
-            $oldUser->assignRole(['Reseller']);
-            $oldUser->save();
-            return redirect()->back()
-                ->with('success', 'Reseller created successfully');
+                try {
+                    $new_str = str_replace(' ', '', $request['name']);
+
+
+                    $existUser->assignRole(['User', 'Reseller']);
+
+                    $type = 'Individual';
+                    $card = new CardsModels();
+                    $card->user_id = $existUser->id;
+                    $cat = Category::where('name', '=', $type)->first();
+                    $cat_id = $cat->id;
+                    $card->category = $cat_id;
+                    $card->save();
+
+                    $payment = new Payment();
+                    $payment->card_id = $card->id;
+                    $payment->save();
+
+                    $links = new Links();
+                    $links->card_id  = $card->id;
+                    $links->phone1  = $request['mobileno'];
+                    $links->save();
+
+                    $id = $existUser->id;
+                    $name = $request->name;
+                    $mycode = $new_str . $name . $id;
+                    $userUpdate = User::find($id);
+                    $userUpdate->myrefer = $mycode;
+                    $userUpdate->save();
+
+                    $code = $existUser->refer;
+                    if ($code) {
+
+                        $pointableUser = User::where('myrefer', '=', $code)->first();
+
+                        $userPoint = new Point();
+                        $userPoint->userId = $pointableUser->id;
+                        $userPoint->point = 50;
+                        $userPoint->save();
+                    }
+
+                    return redirect()->back()
+                        ->with('success', 'Reseller created successfully');
+                } catch (\Throwable $th) {
+                    // throw $th;
+                    return view('servererror');
+                }
+            } else if ($existUser->hasRole('User')) {
+                $oldUser = User::find($existUser->id);
+                $oldUser->assignRole(['Reseller']);
+                $oldUser->save();
+                return redirect()->back()
+                    ->with('success', 'Reseller created successfully');
+            } else {
+                $this->validate($request, [
+                    'mobileno' => 'required',
+                ]);
+
+                try {
+                    $new_str = str_replace(' ', '', $request['name']);
+
+                    $user = new User();
+                    $user->mobileno = $request->mobileno;
+                    $user->password = Hash::make('123456');
+                    $user->package = "FREE";
+                    $user->save();
+
+                    $user->assignRole(['Reseller', 'User']);
+                    $type = 'Individual';
+                    $card = new CardsModels();
+                    $card->user_id = $user->id;
+                    $cat = Category::where('name', '=', $type)->first();
+                    $cat_id = $cat->id;
+                    $card->category = $cat_id;
+                    $card->save();
+
+                    $payment = new Payment();
+                    $payment->card_id = $card->id;
+                    $payment->save();
+
+                    $links = new Links();
+                    $links->card_id  = $card->id;
+                    $links->phone1  = $request['mobileno'];
+                    $links->save();
+
+                    $id = $user->id;
+                    $name = $request->name;
+                    $mycode = $new_str . $name . $id;
+                    $userUpdate = User::find($id);
+                    $userUpdate->myrefer = $mycode;
+                    $userUpdate->save();
+
+                    $code = $user->refer;
+                    if ($code) {
+
+                        $pointableUser = User::where('myrefer', '=', $code)->first();
+
+                        $userPoint = new Point();
+                        $userPoint->userId = $pointableUser->id;
+                        $userPoint->point = 50;
+                        $userPoint->save();
+                    }
+
+                    return redirect()->back()
+                        ->with('success', 'Reseller created successfully');
+                } catch (\Throwable $th) {
+                    // throw $th;
+                    return view('servererror');
+                }
+            }
         } else {
 
             $this->validate($request, [
@@ -74,7 +185,6 @@ class ResellerController extends Controller
                 $user->password = Hash::make('123456');
                 $user->package = "FREE";
                 $user->save();
-
 
                 $user->assignRole(['Reseller', 'User']);
                 $type = 'Individual';
@@ -117,7 +227,6 @@ class ResellerController extends Controller
             } catch (\Throwable $th) {
                 // throw $th;
                 return view('servererror');
-                // return view("adminCategory.index", compact('category'));
             }
         }
     }
@@ -132,7 +241,6 @@ class ResellerController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -154,7 +262,6 @@ class ResellerController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -167,7 +274,6 @@ class ResellerController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -192,9 +298,8 @@ class ResellerController extends Controller
 
             return view('reseller.user.index', compact('user'));
         } catch (\Throwable $th) {
-            throw $th;
-            // return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            // throw $th;
+            return view('servererror');
         }
     }
 
@@ -209,7 +314,6 @@ class ResellerController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -230,10 +334,17 @@ class ResellerController extends Controller
             $user->password = Hash::make('123456');
             $user->package = $request->package;
             $user->save();
-
-
-
             $user->assignRole(['User']);
+
+            $userPackage = Subscriptionpackage::where('title', 'like', '%' . $user->package . '%')->first();
+            $passbook  = new Passbook();
+            $passbook->userId = $user->id;
+            $passbook->mobileNumber = $user->mobileno;
+            $passbook->package = $userPackage->id;
+            $passbook->status = "Pending";
+            $passbook->date = Carbon::now()->toDateString();
+            $passbook->save();
+
             $type = 'Individual';
             $card = new CardsModels();
             $card->user_id = $user->id;
@@ -250,7 +361,6 @@ class ResellerController extends Controller
             $links->card_id  = $card->id;
             $links->phone1  = $request['mobileno'];
             $links->save();
-
 
             $id = $user->id;
             $name = $request->name;
@@ -275,7 +385,6 @@ class ResellerController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -289,7 +398,6 @@ class ResellerController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -313,7 +421,6 @@ class ResellerController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -328,36 +435,118 @@ class ResellerController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
-    public function passbook()
+    public function passbook(Request $request)
     {
-        $passbook  = Passbook::all();
-        return view('reseller.passbook', \compact('passbook'));
+        try {
+            $userId = Auth::user()->id;
+
+            $type = $request->type;
+            if ($type == 'Pending') {
+                $passbook  = Passbook::where('status', '=', 'Pending')->where('resellerId', '=', $userId)->get();
+            } else if ($type == 'Paid') {
+                $passbook  = Passbook::where('status', '=', 'Paid')->where('resellerId', '=', $userId)->get();
+            } else {
+                $passbook  = Passbook::where('resellerId', '=', $userId)->get();
+            }
+            return view('reseller.passbook', \compact('passbook'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+        }
+    }
+    public function passbookCode(Request $request)
+    {
+        try {
+            $selectedUsers = $request->input('selectedUsers');
+            if (isset($selectedUsers)) {
+
+                foreach ($selectedUsers as $selectedUsersData) {
+                    $data = Passbook::where('id', '=', $selectedUsersData)->first();
+
+                    $data->status = "Paid";
+                    $data->save();
+                }
+            } else {
+                return redirect()->back()->with('warning', 'Select atleast one checkbox ');
+            }
+            return redirect()->back()->with('success', 'Payment Successful');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+        }
     }
 
 
     public function resellerAddAmount($userId)
     {
-        $package = Subscriptionpackage::all();
-        return view('reseller.addAmount', \compact('userId', 'package'));
+        try {
+            $package = Subscriptionpackage::all();
+            return view('reseller.addAmount', \compact('userId', 'package'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+        }
     }
     public function resellerPackageStore(Request $request)
     {
-        $userId = $request->userId;
-        $packageId = $request->packageId;
-        $amount = $request->amount;
-        for ($i = 0; $i < count($packageId); $i++) {
-            $rePackage = new ResellerPackage();
-            $rePackage->userId = $userId;
-            $rePackage->packageId = $packageId[$i];
-            $rePackage->amount = $amount[$i];
-            $rePackage->save();
+        try {
+            $this->validate($request, [
+                'packageId' => 'required',
+            ]);
+            $userId = $request->userId;
+            $packageId = $request->packageId;
+            $amount = $request->amount;
+            for ($i = 0; $i < count($packageId); $i++) {
+                $rePackage = new ResellerPackage();
+                $rePackage->userId = $userId;
+                $rePackage->packageId = $packageId[$i];
+                if ($request->amount)
+                    $rePackage->amount = $amount[$i];
+                else
+                    $rePackage->amount = '0';
+
+                $rePackage->save();
+            }
+
+
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
         }
+    }
 
+    public function adminPaymentStatus()
+    {
+        try {
+            $passbook = Passbook::all();
+            return view('reseller.adminPaymentView', \compact('passbook'));
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+        }
+    }
 
-        return redirect()->back();
+    public function updateStatus($id)
+    {
+        try {
+            // Find the user by ID
+            $user = Passbook::findOrFail($id);
+
+            // Update the user status based on the current status
+            $user->status = $user->status === 'Paid' ? 'Pending' : 'Paid';
+
+            // Save the changes to the database
+            $user->save();
+
+            // Redirect back to the previous page (or any other response)
+            return back()->with('success', 'Reseller Payment status updated successfully.');
+        } catch (\Throwable $th) {
+            //throw $th;    
+            return view('servererror');
+        }
     }
 }
