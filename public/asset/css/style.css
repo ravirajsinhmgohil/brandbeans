@@ -28,7 +28,7 @@ nav li a:hover {
     /* height: 100%; */
 }
 
-i {
+.color {
     color: #00b9f0;
 }
 
@@ -109,4 +109,153 @@ a {
 
 .footer-logo {
     width: 45%;
+}
+
+
+/* influencer */
+
+.backgroundColor {
+    background-color: #eef0f2;
+}
+
+.blueFont {
+    color: #012e6f !important;
+}
+
+.lightBlueFont {
+    color: #00b9f0 !important;
+}
+
+hr.hr {
+    border: 2px solid #00b9f0;
+    opacity: 1;
+    width: 100%;
+}
+
+
+
+/* influencer Category Slider */
+
+.wrapper .tabs-box {
+    display: flex;
+    gap: 12px;
+    list-style: none;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.tabs-box.dragging {
+    scroll-behavior: auto;
+    cursor: grab;
+}
+
+.tabs-box .tab {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+    background: #f5f4fd;
+    padding: 13px 20px;
+    border-radius: 10px;
+    border: 1px solid #00b9f0;
+    user-select: none;
+}
+
+.tabs-box .tab:hover {
+    background: #efedfb;
+}
+
+.tabs-box.dragging .tab {
+    user-select: none;
+    pointer-events: none;
+}
+
+.tabs-box .tab.active {
+    color: #fff;
+    background: #00b9f0;
+    border-color: #00b9f0;
+}
+
+
+/* End */
+
+
+
+.image {
+    width: 100%;
+    height: 350px;
+    border-radius: 25px;
+    /* aspect-ratio: 3/4;
+    object-fit: contain; */
+    /* background-color: red; */
+}
+
+.card {
+    width: 100%;
+}
+
+.box {
+    border-radius: 25px;
+    padding: 3%;
+}
+
+.bg-orange {
+    background-color: #ea9659;
+    color: #fff;
+}
+
+.fontBrown {
+    color: #675959;
+}
+
+.circleOrange {
+    width: 100%;
+    height: 0;
+    padding: 50% 0;
+    border-radius: 50%;
+    box-shadow: 2px 2px 25px #ea9659;
+    background: #ea9659;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circleBlue {
+    width: 100%;
+    height: 0;
+    padding: 50% 0;
+    border-radius: 50%;
+    box-shadow: 2px 2px 25px #00b9f0;
+    background: #00b9f0;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circlePink {
+    width: 100%;
+    height: 0;
+    padding: 50% 0;
+    border-radius: 50%;
+    box-shadow: 2px 2px 25px #dc8484;
+    background: #dc8484;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circlePurple {
+    width: 100%;
+    height: 0;
+    padding: 50% 0;
+    border-radius: 50%;
+    box-shadow: 2px 2px 25px #848cdc;
+    background: #848cdc;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

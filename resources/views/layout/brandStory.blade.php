@@ -22,13 +22,7 @@
     <!-- Header -->
     @include('layout.header')
 
-
-
-    <div class="container">
-        @yield('content')
-    </div>
-
-    @include('layout.landingPageHome')
+    brand story content
 
     @include('layout.footer')
 

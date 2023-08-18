@@ -91,4 +91,13 @@ class HomeController extends Controller
             // return view("adminCategory.index", compact('category'));
         }
     }
+
+    public function influencer()
+    {
+        return view('layout.influencer');
+    }
+    public function brandStory()
+    {
+        return view('layout.brandStory');
+    }
 }

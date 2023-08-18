@@ -78,8 +78,11 @@ use App\Http\Controllers\WritersloganController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/influencer', [HomeController::class, 'influencer'])->name('main.influencer');
+Route::get('/brand-story', [HomeController::class, 'brandStory'])->name('main.brandStory');
 
 Auth::routes();
+
 
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
