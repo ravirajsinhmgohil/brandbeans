@@ -11,7 +11,7 @@ header {
     left: 0;
     background-color: #fff;
     z-index: 100;
-    height: 95px;
+    /* height: 95px; */
     width: 100%;
 }
 
@@ -258,4 +258,214 @@ hr.hr {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+
+/* brand-story */
+
+/* image grid css */
+.card-grid {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.cards {
+    /* margin: 1rem; */
+    border-radius: 2%;
+    max-width: 300px;
+    width: 300px;
+    height: min-content;
+
+    img {
+        border-radius: 2% 2% 0 0;
+    }
+
+    .header a {
+        color: #707070;
+    }
+}
+
+.text-muted {
+    font-weight: 400;
+    font-style: italic;
+}
+
+a {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.card-body span.arrow:after {
+    font-family: 'FontAwesome';
+    content: "\f106";
+    vertical-align: middle;
+
+}
+
+
+.card-body .collapsed span.arrow:after {
+    font-family: 'FontAwesome';
+    content: "\f107";
+    vertical-align: middle;
+}
+
+.container strong {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+@media only screen and (max-width:520px) {
+    .card-body .footer {
+        font-size: 12.5px !important;
+    }
+
+}
+
+.card .grid-sizer {
+    width: 20%;
+}
+
+/* end */
+
+
+.backImage {
+    background-image: url('../../influencerPage/abs.jpg');
+    background-color: #cccccc;
+    height: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+span {
+    text-transform: uppercase;
+}
+
+
+/* box on image css */
+
+
+
+.title-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
+
+}
+
+/* Style the title and the image appearing behind the words */
+.effect {
+    width: 120px;
+    height: 150px;
+    background: rgba(10, 198, 235, 0.733);
+    backdrop-filter: blur(5px);
+    /* border-radius: 40px; */
+    z-index: 1;
+
+    border-radius: 5px 40px 40px 5px;
+    border-width: 10px 10px 10px 10px;
+}
+
+/* .effect:hover {
+    width: 150px;
+    height: 180px;
+    background: rgba(10, 198, 235, 0.733);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+    color: white;
+
+    border-radius: 5px 40px 40px 5px;
+    border-width: 10px 10px 10px 10px; 
+}
+*/
+
+.effect:before {
+    width: 100px;
+    height: 130px;
+    background: rgba(10, 197, 235, 0.25);
+    backdrop-filter: blur(5px);
+    /* border-radius: 40px; */
+    z-index: 1;
+
+    border-radius: 0 12.5px 12.5px 0;
+    left: -10px;
+    top: -10px;
+}
+
+/* .effect:before:hover {
+    width: 120px;
+    height: 130px;
+    background: rgba(10, 197, 235, 0.25);
+    backdrop-filter: blur(5px);
+  
+z-index: 1;
+
+border-radius: 0 12.5px 12.5px 0;
+left: -10px;
+top: -10px;
+}
+
+*/
+.effect:after {
+    width: 100px;
+    height: 130px;
+    background: rgba(10, 197, 235, 0.25);
+    backdrop-filter: blur(5px);
+    border-radius: 40px;
+    z-index: 1;
+
+    border-radius: 0 12.5px 12.5px 0;
+    left: -10px;
+    bottom: -10px;
+}
+
+
+.image_wrapper {
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 30%;
+    left: 35%;
+
+}
+
+
+#letter-b {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-width: 10px 10px 10px 10px;
+    border-style: solid;
+    border-color: transparent transparent transparent red;
+    background: transparent;
+}
+
+#letter-b::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    width: 100px;
+    height: 130px;
+    background: transparent;
+    border-radius: 0 12.5px 12.5px 0;
+    border: 10px solid red;
+}
+
+#letter-b::after {
+    content: "";
+    position: absolute;
+    left: -10px;
+    bottom: -10px;
+    width: 100px;
+    height: 130px;
+    background: transparent;
+    border-radius: 0 12.5px 12.5px 0;
+    border: 10px solid red;
 }

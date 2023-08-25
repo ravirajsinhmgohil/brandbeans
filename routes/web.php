@@ -48,6 +48,7 @@ use App\Http\Controllers\DesignController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\InfluencerController;
 use App\Http\Controllers\InfluencerPortfolioController;
+use App\Http\Controllers\InfluencerPackagesController;
 use App\Http\Controllers\InfluencerStepController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\OfferController;
@@ -78,8 +79,8 @@ use App\Http\Controllers\WritersloganController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/influencer', [HomeController::class, 'influencer'])->name('main.influencer');
-Route::get('/brand-story', [HomeController::class, 'brandStory'])->name('main.brandStory');
+Route::get('/influencer', [HomepageController::class, 'influencer'])->name('main.influencer');
+Route::get('/brand-story', [HomepageController::class, 'brandStory'])->name('main.brandStory');
 
 Auth::routes();
 
@@ -312,6 +313,8 @@ Route::group(['middleware' => ['auth']], function () {
     // Influencer
     // influencer category
     Route::get('influencer/category/index', [CategoryInfluencerController::class, 'index'])->name('influencer.index');
+    Route::get('influencer/list', [CategoryInfluencerController::class, 'list'])->name('influencer.list');
+    Route::get('influencer/singleView/{id?}', [CategoryInfluencerController::class, 'singleView'])->name('influencer.singleView');
     Route::get('influencer/category/create', [CategoryInfluencerController::class, 'create'])->name('influencer.create');
     Route::post('influencer/category/store', [CategoryInfluencerController::class, 'store'])->name('influencer.store');
     Route::get('influencer/category/edit/{id?}', [CategoryInfluencerController::class, 'edit'])->name('influencer.edit');
@@ -342,7 +345,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('influencer/portfolio/update', [InfluencerPortfolioController::class, 'update'])->name('influencer.portfolio.update');
     Route::get('influencer/portfolio/delete/{id?}', [InfluencerPortfolioController::class, 'delete'])->name('influencer.portfolio.delete');
 
-    // 
+    // influencer packages
+    Route::get('influencer/package/index', [InfluencerPackagesController::class, 'index'])->name('influencer.package.index');
+    Route::get('influencer/package/create', [InfluencerPackagesController::class, 'create'])->name('influencer.package.create');
+    Route::post('influencer/package/store', [InfluencerPackagesController::class, 'store'])->name('influencer.package.store');
+    Route::get('influencer/package/edit/{id?}', [InfluencerPackagesController::class, 'edit'])->name('influencer.package.edit');
+    Route::post('influencer/package/update', [InfluencerPackagesController::class, 'update'])->name('influencer.package.update');
+    Route::get('influencer/package/delete/{id?}', [InfluencerPackagesController::class, 'destroy'])->name('influencer.package.delete');
+    Route::get('influencer/package', [InfluencerPackagesController::class, 'packageView'])->name('influencer.packages');
+
+
 
     // Brand
     // campaign

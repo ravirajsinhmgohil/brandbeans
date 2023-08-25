@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoryInfluencer;
 use App\Http\Controllers\Controller;
+use App\Models\InfluencerProfile;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CategoryInfluencerController extends Controller
@@ -12,6 +14,7 @@ class CategoryInfluencerController extends Controller
     {
         try {
             $influencerCategory = CategoryInfluencer::orderBy('id', 'DESC')->get();
+
             return view('influencer.category.index', \compact('influencerCategory'));
         } catch (\Throwable $th) {
             //throw $th;    
@@ -53,9 +56,24 @@ class CategoryInfluencerController extends Controller
         }
     }
 
-    public function show()
+    public function list()
     {
-        //
+        $influencer = User::whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Influencer');
+            }
+        )->get();
+        return view('influencer.list', \compact('influencer'));
+    }
+    public function singleView($id)
+    {
+        $profile = InfluencerProfile::with('profile')
+            ->with('incategory')
+            ->where('userId', '=', $id)
+            ->orderBy('id', 'DESC')
+            ->first();
+        return view('influencer.listView', \compact('profile'));
     }
 
     public function edit($id)

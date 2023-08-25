@@ -255,9 +255,11 @@ class InfluencerController extends Controller
                     $userData->mobileno = $mobileno;
                     $userData->assignRole(['Influencer', 'User']);
                     $userData->save();
-                    return redirect('login');
+                    Auth::login($userData);
+                    return redirect('dashboard');
                 }
-                return redirect('login');
+                Auth::login($userData);
+                return redirect('dashboard');
             } else {
                 $this->validate($request, [
                     'name' => 'required',
@@ -301,8 +303,8 @@ class InfluencerController extends Controller
                 $links->card_id  = $card->id;
                 $links->phone1  = $user->mobileno;
                 $links->save();
-
-                return redirect('login');
+                Auth::login($user);
+                return redirect('dashboard');
             }
         } catch (\Throwable $th) {
             //throw $th;    

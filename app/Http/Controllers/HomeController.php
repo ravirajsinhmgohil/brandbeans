@@ -92,12 +92,5 @@ class HomeController extends Controller
         }
     }
 
-    public function influencer()
-    {
-        return view('layout.influencer');
-    }
-    public function brandStory()
-    {
-        return view('layout.brandStory');
-    }
+ 
 }

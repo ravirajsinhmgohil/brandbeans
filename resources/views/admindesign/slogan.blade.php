@@ -37,12 +37,39 @@
         </div>
         <!-- /.dropdown js__dropdown -->
         <div class="card-content">
-            <div class="d-flex justify-content-end" style="display: flex; justify-content:end;">
+            <div class="bg-light" style="display: flex; justify-content:space-between; padding: 20px; border: 1px solid #dddddd;">
 
-                <a href="{{ route('adminslogan.adminslogan') }}?type=Approved" id="sp1" class="btn btn-sm btn-success" style="margin-right: 5px;">Approved</a>
-                <a href="{{ route('adminslogan.adminslogan') }}?type=Pending" id="sp2" class="btn btn-sm btn-primary" style="margin-right: 5px;">Pending</a>
-                <a href="{{ route('adminslogan.adminslogan') }}?type=Rejected" id="sp2" class="btn btn-sm btn-danger" style="margin-right: 5px;">Rejected</a>
-                <a href="{{ route('adminslogan.adminslogan') }}" id="sp2" class="btn btn-sm btn-secondary" style="margin-right: 5px;">Reset</a>
+                <form action="{{ route('adminslogan.adminslogan') }}" method="get">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <label for="">
+                                Category
+                                <select name="category" class="form-control input-sm" width="100%" id="dropdown">
+                                    <option selected disabled>--Search By Category Name--</option>
+                                    @foreach ($category as $category)
+                                        <option>{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">
+                                Enter Name
+                                <input type="text" placeholder="Search By User Name" name="userName" class="form-control input-sm">
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" type="submit" value="filter" name="submit">Filter</button>
+                </form>
+                <div class="" style="padding-top: 50px;">
+                    <a href="{{ route('adminslogan.adminslogan') }}?type=Approved" id="sp1" class="btn btn-sm btn-success" style="margin-right: 5px;">Approved</a>
+                    <a href="{{ route('adminslogan.adminslogan') }}?type=Pending" id="sp2" class="btn btn-sm btn-primary" style="margin-right: 5px;">Pending</a>
+                    <a href="{{ route('adminslogan.adminslogan') }}?type=Rejected" id="sp2" class="btn btn-sm btn-danger" style="margin-right: 5px;">Rejected</a>
+                    <a href="{{ route('adminslogan.adminslogan') }}" id="sp2" class="btn btn-sm btn-secondary" style="margin-right: 5px;">Reset</a>
+                </div>
 
             </div>
             <div class="table-responsive">

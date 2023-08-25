@@ -238,6 +238,341 @@
 
 
 
+        <div class="p-3">
+            our creator section
+        </div>
+
+        <div class="row text-center">
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 image_wrapper">
+                <img src="{{ asset('influencerPage/1.png') }}" alt="image">
+                <div class="overlay">
+                    <div class="effect fs-9">
+                        <small>Fashion</small>
+                        <small>
+                            <div class="d-flex justify-content-between pt-2">
+                                <small>
+                                    5.5M
+                                    Follower
+                                </small>
+                                <small>
+                                    3.1M
+                                    Follower
+                                </small>
+                            </div>
+                        </small>
+                        <small class="pt-3">
+                            <small>14.6% <br>
+                                Engagement <br>
+                                Rate</small>
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="">
+            <img src="{{ asset('influencerPage/small-banner.png') }}" class="w-100" alt="banner">
+            <div class="overlay">
+                <div class="effect fs-9">
+                    <small>Fashion</small>
+                    <small>
+                        <div class="d-flex justify-content-between pt-2">
+                            <small>
+                                5.5M
+                                Follower
+                            </small>
+                            <small>
+                                3.1M
+                                Follower
+                            </small>
+                        </div>
+                    </small>
+                    <small class="pt-3">
+                        <small>14.6% <br>
+                            Engagement <br>
+                            Rate</small>
+                    </small>
+                </div>
+            </div>
+        </div>
 
     </div>
     @include('layout.footer')

@@ -88,4 +88,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subscriptionpackage::class, 'title', 'package');
     }
+
+    public function influencerPackage()
+    {
+        return $this->hasMany(InfluencerPackages::class, 'userId', 'id');
+    }
 }

@@ -69,6 +69,10 @@ class AccountpostController extends Controller
         $card = CardsModels::join('admincategories', 'admincategories.id', '=', 'cards.category')
             ->where('user_id', '=', $id)
             ->first(['cards.*', 'admincategories.name as categoryName']);
+        $countCard = CardsModels::join('admincategories', 'admincategories.id', '=', 'cards.category')
+            ->where('user_id', '=', $id)
+            ->count();
+
 
         $totalDownload = Mymedia::where('userId', '=', $id)->count();
         $media = Mymedia::select('date', DB::raw('count(*) as total'))
@@ -77,7 +81,7 @@ class AccountpostController extends Controller
             ->where('userId', '=', $id)
             ->get();
         // $media = Mymedia::orderBy('date')->get();
-        return view('adminAccountPost.show', \compact('user', 'card', 'media', 'totalDownload'));
+        return view('adminAccountPost.show', \compact('user', 'card', 'media', 'totalDownload', 'countCard'));
     }
 
     public function edit($id)

@@ -38,6 +38,7 @@ class TemplateDetailController extends Controller
             'width' => 'required',
             'fontSize' => 'required',
             'textColor' => 'required',
+            'textWidth' => 'required',
         ]);
 
         try {
@@ -54,6 +55,7 @@ class TemplateDetailController extends Controller
             $template->width = $request->width;
             $template->fontSize = $request->fontSize;
             $template->textColor = $request->textColor;
+            $template->textWidth = $request->textWidth;
             $template->save();
             return redirect()->back()->with('success', 'Added successfully');
         } catch (\Throwable $th) {
@@ -83,6 +85,7 @@ class TemplateDetailController extends Controller
             'width' => 'required',
             'fontSize' => 'required',
             'textColor' => 'required',
+            'textWidth' => 'required',
         ]);
 
         try {
@@ -101,6 +104,7 @@ class TemplateDetailController extends Controller
             $template->width = $request->width;
             $template->fontSize = $request->fontSize;
             $template->textColor = $request->textColor;
+            $template->textWidth = $request->textWidth;
             $template->save();
             return redirect()->back()->with('success', 'Update successfully');
         } catch (\Throwable $th) {

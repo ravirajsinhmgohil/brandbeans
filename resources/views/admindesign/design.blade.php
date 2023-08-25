@@ -33,25 +33,52 @@
         <!-- /.box-title -->
         <div class="" style="padding: 12px 10px 12px 10px; display: flex; justify-content: space-between; background-color: #03ACF0; color:white;">
             <div class="">
-                <h4 class="">Slogans</h4>
+                <h4 class="">Designs</h4>
             </div>
         </div>
         <!-- /.dropdown js__dropdown -->
         <div class="card-content">
+            <div class="" style="display: flex; justify-content:space-between;">
 
-            <div class="d-flex justify-content-end" style="display: flex; justify-content:end;">
+                <form action="{{ route('adminslogan.adminslogan') }}" method="get">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6">
 
-                <a href="{{ route('admindesign.admindesign') }}?type=Approved" id="sp1" class="btn btn-sm btn-success" style="margin-right: 5px;">Approved</a>
-                <a href="{{ route('admindesign.admindesign') }}?type=Pending" id="sp2" class="btn btn-sm btn-primary" style="margin-right: 5px;">Pending</a>
-                <a href="{{ route('admindesign.admindesign') }}?type=Rejected" id="sp2" class="btn btn-sm btn-danger" style="margin-right: 5px;">Rejected</a>
-                <a href="{{ route('admindesign.admindesign') }}" id="sp2" class="btn btn-sm btn-secondary" style="margin-right: 5px;">Reset</a>
+                            <label for="">
+                                Category
+                                <select name="category" class="form-control input-sm" width="100%" id="dropdown">
+                                    <option selected disabled>--Search By Category Name--</option>
+                                    @foreach ($category as $category)
+                                        <option>{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
 
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">
+                                Enter Name
+                                <input type="text" placeholder="Search By User Name" name="userName" class="form-control input-sm">
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" type="submit" value="filter" name="submit">Filter</button>
+                </form>
+                <div class="d-flex justify-content-end">
+
+                    <a href="{{ route('admindesign.admindesign') }}?type=Approved" id="sp1" class="btn btn-sm btn-success" style="margin-right: 5px;">Approved</a>
+                    <a href="{{ route('admindesign.admindesign') }}?type=Pending" id="sp2" class="btn btn-sm btn-primary" style="margin-right: 5px;">Pending</a>
+                    <a href="{{ route('admindesign.admindesign') }}?type=Rejected" id="sp2" class="btn btn-sm btn-danger" style="margin-right: 5px;">Rejected</a>
+                    <a href="{{ route('admindesign.admindesign') }}" id="sp2" class="btn btn-sm btn-secondary" style="margin-right: 5px;">Reset</a>
+
+                </div>
             </div>
             <div class="table-responsive">
 
                 <div class="table-responsive" style="margin-top: 15px;">
 
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-bordered ">
                         <thead>
                             <tr>
                                 <th> Media Type</th>
@@ -102,11 +129,11 @@
 
                                     @if ($data->status != 'Approved')
                                         <td>
-                                            <a href="{{ route('admindesign.approve') }}/{{ $data->id }}" class="btn btn-success btn-sm" name="Approve" value="Approve">Approve</a>
+                                            <a href="{{ route('admindesign.approve') }}/{{ $data->id }}" class="btn btn-success btn-xs" name="Approve" value="Approve">Approve</a>
                                             <form action="{{ route('admindesign.reject') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="designId" value="{{ $data->id }}">
-                                                <button class="btn btn-danger btn-sm" name="Reject" value="Reject" type="submit" onclick="return confirm('Do you really want to Reject?')">Reject</button>
+                                                <button class="btn btn-danger btn-xs" name="Reject" value="Reject" type="submit" onclick="return confirm('Do you really want to Reject?')">Reject</button>
                                             </form>
                                         </td>
                                     @endif

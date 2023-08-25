@@ -13,7 +13,7 @@
 
     <!-- Main Styles -->
     <link rel="stylesheet" href="{{ asset('assets/styles/style.min.css') }}">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"> -->
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"> --}}
 
     <!-- bootstrap 5 css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugin/sweet-alert/sweetalert.css') }}">
 
     <!-- Percent Circle -->
-    <link rel="stylesheet" href="{{ asset('assets/plugin/percircle/css/percircle.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/plugin/percircle/css/percircle.css') }}">
 
     <!-- Chartist Chart -->
     <link rel="stylesheet" href="{{ asset('assets/plugin/chart/chartist/chartist.min.css') }}">
@@ -48,15 +48,15 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 
     <!-- Remodal -->
-    <link rel="stylesheet" href="{{ asset('assets/plugin/modal/remodal/remodal.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/plugin/modal/remodal/remodal-default-theme.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/plugin/modal/remodal/remodal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugin/modal/remodal/remodal-default-theme.css') }}">
 
 
     <!-- drop down  -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Toastr -->
-    <link rel="stylesheet" href="{{ asset('assets/plugin/toastr/toastr.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/plugin/toastr/toastr.css') }}">
 
 
 </head>
@@ -64,7 +64,7 @@
 <body>
     <div class="main-menu" style="background-color: #03ACF0;">
         <header class="header" style="background-color: #03ACF0;">
-            <a href="{{ url('/home') }}" style="background-color: white;" class="logo"><img src="{{ asset('asset/img/logo.png') }}" style="width:150px" class="img-fluid" /></a>
+            <a href="{{ url('/home') }}" style="background-color: white;" class="logo"><img src="{{ asset('asset/img/logo.png') }}" style="width:150px" class="img-fluid" />a</a>
             <button type="button" class="button-close fa fa-times js__menu_close" style="color: #03ACF0;"></button>
             <div class="user">
                 <h5 class="name"><a class="text-white fs-3" href="#">{{ Auth::user()->name }}</a></h5>
@@ -157,7 +157,7 @@
     <!-- -------------------- -->
 
     <!-- Full Screen Plugin -->
-    <script src="{{ asset('assets/plugin/fullscreen/jquery.fullscreen-min.js')}}"></script>
+    <script src="{{ asset('assets/plugin/fullscreen/jquery.fullscreen-min.js') }}"></script>
 
     <!-- Dropify -->
     <script src="{{ asset('assets/plugin/dropify/js/dropify.min.js') }}"></script>
@@ -166,11 +166,11 @@
     <script src="{{ asset('assets/scripts/main.min.js') }}"></script>
 
     <!-- Remodal -->
-    <script src="{{ asset('assets/plugin/modal/remodal/remodal.min.js')}}"></script>
+    <script src="{{ asset('assets/plugin/modal/remodal/remodal.min.js') }}"></script>
 
     <!-- Toastr -->
-    <script src="{{ asset('assets/plugin/toastr/toastr.min.js')}}"></script>
-    <script src="{{ asset('assets/scripts/toastr.demo.min.js')}}"></script>
+    <script src="{{ asset('assets/plugin/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('assets/scripts/toastr.demo.min.js') }}"></script>
 
     <!-- Bootstrap CDN -->
     <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>

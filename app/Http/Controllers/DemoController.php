@@ -210,7 +210,6 @@ class DemoController extends Controller
             $details->save();
 
             $user = User::find($id);
-            $user->mobileno = $request->mobileno;
             $user->username = $request->username;
 
             $image = $request->profilePhoto;
@@ -219,12 +218,12 @@ class DemoController extends Controller
                 $request->profilePhoto->move(public_path('profile'), $user->profilePhoto);
             }
             $user->save();
-            
+
             $influencerCategory = $request->categoryId;
-            $categoryData = implode(",", $influencerCategory);
+            // $categoryData = implode(",", $influencerCategory);
 
             $influencer = InfluencerProfile::where('userId', '=', $id)->first();
-            $influencer->categoryId = $categoryData;
+            $influencer->categoryId = $influencerCategory;
             $influencer->address = $request->address;
             $influencer->contactNo = $user->mobileno;
             $influencer->publicLocation = $request->publicLocation;

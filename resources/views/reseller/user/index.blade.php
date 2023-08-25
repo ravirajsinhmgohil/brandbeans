@@ -39,6 +39,7 @@
                     <table id="example" class="table table-bordered table-responsive">
                         <thead>
                             <tr>
+                                <th>Name</th>
                                 <th> Mobile No</th>
                                 <th> Package</th>
                                 <th> Option</th>
@@ -47,6 +48,7 @@
                         <tbody>
                             @foreach ($user as $user)
                                 <tr>
+                                    <td>{{ $user->name }}</td>
                                     <td>{{ $user->mobileno }}</td>
 
                                     <td width="40%">{{ $user->title }}

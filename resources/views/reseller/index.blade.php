@@ -39,6 +39,7 @@
                     <table id="example" class="table table-bordered table-responsive">
                         <thead>
                             <tr>
+                                <th> Name</th>
                                 <th> Mobile No</th>
                                 <th> Option</th>
                             </tr>
@@ -46,6 +47,7 @@
                         <tbody>
                             @foreach ($reseller as $reseller)
                                 <tr>
+                                    <td>{{ $reseller->name }}</td>
                                     <td>{{ $reseller->mobileno }}</td>
                                     <td>
                                         <a class="btn btn-success btn-sm" href="{{ route('reseller.edit', $reseller->id) }}">Edit</a>

@@ -97,6 +97,11 @@
                 </div>
                 <br>
                 <div class="mb-3">
+                    <label for="" class="form-label">Text Width</label>
+                    <input type="text" class="form-control" id="textWidth" name="textWidth" require>
+                </div>
+                <br>
+                <div class="mb-3">
                     <label for="" class="form-label">Text Color</label>
                     <input type="color" class="form-control-color" id="textColor" name="textColor" require>
                 </div>
@@ -122,6 +127,7 @@
                             <th> Height</th>
                             <th> Width</th>
                             <th> Font Size</th>
+                            <th> Text Width</th>
                             <th> Text Color</th>
                             <th> Option</th>
                         </tr>
@@ -137,6 +143,7 @@
                                 <td>{{ $template->height }}</td>
                                 <td>{{ $template->width }}</td>
                                 <td>{{ $template->fontSize }}</td>
+                                <td>{{ $template->textWidth }}</td>
                                 <td>{{ $template->textColor }}</td>
                                 <td><a class="btn btn-primary btn-sm" href="{{ route('adminTemplateDetail.edit', $template->id) }}">Edit</a>
                                     <a class="btn btn-danger btn-sm" href="{{ route('adminTemplateDetail.delete', $template->id) }}">Delete</a>
