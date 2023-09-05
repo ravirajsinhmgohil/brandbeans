@@ -80,6 +80,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/influencer', [HomepageController::class, 'influencer'])->name('main.influencer');
+Route::get('/influencer/profile/{id?}', [HomepageController::class, 'influencerProfileView'])->name('main.influencer.profile');
+
 Route::get('/brand-story', [HomepageController::class, 'brandStory'])->name('main.brandStory');
 
 Auth::routes();
@@ -428,7 +430,6 @@ Route::get('notfound', [LayoutsController::class, 'notfound'])->name('notfound')
 
 Route::get('homepage', [HomepageController::class, 'homepage'])->name('wcard.homepage');
 
-// Route::get('/home', [HomeController::class, 'home'])->name('home');
 Route::get('/home1', [HomeController::class, 'home1'])->name('layout.home');
 Route::get('/home2', [HomeController::class, 'home2'])->name('layout.home1');
 

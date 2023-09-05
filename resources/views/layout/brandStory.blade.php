@@ -39,17 +39,21 @@
             <div class="card-grid">
                 <div class="row">
                     @foreach ($story as $story)
-                        <div class="col-md-4">
-                            <div class="cards">
-                                <img src="{{ asset('storyImg') }}/{{ $story->photo }}" alt="" class="card-img-top">
+                        <div class="col-md-3  pb-3">
+                            <div class="card shadow-sm">
+                                <img src="{{ asset('storyImg') }}/{{ $story->photo }}" alt="" height="300px" class="card-img-top">
                                 <div class="card-body pt-3 pb-0">
                                     <a class="decoration-none" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                         <div class="d-flex justify-content-between headers">
                                             <h5 class="card-title">{{ $story->title }}</h5>
                                         </div>
-                                        <div class="d-flex justify-content-between">
-                                            <div class="">name</div>
-                                            <div class="">time</div>
+                                            <div class="d-flex justify-content-between">
+                                            <div class="">{{ $story->user->name }}</div>
+                                            <?php
+                                            $inputTime = \Carbon\Carbon::parse($story->updated_at);
+                                            $date = $inputTime->diffForHumans($currentTime);
+                                            ?>
+                                            <div class="">{{ $date }}</div>
                                         </div>
                                     </a>
                                 </div>

@@ -53,7 +53,7 @@ class ResellerController extends Controller
         $existUser = User::where('mobileno', '=', $request->mobileno)
             ->first();
 
-        if ($existUser->id) {
+        if ($existUser) {
             if ($existUser->hasRole('Reseller') && $existUser->hasRole('User')) {
                 return redirect()->back()->with('warning', 'This user already has a role of Reseller');
             } else if ($existUser->hasRole('Reseller')) {
@@ -339,6 +339,7 @@ class ResellerController extends Controller
             $userPackage = Subscriptionpackage::where('title', 'like', '%' . $user->package . '%')->first();
             $passbook  = new Passbook();
             $passbook->userId = $user->id;
+            $passbook->resellerId = $authId->id;
             $passbook->mobileNumber = $user->mobileno;
             $passbook->package = $userPackage->id;
             $passbook->status = "Pending";
@@ -383,7 +384,7 @@ class ResellerController extends Controller
             return redirect()->back()
                 ->with('success', 'User Created Successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
+            throw $th;
             return view('servererror');
         }
     }
@@ -433,7 +434,7 @@ class ResellerController extends Controller
             return redirect()->back()
                 ->with('success', 'User Deleted Successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
+            throw $th;
             return view('servererror');
         }
     }

@@ -114,7 +114,6 @@ class OtpController extends Controller
 
                 if ($user) {
 
-                    // return 'login';
                     Auth::login($user);
                     // return Auth::user()->role;
                     if ($user->hasRole(['Admin'])) {
@@ -164,7 +163,7 @@ class OtpController extends Controller
             }
             // find mobileno in user table
         } catch (\Throwable $th) {
-            //throw $th;    
+            throw $th;
             return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }

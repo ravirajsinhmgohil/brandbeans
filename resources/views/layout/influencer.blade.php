@@ -33,8 +33,11 @@
             incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <br>
             exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
-        <div class="">
-            <img src="{{ asset('influencerPage/topmain.png') }}" alt="Top Image">
+        <div class="row">
+            <div class="col-md-12">
+
+                <img src="{{ asset('influencerPage/topmain.png') }}" class="topImage" alt="Top Image">
+            </div>
         </div>
         <div class="pb-5">
             <button class="btn btn-info text-white">Try For Free Now</button>
@@ -49,7 +52,7 @@
         </div>
 
         <div class="wrapper d-flex justify-content-center">
-            <div class="icon"><i id="left" class="fa-solid fa-angle-left"></i></div>
+            <div class="icon"><i id="left" class="bi bi-caret-left-fill"></i></div>
             <ul class="tabs-box">
                 <li class="tab">Food</li>
                 <li class="tab">Travel</li>
@@ -61,59 +64,19 @@
                 <li class="tab">Finance</li>
 
             </ul>
-            <div class="icon"><i id="right" class="fa-solid fa-angle-right"></i></div>
+            <div class="icon"><i id="right" class="bi bi-caret-right-fill"></i></div>
         </div>
 
 
         <div class="row">
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo1.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo2.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo3.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo4.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo2.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo4.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo1.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo3.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo4.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo3.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo2.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo1.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo2.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo4.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo1.avif') }}" class=" image" alt="">
-            </div>
-            <div class="col-md-3 pt-3">
-                <img src="{{ asset('influencerPage/demo3.avif') }}" class=" image" alt="">
-            </div>
+            @foreach ($influencers as $influencer)
+                <div class="col-md-3 pt-3">
+                    <a href="{{ route('main.influencer.profile') }}/{{ $influencer->id }}">
+                        <img src="{{ asset('influencerPage/demo1.avif') }}" class=" image" alt="">
+                    </a>
+                </div>
+            @endforeach
+
         </div>
 
         <div class="pt-5">
@@ -239,7 +202,29 @@
 
 
         <div class="p-3">
-            our creator section
+            <div class="pt-4">
+                <h1 class="fw-bold"><span class="blueFont">Our Creator</span></h1>
+                <h1><i class="bi bi-dot fa-sm text-info blueFont"></i></h1>
+
+                <p class="fs-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et <br>
+                    dolore magna aliqua. Ut enim ad minim veniam.</p>
+            </div>
+
+            <div class="wrapper d-flex justify-content-center">
+                <div class="icon"><i id="left" class="bi bi-caret-left-fill"></i></div>
+                <ul class="tabs-box">
+                    <li class="tab">Food</li>
+                    <li class="tab">Travel</li>
+                    <li class="tab">Beauty</li>
+                    <li class="tab">LifeStyle</li>
+                    <li class="tab active">Fitness</li>
+                    <li class="tab">Fashion</li>
+                    <li class="tab">Parenting</li>
+                    <li class="tab">Finance</li>
+
+                </ul>
+                <div class="icon"><i id="right" class="bi bi-caret-right-fill"></i></div>
+            </div>
         </div>
 
         <div class="row text-center">
@@ -548,30 +533,9 @@
             </div>
         </div>
 
-        <div class="">
-            <img src="{{ asset('influencerPage/small-banner.png') }}" class="w-100" alt="banner">
-            <div class="overlay">
-                <div class="effect fs-9">
-                    <small>Fashion</small>
-                    <small>
-                        <div class="d-flex justify-content-between pt-2">
-                            <small>
-                                5.5M
-                                Follower
-                            </small>
-                            <small>
-                                3.1M
-                                Follower
-                            </small>
-                        </div>
-                    </small>
-                    <small class="pt-3">
-                        <small>14.6% <br>
-                            Engagement <br>
-                            Rate</small>
-                    </small>
-                </div>
-            </div>
+
+        <div class="py-3">
+            <img src="{{ asset('influencerPage/small-banner.png') }}" class="w-100 rounded-3" alt="banner">
         </div>
 
     </div>

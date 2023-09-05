@@ -49,6 +49,7 @@
                     <table class="table table-bordered table-responsive">
                         <thead>
                             <tr>
+                                <th> Is Festival</th>
                                 <th> Title</th>
                                 <th> Poster</th>
                                 <th> Font Size</th>
@@ -65,6 +66,7 @@
                         <tbody>
                             @foreach ($offer as $offer)
                                 <tr>
+                                    <td>{{ $offer->is_festival }}</td>
                                     <td>{{ $offer->title }}</td>
                                     <td><img src="{{ url('poster') }}/{{ $offer->poster }}" class="img-thumbnail" style="width:50px;height:50px"></td>
                                     <td>{{ $offer->fontSize }}</td>

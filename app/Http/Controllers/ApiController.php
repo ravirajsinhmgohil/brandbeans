@@ -406,15 +406,16 @@ class ApiController extends Controller
     {
         $rules = array(
             'name'  => "required",
-            // 'email' => "required|required|email|unique:users,email",
+            'email' => "required|required|email|unique:users,email",
             // 'username' => "required|required|unique:users,username",
             'type'  => "required",
+            "mobileno" => "required"
         );
 
         if ($request->type == "Business") {
             $rules = array(
                 'name'  => "required",
-                // 'email' => "required|required|email|unique:users,email",
+                'email' => "required|required|email|unique:users,email",
                 // 'username' => "required|required|unique:users,username",
                 'type'  => "required",
                 "category" => "required",
@@ -423,7 +424,7 @@ class ApiController extends Controller
             if ($request->category == 0) {
                 $rules = array(
                     'name'  => "required",
-                    // 'email' => "required|required|email|unique:users,email",
+                    'email' => "required|required|email|unique:users,email",
                     // 'username' => "required|required|unique:users,username",
                     'type'  => "required",
                     "category" => "required",
@@ -497,6 +498,7 @@ class ApiController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->username = $request->username;
+            $user->mobileno = $request->mobileno;
             $user->password = Hash::make(123456);
             $user->package = 'FREE';
             $user->assignRole('User');

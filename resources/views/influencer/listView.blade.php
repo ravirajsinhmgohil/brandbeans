@@ -38,44 +38,36 @@
     @endif
 
 
-    <div class="box-content card ">
+    <div style="display: flex; justify-content: end;">
+        <a href="{{ route('influencer.list') }}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">BACK</a>
+    </div>
 
-        <div class="" style="padding: 12px 10px 12px 10px; display: flex; justify-content: space-between; background-color: #03ACF0; color:white;">
-            <div class="">
-                <h4 class="">
-                    {{ $profile->profile->name }}
-                    @if ($profile->is_brandBeansVerified == 'on')
-                        <i class="menu-icon fa fa-check-circle text-white" style="margin-left: 5px;"></i>
-                    @endif
-                </h4>
-            </div>
-            <div class="">
-                <a href="{{ route('influencer.list') }}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">BACK</a>
-            </div>
 
-        </div>
-        <div class="card-content">
-            <div class="container-fluid">
-                <div class="cards">
-                    <div class="" style="padding: 12px 10px 12px 10px; display: flex; justify-content: space-between; ">
-                        <div class="">
-                            <h4 class="">
-                                Personal Information
-                            </h4>
-                        </div>
+    <div class="card-content">
+        <div class="container-fluid">
+            <div class="cards " style="width: 30%;">
 
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
+                <div class="card-body">
+                    <div class="row">
 
-                            <div class="col-md-4">
+                        <div class="col-md-12">
+                            <div class="text-center">
                                 @if ($profile->profile->profilePhoto)
-                                    <img class="img-thumbnail" style=" height: 150px; width: 150px;" src="{{ asset('profile') }}/{{ $profile->profile->profilePhoto }}" alt="image">
+                                    <img class="img-thumbnail" style="border-radius: 50%; height: 150px; width: 150px;" src="{{ asset('profile') }}/{{ $profile->profile->profilePhoto }}" alt="image">
                                 @else
-                                    <img class="img-thumbnail" style=" height: 150px; width: 150px;" src="{{ url('asset/img/defaultImage.jpg') }}" alt="image"><br> <br>
+                                    <img class="img-thumbnail" style="border-radius: 50%; height: 150px; width: 150px;" src="{{ url('asset/img/defaultImage.jpg') }}" alt="image"><br> <br>
                                 @endif
+
+                                <h4 class="" style="padding-left: 20px; text-transform: uppercase">
+                                    <b>{{ $profile->profile->name }}</b>
+                                    @if ($profile->is_brandBeansVerified == 'on')
+                                        <i class="menu-icon fa fa-check-circle text-white" style="margin-left: 5px;"></i>
+                                    @endif
+
+                                </h4>
                             </div>
-                            <div class="col-md-4">
+                            <hr>
+                            <div class="">
                                 <h5 class="card-title"><b>Email : </b>{{ $profile->profile->email }}</h5>
                                 <h6 class="card-subtitle mb-2 "><b>Contact Number : </b>{{ $profile->contactNo }}</h6>
                                 <h6 class="card-subtitle mb-2 "><b>Category Name : </b>{{ $profile->categoryId }}</h6>
@@ -115,13 +107,10 @@
                         </div>
                     </div>
 
-                    <!-- modal -->
                 </div>
 
-
-
-
             </div>
+            
         </div>
     </div>
 

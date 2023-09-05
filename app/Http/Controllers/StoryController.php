@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Story;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,8 @@ class StoryController extends Controller
     public function index()
     {
         try {
-            $story = Story::orderBy('id', 'DESC')->get();
+            $userId = Auth::user()->id;
+            $story = Story::where('userId', '=', $userId)->orderBy('id', 'DESC')->get();
             return view('story.index', compact('story'));
         } catch (\Throwable $th) {
             //throw $th;    

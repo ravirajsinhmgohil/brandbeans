@@ -2,10 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brochure;
+use App\Models\Cardportfoilo;
+use App\Models\Cardservices;
 use Illuminate\Http\Request;
 use App\Models\CardsModels;
+use App\Models\Categories;
+use App\Models\Category;
+use App\Models\CategoryInfluencer;
+use App\Models\Design;
+use App\Models\Feedback;
+use App\Models\InfluencerProfile;
+use App\Models\Inquiry;
 use App\Models\User;
 use App\Models\Links;
+use App\Models\Payment;
+use App\Models\Qrcode;
+use App\Models\Servicedetail;
+use App\Models\Slider;
+use App\Models\Writerslogan;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -32,6 +47,7 @@ class HomeController extends Controller
                 $users = User::count();
                 $paidUsers = User::where('package', '!=', 'FREE')->count();
                 $freeUsers = User::where('package', '=', 'FREE')->count();
+
                 $influencer = User::whereHas(
                     'roles',
                     function ($q) {
@@ -62,15 +78,78 @@ class HomeController extends Controller
                         $q->where('name', 'Designer');
                     }
                 )->count();
-                return view('home', \compact('users', 'paidUsers', 'freeUsers', 'influencer', 'brand', 'reseller', 'writer', 'designer'));
+                $pendingSlogans = Writerslogan::where('status', '=', 'Pending')->count();
+                $pendingDesign = Design::where('status', '=', 'Pending')->count();
+                return view('home', \compact('users', 'paidUsers', 'freeUsers', 'influencer', 'brand', 'reseller', 'writer', 'designer', 'pendingDesign', 'pendingSlogans'));
             } else {
                 $id = Auth::user()->id;
-                $data = CardsModels::join('users', 'users.id', '=', 'cards.user_id')->where('users.id', '=', $id)->get(['cards.*', 'users.email']);
+                // $data = CardsModels::join('users', 'users.id', '=', 'cards.user_id')->where('users.id', '=', $id)->get(['cards.*', 'users.email']);
                 // return $data;
-                return view('account.card', compact('data'));
+                $authid = Auth::User()->id;
+                $userurl = Auth::user()->mobileno;
+
+                // user refer code generation start
+                $referUserId = Auth::user()->id;
+                $username = Auth::user()->username;
+                $newStr = str_replace(' ', '', $username);
+                $referCode = $newStr . $referUserId;
+                $user = User::find($referUserId);
+                $user->myrefer = $referCode;
+                $user->save();
+                // end
+
+                $details = CardsModels::where('user_id', '=', $authid)->first();
+                $id = $details->id;
+                #for service details
+                $servicedetail = Servicedetail::where('card_id', '=', $id)->get();
+                #for payment data
+                $payment = Payment::where('card_id', '=', $id)->first();
+
+                $data1 = Cardservices::join('cards', 'cards.id', '=', 'cardservices.card_id')->where('cards.user_id', '=', $authid)
+                    ->where('cardservices.card_id', '=', $id)
+                    ->get(['cardservices.*']);
+
+                $influencer = InfluencerProfile::where('userId', '=', $authid)->first();
+                // $category = Categories::all();
+                $influencerCategory = CategoryInfluencer::all();
+                // $category = Admin::all();
+                $data = User::where('id', '=', $authid)->get();
+                $link = Links::join('cards', 'cards.id', '=', 'cardlinkes.card_id')
+                    ->where('cards.user_id', '=', $authid)
+                    ->where('cardlinkes.card_id', '=', $id)
+                    ->get(['cardlinkes.*']);
+
+                $links = Links::where('card_id', '=', $id)->first();
+                $qr = Qrcode::where('card_id', '=', $id)->get();
+                $users = User::find($authid);
+
+
+                $feed = Feedback::where('card_id', '=', $id)->get();
+                $inq = Inquiry::where('card_id', '=', $id)->get();
+
+                $admincategory = Category::where('isBusiness', '=', 'yes')->get();
+                $cardimage = Cardportfoilo::where('cardportfoilos.card_id', '=', $id)
+                    ->where('type', '=', 'Photo')
+                    // ->orWhere('type', '=', 'Image')
+                    ->get('cardportfoilos.*');
+                $cardvideo = Cardportfoilo::where('cardportfoilos.card_id', '=', $id)
+                    ->where('type', '=', 'Video')
+                    ->get('cardportfoilos.*');
+
+
+                $bro = Brochure::where('card_id', '=', $id)->get();
+                $slider = Slider::where('card_id', '=', $id)->get();
+
+                $linkcount = Links::where('card_id', '=', $id)->count();
+
+                $category = Category::where('isBusiness', '=', 'yes')->get();
+                // if ($linkcount > 0) {
+                //     return view('demo', compact('linkcount', 'inq', 'cardvideo', 'feed', 'id', 'details', 'qr', 'links', 'data1', 'category', 'cardimage', 'servicedetail', 'payment', 'admincategory', 'users'));
+                // } else {
+                return view('demo', compact('data', 'authid', 'userurl', 'influencer', 'influencerCategory', 'category', 'slider', 'bro', 'linkcount', 'inq', 'cardvideo', 'feed', 'id', 'details', 'qr', 'links', 'data1', 'category', 'cardimage', 'servicedetail', 'payment', 'admincategory', 'users'));
             }
         } catch (\Throwable $th) {
-            //throw $th;    
+            throw $th;
             return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }
@@ -91,6 +170,4 @@ class HomeController extends Controller
             // return view("adminCategory.index", compact('category'));
         }
     }
-
- 
 }

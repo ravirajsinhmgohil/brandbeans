@@ -100,6 +100,16 @@
                 </div>
                 <br>
                 <div>
+                    <label for="textColor" class="form-label">Text Lenght</label>
+                    <input type="text" class="form-control" id="textLength" value="{{ $template->textLength }}" name="textLength" require>
+                </div>
+                <br>
+                <div>
+                    <label for="textColor" class="form-label">Frame Height</label>
+                    <input type="text" class="form-control" id="frameHeight" value="{{ $template->frameHeight }}" name="frameHeight" require>
+                </div>
+                <br>
+                <div>
                     <label for="textColor" class="form-label">Text Color</label>
                     <input type="color" class="form-control-color" id="textColor" value="{{ $template->textColor }}" name="textColor" require>
                 </div>

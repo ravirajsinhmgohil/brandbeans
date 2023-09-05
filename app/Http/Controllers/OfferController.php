@@ -52,6 +52,9 @@ class OfferController extends Controller
 
         try {
             $offer = new Offer();
+            if ($request->is_festival) {
+                $offer->is_festival = 'yes';
+            }
             $offer->title = $request->title;
             $image = $request->poster;
             $offer->poster = time() . '.' . $request->poster->extension();
@@ -109,6 +112,9 @@ class OfferController extends Controller
         try {
             $id = $request->offerId;
             $offer =  Offer::find($id);
+            if ($request->is_festival) {
+                $offer->is_festival = 'yes';
+            }
             $offer->title = $request->title;
             if ($request->poster) {
                 $image = $request->poster;

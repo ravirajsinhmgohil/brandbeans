@@ -4,7 +4,7 @@
     <footer class="row p-5">
         <div class="col-md-5 my-3">
             <a href="#" class="mb-3">
-                <img src="{{ asset('asset/img/png.png') }}" class="img-fluid logo" alt="Logo">
+                <img src="{{ asset('asset/img/logo.png') }}" class="img-fluid logo" alt="Logo">
             </a>
 
 

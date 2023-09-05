@@ -98,7 +98,7 @@ class DemoController extends Controller
     {
         try {
             $authid = Auth::User()->id;
-            $userurl = Auth::user()->username;
+            $userurl = Auth::user()->mobileno;
 
             // user refer code generation start
             $referUserId = Auth::user()->id;
@@ -219,20 +219,23 @@ class DemoController extends Controller
             }
             $user->save();
 
-            $influencerCategory = $request->categoryId;
-            // $categoryData = implode(",", $influencerCategory);
 
-            $influencer = InfluencerProfile::where('userId', '=', $id)->first();
-            $influencer->categoryId = $influencerCategory;
-            $influencer->address = $request->address;
-            $influencer->contactNo = $user->mobileno;
-            $influencer->publicLocation = $request->publicLocation;
-            $influencer->city = $details->city;
-            $influencer->state = $details->state;
-            $influencer->gender = $request->gender;
-            $influencer->pinCode = $request->pinCode;
-            $influencer->dob = $request->dob;
-            $influencer->save();
+            if (Auth::user()->hasRole('Influencer')) {
+                $influencerCategory = $request->categoryId;
+                // $categoryData = implode(",", $influencerCategory);
+
+                $influencer = InfluencerProfile::where('userId', '=', $id)->first();
+                $influencer->categoryId = $influencerCategory;
+                $influencer->address = $request->address;
+                $influencer->contactNo = $user->mobileno;
+                $influencer->publicLocation = $request->publicLocation;
+                $influencer->city = $details->city;
+                $influencer->state = $details->state;
+                $influencer->gender = $request->gender;
+                $influencer->pinCode = $request->pinCode;
+                $influencer->dob = $request->dob;
+                $influencer->save();
+            }
             return redirect()->back()->with('success', 'Details Updated successfully');
         } catch (\Throwable $th) {
             throw $th;
