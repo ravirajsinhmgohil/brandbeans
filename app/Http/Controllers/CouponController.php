@@ -12,7 +12,7 @@ class CouponController extends Controller
     public function index()
     {
         try {
-            $coupon = Coupon::with('package')->get();
+            $coupon = Coupon::with('package')->orderBy('id', 'DESC')->get();
             return view('coupon.index', \compact('coupon'));
         } catch (\Throwable $th) {
             //throw $th;    

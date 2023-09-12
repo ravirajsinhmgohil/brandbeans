@@ -34,40 +34,16 @@ class DesignController extends Controller
 
             $writer = Writerslogan::with('category')
                 ->where('status', '=', "Approved")
+                ->orderBy('id', 'DESC')
                 ->get();
 
             $slugCount =  Design::where('userId', '=', $userId)
                 ->get();
 
-            // $designerCount = DB::table('writerslogans')
-            //     ->crossJoin('designs')
-            //     ->select('writerslogans.*', 'designs.*')
-            //     ->where('writerslogans.id', '!=', DB::raw('designs.slugId'))
-            //     ->where('designs.userId', '=', $userId)
-            //     ->where('writerslogans.status', '=', 'Approved')
-            //     ->get();
-
-
-
-            // $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
-            //     ->where('writerslogans.status', '=', "Approved")
-            //     ->get(['writerslogans.*', 'admincategories.name as categoryName']);
-            // foreach ($writer  as $slugs) {
-            //     $slugId = $slugs->id;
-            //     // $slugcount =  Design::where('slugId', '=', $slugId)
-            //     //     ->where('slugId', '=', $slugs->id)
-            //     //     ->get()->count();
-            //     $slugcount = Design::where('slugId', '=', $slugId)
-            //         ->where('userId', '=', $userId)
-            //         ->get()->count();
-            // }
-
-
             return view('designer.index', \compact('writer', 'slugCount'));
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -79,7 +55,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -127,7 +102,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -143,7 +117,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -155,7 +128,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -192,7 +164,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -205,35 +176,59 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
     public function adminslogan(Request $request)
     {
         try {
+            $category = Category::all();
             $type = $request->type;
-            if ($type == 'Approved') {
+            $catName = $request->category;
+            $userName = $request->userName;
+            if (isset($userName) && isset($catName)) {
+                $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
+                    ->join('users', 'users.id', '=', 'writerslogans.userId')
+                    ->where('users.name', 'like', '%' . $userName . '%')
+                    ->where('admincategories.name', 'like', '%' . $catName . '%')
+                    ->orderBy('id', 'DESC')
+                    ->get(['writerslogans.*', 'admincategories.name as categoryName', 'users.name as userName']);
+            } else if ($type == 'Approved') {
                 $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
                     ->join('users', 'users.id', '=', 'writerslogans.userId')
                     ->where('writerslogans.status', '=', 'Approved')
+                    ->orderBy('id', 'DESC')
                     ->get(['writerslogans.*', 'admincategories.name as categoryName', 'users.name as userName']);
             } else if ($type == 'Rejected') {
                 $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
                     ->join('users', 'users.id', '=', 'writerslogans.userId')
                     ->where('writerslogans.status', '=', 'Rejected')
+                    ->orderBy('id', 'DESC')
+                    ->get(['writerslogans.*', 'admincategories.name as categoryName', 'users.name as userName']);
+            } else if (isset($userName)) {
+                $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
+                    ->join('users', 'users.id', '=', 'writerslogans.userId')
+                    ->where('users.name', 'like', '%' . $userName . '%')
+                    ->orderBy('id', 'DESC')
+                    ->get(['writerslogans.*', 'admincategories.name as categoryName', 'users.name as userName']);
+            } else if (isset($catName)) {
+                $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
+                    ->join('users', 'users.id', '=', 'writerslogans.userId')
+                    ->where('admincategories.name', 'like', '%' . $catName . '%')
+                    ->orderBy('id', 'DESC')
                     ->get(['writerslogans.*', 'admincategories.name as categoryName', 'users.name as userName']);
             } else {
                 $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
                     ->join('users', 'users.id', '=', 'writerslogans.userId')
                     ->where('writerslogans.status', '=', 'Pending')
+                    ->orderBy('id', 'DESC')
                     ->get(['writerslogans.*', 'admincategories.name as categoryName', 'users.name as userName']);
             }
-            return view('admindesign.slogan', \compact('writer'));
+
+            return view('admindesign.slogan', \compact('writer', 'category'));
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -258,14 +253,43 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
     public function admindesign(Request $request)
     {
         try {
+            $category = Category::all();
             $type = $request->type;
+            $catName = $request->category;
+            $userName = $request->userName;
+            if (isset($userName) && isset($catName)) {
+                $design = Design::join('admincategories', 'admincategories.id', '=', 'designs.category')
+                    ->join('writerslogans', 'writerslogans.id', '=', 'designs.slugId')
+                    ->join('users', 'users.id', '=', 'designs.userId')
+                    ->where('users.name', 'like', '%' . $userName . '%')
+                    ->where('admincategories.name', 'like', '%' . $catName . '%')
+                    ->get(['designs.*', 'admincategories.name as categoryName', 'writerslogans.title as slugName', 'users.name as userName']);
+            } else if (isset($userName)) {
+                $design = Design::join('admincategories', 'admincategories.id', '=', 'designs.category')
+                    ->join('writerslogans', 'writerslogans.id', '=', 'designs.slugId')
+                    ->join('users', 'users.id', '=', 'designs.userId')
+                    ->where('users.name', 'like', '%' . $userName . '%')
+                    ->get(['designs.*', 'admincategories.name as categoryName', 'writerslogans.title as slugName', 'users.name as userName']);
+            } else if (isset($catName)) {
+                $design = Design::join('admincategories', 'admincategories.id', '=', 'designs.category')
+                    ->join('writerslogans', 'writerslogans.id', '=', 'designs.slugId')
+                    ->join('users', 'users.id', '=', 'designs.userId')
+                    ->where('admincategories.name', 'like', '%' . $catName . '%')
+                    ->get(['designs.*', 'admincategories.name as categoryName', 'writerslogans.title as slugName', 'users.name as userName']);
+            } else {
+                $design = Design::join('admincategories', 'admincategories.id', '=', 'designs.category')
+                    ->join('writerslogans', 'writerslogans.id', '=', 'designs.slugId')
+                    ->join('users', 'users.id', '=', 'designs.userId')
+
+                    ->get(['designs.*', 'admincategories.name as categoryName', 'writerslogans.title as slugName', 'users.name as userName']);
+            }
+
             if ($type == 'Approved') {
                 $design = Design::join('admincategories', 'admincategories.id', '=', 'designs.category')
                     ->join('writerslogans', 'writerslogans.id', '=', 'designs.slugId')
@@ -285,11 +309,10 @@ class DesignController extends Controller
                     ->where('designs.status', '=', 'Pending')
                     ->get(['designs.*', 'admincategories.name as categoryName', 'writerslogans.title as slugName', 'users.name as userName']);
             }
-            return view('admindesign.design', \compact('design'));
+            return view('admindesign.design', \compact('design', 'category'));
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -311,7 +334,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -366,7 +388,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
     public function reject(Request $request)
@@ -383,7 +404,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -394,7 +414,6 @@ class DesignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -409,7 +428,8 @@ class DesignController extends Controller
                 $userData = User::find($userId);
                 $userData->assignRole(['Designer', 'User']);
                 $userData->save();
-                return redirect('login');
+                Auth::login($userData);
+                return redirect('dashboard');
             } else {
                 $this->validate($request, [
                     'name' => 'required',
@@ -445,12 +465,12 @@ class DesignController extends Controller
                 $links->phone1  = $user->mobileno;
                 $links->save();
 
-                return redirect('login');
+                Auth::login($user);
+                return redirect('dashboard');
             }
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 }

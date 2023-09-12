@@ -10,10 +10,10 @@
     <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon.ico') }}">
 
     <title>Home</title>
-    <link rel="stylesheet" href="{{asset('assets/styles/style.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/style.min.css') }}">
 
     <!-- Waves Effect -->
-    <link rel="stylesheet" href="{{asset('assets/plugin/waves/waves.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/plugin/waves/waves.min.css') }}">
 
 </head>
 
@@ -38,14 +38,13 @@
 
         </div>
     </div> <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{asset('assets/scripts/jquery.min.js')}}">
-    </script>
-    <script src="{{asset('assets/scripts/modernizr.min.js')}}"></script>
-    <script src="{{asset('assets/plugin/bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/plugin/nprogress/nprogress.js')}}"></script>
-    <script src="{{asset('assets/plugin/waves/waves.min.js')}}"></script>
+    <script src="{{ asset('assets/scripts/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/scripts/modernizr.min.js') }}"></script>
+    <script src="{{ asset('assets/plugin/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/plugin/nprogress/nprogress.js') }}"></script>
+    <script src="{{ asset('assets/plugin/waves/waves.min.js') }}"></script>
 
-    <script src="{{asset('assets/scripts/main.min.js')}}"></script>
+    <script src="{{ asset('assets/scripts/main.min.js') }}"></script>
 </body>
 
 </html>

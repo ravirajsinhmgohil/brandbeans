@@ -16,6 +16,8 @@ use App\Models\Payment;
 use App\Models\Qrcode;
 use App\Models\Servicedetail;
 use App\Models\Slider;
+use App\Models\CategoryInfluencer;
+use App\Models\InfluencerProfile;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Hash;
@@ -96,7 +98,7 @@ class DemoController extends Controller
     {
         try {
             $authid = Auth::User()->id;
-            $userurl = Auth::user()->username;
+            $userurl = Auth::user()->mobileno;
 
             // user refer code generation start
             $referUserId = Auth::user()->id;
@@ -119,7 +121,9 @@ class DemoController extends Controller
                 ->where('cardservices.card_id', '=', $id)
                 ->get(['cardservices.*']);
 
+            $influencer = InfluencerProfile::where('userId', '=', $authid)->first();
             $category = Categories::all();
+            $influencerCategory = CategoryInfluencer::all();
             // $category = Admin::all();
             $data = User::where('id', '=', $authid)->get();
             $link = Links::join('cards', 'cards.id', '=', 'cardlinkes.card_id')
@@ -154,7 +158,7 @@ class DemoController extends Controller
             // if ($linkcount > 0) {
             //     return view('demo', compact('linkcount', 'inq', 'cardvideo', 'feed', 'id', 'details', 'qr', 'links', 'data1', 'category', 'cardimage', 'servicedetail', 'payment', 'admincategory', 'users'));
             // } else {
-            return view('demo', compact('authid', 'userurl', 'category', 'slider', 'bro', 'linkcount', 'inq', 'cardvideo', 'feed', 'id', 'details', 'qr', 'links', 'data1', 'category', 'cardimage', 'servicedetail', 'payment', 'admincategory', 'users'));
+            return view('demo', compact('authid', 'userurl', 'influencer', 'influencerCategory', 'category', 'slider', 'bro', 'linkcount', 'inq', 'cardvideo', 'feed', 'id', 'details', 'qr', 'links', 'data1', 'category', 'cardimage', 'servicedetail', 'payment', 'admincategory', 'users'));
             // }
         } catch (\Throwable $th) {
             //throw $th;    
@@ -183,6 +187,7 @@ class DemoController extends Controller
             $details->companyname = $request->companyname;
             $details->city = $request->city;
             $details->state = $request->state;
+            $details->address = $request->address;
             $category1 = $request->category;
             if ($category1 == 'other') {
                 $categorystore = new Category();
@@ -206,7 +211,6 @@ class DemoController extends Controller
             $details->save();
 
             $user = User::find($id);
-            $user->mobileno = $request->mobileno;
             $user->username = $request->username;
 
             $image = $request->profilePhoto;
@@ -215,11 +219,30 @@ class DemoController extends Controller
                 $request->profilePhoto->move(public_path('profile'), $user->profilePhoto);
             }
             $user->save();
+
+
+            if (Auth::user()->hasRole('Influencer')) {
+                $influencerCategory = $request->categoryId;
+                // $categoryData = implode(",", $influencerCategory);
+
+                $influencer = InfluencerProfile::where('userId', '=', $id)->first();
+                if ($influencerCategory) {
+                    $influencer->categoryId = $influencerCategory;
+                }
+                $influencer->address = $request->influaddress;
+                $influencer->contactNo = $user->mobileno;
+                $influencer->publicLocation = $request->publicLocation;
+                $influencer->city = $details->city;
+                $influencer->state = $details->state;
+                $influencer->gender = $request->gender;
+                $influencer->pinCode = $request->pinCode;
+                $influencer->dob = $request->dob;
+                $influencer->save();
+            }
             return redirect()->back()->with('success', 'Details Updated successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
+            // throw $th;
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -349,6 +372,7 @@ class DemoController extends Controller
             $details->category = $req->category;
             $details->city = $req->city;
             $details->state = $req->state;
+            $details->address = $req->address;
             $details->about = $req->about;
             $image = $req->logo;
             $details->logo = time() . '.' . $req->logo->extension();

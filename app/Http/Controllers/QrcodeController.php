@@ -12,7 +12,7 @@ class QrcodeController extends Controller
     public function index()
     {
         try {
-            $qr = Qrcode::all();
+            $qr = Qrcode::orderBy('id', 'DESC')->get();
             return \view('demo', \compact('qr'));
         } catch (\Throwable $th) {
             //throw $th;    

@@ -12,7 +12,7 @@ class TypeController extends Controller
     public function index()
     {
         try {
-            $type = Type::all();
+            $type = Type::orderBy('id', 'DESC')->get();
             return view('type.index', compact('type'));
         } catch (\Throwable $th) {
             //throw $th;    

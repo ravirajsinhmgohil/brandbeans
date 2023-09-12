@@ -25,7 +25,11 @@ class InfluencerController extends Controller
     {
         try {
             $id = Auth::user()->id;
-            $profile = InfluencerProfile::with('profile')->with('category')->where('userId', '=', $id)->first();
+            $profile = InfluencerProfile::with('profile')
+                ->with('category')
+                ->where('userId', '=', $id)
+                ->orderBy('id', 'DESC')
+                ->first();
             return view('influencer.influencerProfile.index', \compact('profile'));
         } catch (\Throwable $th) {
             //throw $th;    
@@ -47,18 +51,23 @@ class InfluencerController extends Controller
     public function brands()
     {
         try {
+            // $brand = User::whereHas(
+            //     'roles',
+            //     function ($q) {
+            //         $q->where('name', 'Brand');
+            //     }
+            // )->with('brand')->get();
             $brand = User::whereHas(
                 'roles',
                 function ($q) {
                     $q->where('name', 'Brand');
                 }
-            )->with('brand')->get();
+            )->whereHas('brand')->get();
 
             return view('influencer.brandView.index', \compact('brand'));
         } catch (\Throwable $th) {
-            //throw $th;    
+            // throw $th;
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -66,7 +75,7 @@ class InfluencerController extends Controller
     {
         try {
             $userId = Auth::user()->id;
-            $campaign = Campaign::where('userId', '=', $id)->get();
+            $campaign = Campaign::where('userId', '=', $id)->orderBy('id', 'DESC')->get();
             foreach ($campaign as $campaignId) {
                 $campaignCountData = Apply::where('userId', '=', $userId)
                     ->where('campaignId', '=', $campaignId->id)
@@ -105,7 +114,10 @@ class InfluencerController extends Controller
         try {
             $userId = Auth::user()->id;
 
-            $campaignList = Apply::with('campaign')->where('userId', '=', $userId)->get();
+            $campaignList = Apply::with('campaign')
+                ->where('userId', '=', $userId)
+                ->orderBy('id', 'DESC')
+                ->get();
             // $campaignList = Apply::join('campaigns', 'campaigns.id', '=', 'applies.campaignId')
             //     ->where('applies.userId', '=', $userId)
             //     ->get();
@@ -243,9 +255,11 @@ class InfluencerController extends Controller
                     $userData->mobileno = $mobileno;
                     $userData->assignRole(['Influencer', 'User']);
                     $userData->save();
-                    return redirect('login');
+                    Auth::login($userData);
+                    return redirect('dashboard');
                 }
-                return redirect('login');
+                Auth::login($userData);
+                return redirect('dashboard');
             } else {
                 $this->validate($request, [
                     'name' => 'required',
@@ -289,8 +303,8 @@ class InfluencerController extends Controller
                 $links->card_id  = $card->id;
                 $links->phone1  = $user->mobileno;
                 $links->save();
-
-                return redirect('login');
+                Auth::login($user);
+                return redirect('dashboard');
             }
         } catch (\Throwable $th) {
             //throw $th;    

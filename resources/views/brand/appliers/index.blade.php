@@ -43,6 +43,7 @@
                         @csrf
                         <select class="form-control" style="width: 25%;" name="filter" id="filter">
                             <option disabled selected> --Select Filter-- </option>
+                            <option>Applied</option>
                             <option>Approved</option>
                             <option>On Hold</option>
                             <option>Rejected</option>

@@ -11,7 +11,7 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $product = Product::all();
+            $product = Product::orderBy('id', 'DESC')->get();
             return view('product.index', \compact('product'));
         } catch (\Throwable $th) {
             //throw $th;    

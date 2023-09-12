@@ -19,7 +19,7 @@ class SubscriptionpackageController extends Controller
     public function index()
     {
         try {
-            $subpack = Subscriptionpackage::all();
+            $subpack = Subscriptionpackage::orderBy('id', 'DESC')->get();
             return view("adminSubPack.index", compact('subpack'));
         } catch (\Throwable $th) {
             //throw $th;    

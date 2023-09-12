@@ -25,11 +25,11 @@ class ViewcardController extends Controller
     public function index($name = 0)
     {
         try {
-            $userEmail = User::where('username', '=', $name)
+            $userEmail = User::where('mobileno', '=', $name)
                 ->count();
             // return $userEmail;
             if ($userEmail) {
-                $userEmail1 = User::where('username', '=', $name)
+                $userEmail1 = User::where('mobileno', '=', $name)
                     ->get();
                 $id = $userEmail1[0]->id;
             }
@@ -129,7 +129,7 @@ class ViewcardController extends Controller
                 return view('notfound');
             }
         } catch (\Throwable $th) {
-            //throw $th;    
+            throw $th;
             return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }

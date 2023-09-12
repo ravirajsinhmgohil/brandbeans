@@ -19,12 +19,11 @@ class TemplatemasterController extends Controller
     public function index()
     {
         try {
-            $template = Templatemaster::all();
+            $template = Templatemaster::orderBy('id', 'DESC')->get();
             return view("adminTemplate.index", compact('template'));
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -35,7 +34,6 @@ class TemplatemasterController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -50,30 +48,11 @@ class TemplatemasterController extends Controller
             $image = $request->photo;
             $template->photo = time() . '.' . $request->photo->extension();
             $request->photo->move(public_path('templateimages'), $template->photo);
-            $template->logoLeft = $request->logoLeft;
-            $template->logoBottom = $request->logoBottom;
-            $template->mobileLeft = $request->mobileLeft;
-            $template->mobileBottom = $request->mobileBottom;
-            $template->mobileFontsize = $request->mobileFontsize;
-            $template->mobileFontfamily = $request->mobileFontfamily;
-            $template->webLeft = $request->webLeft;
-            $template->webBottom = $request->webBottom;
-            $template->webFontsize = $request->webFontsize;
-            $template->webFontfamily = $request->webFontfamily;
-            $template->emailLeft = $request->emailLeft;
-            $template->emailBottom = $request->emailBottom;
-            $template->emailFontsize = $request->emailFontsize;
-            $template->emailFontfamily = $request->emailFontfamily;
-            $template->locationLeft = $request->locationLeft;
-            $template->locationBottom = $request->locationBottom;
-            $template->locationFontsize = $request->locationFontsize;
-            $template->locationFontfamily = $request->locationFontfamily;
             $template->save();
             return redirect('admintemplatemaster/index');
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -89,7 +68,6 @@ class TemplatemasterController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
     public function update(Request $request)
@@ -105,30 +83,11 @@ class TemplatemasterController extends Controller
             $image = $request->photo;
             $template->photo = time() . '.' . $request->photo->extension();
             $request->photo->move(public_path('templateimages'), $template->photo);
-            $template->logoLeft = $request->logoLeft;
-            $template->logoBottom = $request->logoBottom;
-            $template->mobileLeft = $request->mobileLeft;
-            $template->mobileBottom = $request->mobileBottom;
-            $template->mobileFontsize = $request->mobileFontsize;
-            $template->mobileFontfamily = $request->mobileFontfamily;
-            $template->webLeft = $request->webLeft;
-            $template->webBottom = $request->webBottom;
-            $template->webFontsize = $request->webFontsize;
-            $template->webFontfamily = $request->webFontfamily;
-            $template->emailLeft = $request->emailLeft;
-            $template->emailBottom = $request->emailBottom;
-            $template->emailFontsize = $request->emailFontsize;
-            $template->emailFontfamily = $request->emailFontfamily;
-            $template->locationLeft = $request->locationLeft;
-            $template->locationBottom = $request->locationBottom;
-            $template->locationFontsize = $request->locationFontsize;
-            $template->locationFontfamily = $request->locationFontfamily;
             $template->save();
             return redirect('admintemplatemaster/index');
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -141,7 +100,6 @@ class TemplatemasterController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 }

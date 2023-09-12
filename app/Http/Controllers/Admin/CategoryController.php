@@ -16,11 +16,19 @@ class CategoryController extends Controller
         $this->middleware('permission:category-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:category-delete', ['only' => ['destroy']]);
     }
-    public function index()
+    public function index(Request $request)
     {
         try {
-            //code...
-            $category = Category::all();
+            $categoryName = $request->categoryName;
+            $submit = $request->submit;
+            if (isset($categoryName)) {
+                $category = Category::where('name', 'like', '%' . $categoryName . '%')
+                    ->get();
+            } else {
+
+                $category = Category::orderBy('id', 'DESC')->get();
+            }
+
             return view("adminCategory.index", compact('category'));
         } catch (\Throwable $th) {
             //throw $th;    

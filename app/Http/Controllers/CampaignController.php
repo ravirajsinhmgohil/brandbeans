@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use App\Http\Controllers\Controller;
 use App\Models\Apply;
+use App\Models\CampaignInfluencerActivityStep;
+use App\Models\CampaignStep;
 use App\Models\CardsModels;
 use App\Models\Category;
 use App\Models\CheckApply;
@@ -25,12 +27,11 @@ class CampaignController extends Controller
     {
         try {
             $userId = Auth::user()->id;
-            $campaign = Campaign::where('userId', '=', $userId)->get();
+            $campaign = Campaign::where('userId', '=', $userId)->orderBy('id', 'DESC')->get();
             return view('brand.campaign.index', \compact('campaign'));
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -41,7 +42,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -88,7 +88,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -141,14 +140,21 @@ class CampaignController extends Controller
                     ->where('applies.status', '=', "Rejected")
                     ->where('applies.userId', '=', DB::raw('users.id'))
                     ->get();
+            } else if ($filer == "Applied") {
+                $appliers =    DB::table('applies')
+                    ->crossJoin('campaigns')
+                    ->crossJoin('users')
+                    ->select('campaigns.title', 'applies.*', 'users.name')
+                    ->where('applies.campaignId', '=', DB::raw('campaigns.id'))
+                    ->where('campaigns.userId', '=',  $campaignId)
+                    ->where('applies.status', '=', "Applied")
+                    ->where('applies.userId', '=', DB::raw('users.id'))
+                    ->get();
             }
-
-
             return view('brand.appliers.index', \compact('appliers', 'counter'));
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -166,7 +172,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -182,7 +187,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -198,7 +202,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -212,7 +215,6 @@ class CampaignController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -221,12 +223,13 @@ class CampaignController extends Controller
         try {
             $postImage = CheckApply::where('userId', '=', $userId)->where('fileType', '=', 'Photo')->get();
             $postVideo = CheckApply::where('userId', '=', $userId)->where('fileType', '=', 'Video')->get();
-            return view('brand.appliers.portfolio', \compact('postImage', 'postVideo'));
+            $steps  = CampaignStep::where('campaignId', '=', $campaignId)->get();
+            $followedStep = CampaignInfluencerActivityStep::all();
+            return view('brand.appliers.portfolio', \compact('postImage', 'postVideo', 'steps', 'followedStep'));
             // return redirect('brand/campaign/appliers')->with('success', 'Status Updated Successfully');
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -400,9 +403,11 @@ class CampaignController extends Controller
                     $userData->mobileno = $mobileno;
                     $userData->assignRole(['Brand', 'User']);
                     $userData->save();
-                    return redirect('login');
+                    Auth::login($userData);
+                    return redirect('dashboard');
                 }
-                return redirect('login');
+                Auth::login($userData);
+                return redirect('dashboard');
             } else {
                 $this->validate($request, [
                     'name' => 'required',
@@ -439,7 +444,8 @@ class CampaignController extends Controller
                 $links->phone1  = $user->mobileno;
                 $links->save();
 
-                return redirect('login');
+                Auth::login($user);
+                return redirect('dashboard');
             }
         } catch (\Throwable $th) {
             //throw $th;    

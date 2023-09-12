@@ -13,6 +13,7 @@ class AdminbusinessController extends Controller
     {
         try {
             $business = Business::join('accounts', 'accounts.id', '=', 'businesses.accountId')
+                ->orderBy('id', 'DESC')
                 ->get([
                     'businesses.*',
                     'accounts.loginName'

@@ -246,7 +246,56 @@ Route::post('/package/check', [ApiController::class, 'packageCheck']);
 Route::get('/list', [ApiController::class, 'BrandInfluencerList']);
 
 
-// Influencer
+// -------------Brand
+
+
+// Campaign
+
+Route::get('/brand-campaign-list/{id?}', [ApiController::class, 'brandCampainList']);
+Route::post('/brand-campaign-store', [ApiController::class, 'brandCampainStore']);
+Route::post('/brand-campaign-edit/{id?}', [ApiController::class, 'brandCampainEdit']);
+Route::get('/brand-campaign-delete/{id?}', [ApiController::class, 'brandCampainDelete']);
+
+
+// Campaign Step
+
+Route::get('/brand-campaign-step-list/{userId?}', [ApiController::class, 'brandCampainStepList']);
+Route::post('/brand-campaign-step-store', [ApiController::class, 'brandCampainStepStore']);
+Route::post('/brand-campaign-step-edit/{id?}', [ApiController::class, 'brandCampainStepEdit']);
+Route::get('/brand-campaign-step-delete/{id?}', [ApiController::class, 'brandCampainStepDelete']);
+
+// influencer followed steps
+Route::get('/influencer-steps/{campaignId?}/{influencerId?}', [ApiController::class, 'influencerFollowedSteps']);
+
+
+// brand campaign appliers
+
+Route::get('/brand-campaign-appliers/{userId?}', [ApiController::class, 'brandCampaignAppliers']);
+
+// influencer Approval
+Route::get('/brand-campaign-applier-approval/{campaignId?}/{userId?}', [ApiController::class, 'brandCampaignApplierApproval']);
+
+// influencer On Hold
+Route::get('/brand-campaign-applier-onHold/{campaignId?}/{userId?}', [ApiController::class, 'brandCampaignApplierOnHold']);
+
+// influencer Reject
+Route::get('/brand-campaign-applier-rejected/{campaignId?}/{userId?}', [ApiController::class, 'brandCampaignApplierReject']);
+
+// influencer content
+Route::get('/brand-campaign-applier-content/{campaignId?}/{userId?}', [ApiController::class, 'brandCampaignApplierContent']);
+
+// content Approval\
+Route::get('/brand-campaign-applier-content-approval/{id?}', [ApiController::class, 'brandCampaignApplierContentApproval']);
+
+// content Pending
+Route::get('/brand-campaign-applier-content-pending/{id?}', [ApiController::class, 'brandCampaignApplierContentPending']);
+
+// content Reject
+Route::post('/brand-campaign-applier-content-rejected/{id?}', [ApiController::class, 'brandCampaignApplierContentReject']);
+
+
+
+// ---------- Influencer
 
 Route::get('/influencer-category', [ApiController::class, 'influencerCategoryList']);
 Route::get('/influencer', [ApiController::class, 'categoryWiseInfluencerList']);
@@ -273,21 +322,9 @@ Route::get('/influencer-campaign-list/{id?}', [ApiController::class, 'campaignAp
 Route::post('/influencer-campaign-content-store', [ApiController::class, 'addContentforCampaign']);
 Route::get('/influencer-campaign-content-view/{id?}', [ApiController::class, 'influencerContentforCampaignView']);
 
+// followed Step by influencer
+Route::get('/influencer-campaign-stepList/{campaignId?}', [ApiController::class, 'stepList']);
+Route::post('/influencer-campaign-step', [ApiController::class, 'followedStep']);
 
-// Brand
-
-
-// Campaign
-
-Route::get('/brand-campaign-list/{id?}', [ApiController::class, 'brandCampainList']);
-Route::post('/brand-campaign-store', [ApiController::class, 'brandCampainStore']);
-Route::post('/brand-campaign-edit/{id?}', [ApiController::class, 'brandCampainEdit']);
-Route::get('/brand-campaign-delete/{id?}', [ApiController::class, 'brandCampainDelete']);
-
-
-// Campaign Step
-
-Route::get('/brand-campaign-step-list/{userId?}', [ApiController::class, 'brandCampainStepList']);
-Route::post('/brand-campaign-store', [ApiController::class, 'brandCampainStore']);
-Route::post('/brand-campaign-edit/{id?}', [ApiController::class, 'brandCampainEdit']);
-Route::get('/brand-campaign-delete/{id?}', [ApiController::class, 'brandCampainDelete']);
+Route::get('/influencer-package', [ApiController::class, 'influencerPackage']);
+Route::post('/influencer-package-store', [ApiController::class, 'storeInfluencerPackage']);

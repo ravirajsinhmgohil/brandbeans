@@ -24,6 +24,7 @@ class WritersloganController extends Controller
             $userId = Auth::user()->id;
             $writer = Writerslogan::join('admincategories', 'admincategories.id', '=', 'writerslogans.categoryId')
                 ->where('writerslogans.userId', '=',  $userId)
+                ->orderBy('id', 'DESC')
                 ->get(['writerslogans.*', 'admincategories.name as categoryName']);
             return view('writer.index', \compact('writer'));
             // if (isset($_SESSION['status'])) {
@@ -183,9 +184,11 @@ class WritersloganController extends Controller
                     $userData->mobileno = $mobileno;
                     $userData->assignRole(['Writer', 'User']);
                     $userData->save();
-                    return redirect('login');
+                    Auth::login($userData);
+                    return redirect('dashboard');
                 }
-                return redirect('login');
+                Auth::login($userData);
+                return redirect('dashboard');
             } else {
                 $this->validate($request, [
                     'name' => 'required',
@@ -221,7 +224,8 @@ class WritersloganController extends Controller
                 $links->phone1  = $user->mobileno;
                 $links->save();
 
-                return redirect('login');
+                Auth::login($user);
+                return redirect('dashboard');
             }
         } catch (\Throwable $th) {
             //throw $th;    

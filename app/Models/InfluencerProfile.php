@@ -23,6 +23,10 @@ class InfluencerProfile extends Model
     {
         return $this->hasOne(CategoryInfluencer::class, 'id', 'categoryId');
     }
+    function incategory()
+    {
+        return $this->hasMany(CategoryInfluencer::class, 'id', 'categoryId');
+    }
 
     function portfolio()
     {

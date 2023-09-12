@@ -151,7 +151,7 @@ class RegisterController extends Controller
             }
             return $user;
         } catch (\Throwable $th) {
-            //throw $th;    
+            throw $th;
             return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }

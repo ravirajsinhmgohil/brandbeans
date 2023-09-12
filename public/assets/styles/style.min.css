@@ -10,6 +10,7 @@ html {
     background: #f5f7fa;
     color: #505458;
     font-family: "Poppins", Poppins, Arial, sans-serif;
+    font-size: 13px;
 }
 
 #wrapper {
@@ -136,7 +137,7 @@ label {
 }
 
 .fa-hover {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 22px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -1487,7 +1488,7 @@ h4 strong {
 }
 
 .navigation .menu>li.active>a {
-    background: #e6e9ed
+    background: #002E6E
 }
 
 .navigation .menu>li.active>a .menu-arrow {
