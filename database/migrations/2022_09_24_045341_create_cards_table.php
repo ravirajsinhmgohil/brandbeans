@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('category')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
+            $table->string('address')->nullable();
             $table->string('about')->nullable();
             $table->string('year')->nullable();
             $table->string('logo')->nullable();

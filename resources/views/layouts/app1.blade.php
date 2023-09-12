@@ -49,6 +49,12 @@
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('assets/plugin/toastr/toastr.css') }}">
 
+    <!-- FlexDatalist -->
+    <link rel="stylesheet" href="{{ asset('assets/plugin/flexdatalist/jquery.flexdatalist.min.css') }}">
+
+
+    <!-- Select2 -->
+    {{-- <link rel="stylesheet" href="{{ asset('assets/plugin/select2/css/select2.min.css') }}"> --}}
 
     <!-- drop down  -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -407,6 +413,17 @@
     <script src="{{ asset('assets/scripts/toastr.demo.min.js') }}"></script>
 
 
+    <!-- Select2 -->
+    <script src="{{ asset('assets/plugin/select2/js/select2.min.js') }}"></script>
+
+    <!-- Multi Select -->
+    <script src="{{ asset('assets/plugin/multiselect/multiselect.min.js') }}"></script>
+
+    <!-- Flex Datalist -->
+    <script src="{{ asset('assets/plugin/flexdatalist/jquery.flexdatalist.min.js') }}"></script>
+
+    <!-- Demo Scripts -->
+    <script src="{{ asset('assets/scripts/form.demo.min.js') }}"></script>
     <!-- dropdown -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

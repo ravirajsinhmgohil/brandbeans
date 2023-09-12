@@ -22,7 +22,7 @@
 
 
         /* .modal-backdrop.show {
-                                                                                                                    } */
+                                                                                                                                                                                                                                                                                                                                                    } */
         .dialogmodel1 {
             margin-top: 100px;
         }
@@ -199,6 +199,14 @@
                                 </div>
                                 <div class="col-md-6 pb-1">
                                     <div class="row">
+                                        <div class="col-md-4"><label class="fs-4">Address:</label></div>
+                                        <div class="col-md-7">
+                                            <textarea type="text" class="form-control fs-4" id="address" name="address">{{ $details->address }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pb-1">
+                                    <div class="row">
                                         <div class="col-md-4"><label class="fs-4">Profile Photo:</label></div>
                                         <div class="col-md-7">
                                             <input type="file" class="form-control fs-4" id="profilePhoto" name="profilePhoto" value="{{ url('profile') }}/{{ $users->profilePhoto }}">
@@ -248,7 +256,7 @@
                                         <div class="row">
                                             <div class="col-md-4"><label class="fs-4">Address:</label></div>
                                             <div class="col-md-7">
-                                                <textarea type="text" class="fs-4 form-control" id="year" name="address">{{ $influencer->address }}</textarea>
+                                                <textarea type="text" class="fs-4 form-control" id="year" name="influaddress">{{ $influencer->address }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -305,29 +313,19 @@
                                 </div>
                             </div>
                             @role('Influencer')
-                                <div class="card-content">
+                                <div class="row">
                                     <div class="col-md-2 pb-1">
                                         <label class="fs-4">Influencer Category:</label>
                                     </div>
                                     <div class="col-md-10 pb-1">
-                                        <div class="row">
-                                            {{ $influencer->categoryId }}
-                                            <?php
-                                            // $data = "['apple','banana']";
-                                            $data = $influencer->categoryId;
-                                            $category7Data = explode(',', $data);
-                                            
-                                            ?>
-                                            @foreach ($influencerCategory as $influencerCategory)
-                                                <div class="col-md-3">
-                                                    <label for="categoryId" class="fs-4">{{ $influencerCategory->name }}</label>
-                                                    {{-- {{ $influencerCategory->id }} --}}
-
-                                                    <input type="checkbox" value="{{ $influencerCategory->id }}" class="fs-4" name="categoryId[]" id="categoryId" {{ in_array($influencerCategory->id, old($influencer->categoryId, [])) ? 'checked' : '' }}>
-
-                                                </div>
+                                        <select class="form-control select2_1 " style="width:95%" name="categoryId[]" multiple="multiple">
+                                            <option disabled>-- Select Influencer Category --</option>
+                                            @foreach ($influencerCategory as $category)
+                                                <option value="{{ $category->id }}" {{ old('categoryId', $influencer->categoryId) == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->name }}
+                                                </option>
                                             @endforeach
-                                        </div>
+                                        </select>
                                     </div>
                                 </div>
                             @endrole

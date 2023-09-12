@@ -31,7 +31,6 @@ class OtpController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -82,7 +81,6 @@ class OtpController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -93,7 +91,6 @@ class OtpController extends Controller
         } catch (\Throwable $th) {
             //throw $th;    
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 
@@ -165,7 +162,6 @@ class OtpController extends Controller
         } catch (\Throwable $th) {
             throw $th;
             return view('servererror');
-            // return view("adminCategory.index", compact('category'));
         }
     }
 }

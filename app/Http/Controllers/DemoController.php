@@ -187,6 +187,7 @@ class DemoController extends Controller
             $details->companyname = $request->companyname;
             $details->city = $request->city;
             $details->state = $request->state;
+            $details->address = $request->address;
             $category1 = $request->category;
             if ($category1 == 'other') {
                 $categorystore = new Category();
@@ -225,8 +226,10 @@ class DemoController extends Controller
                 // $categoryData = implode(",", $influencerCategory);
 
                 $influencer = InfluencerProfile::where('userId', '=', $id)->first();
-                $influencer->categoryId = $influencerCategory;
-                $influencer->address = $request->address;
+                if ($influencerCategory) {
+                    $influencer->categoryId = $influencerCategory;
+                }
+                $influencer->address = $request->influaddress;
                 $influencer->contactNo = $user->mobileno;
                 $influencer->publicLocation = $request->publicLocation;
                 $influencer->city = $details->city;
@@ -238,9 +241,8 @@ class DemoController extends Controller
             }
             return redirect()->back()->with('success', 'Details Updated successfully');
         } catch (\Throwable $th) {
-            throw $th;
-            // return view('servererror');
-            // return view("adminCategory.index", compact('category'));
+            // throw $th;
+            return view('servererror');
         }
     }
 
@@ -370,6 +372,7 @@ class DemoController extends Controller
             $details->category = $req->category;
             $details->city = $req->city;
             $details->state = $req->state;
+            $details->address = $req->address;
             $details->about = $req->about;
             $image = $req->logo;
             $details->logo = time() . '.' . $req->logo->extension();

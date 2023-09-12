@@ -246,38 +246,7 @@ Route::post('/package/check', [ApiController::class, 'packageCheck']);
 Route::get('/list', [ApiController::class, 'BrandInfluencerList']);
 
 
-// Influencer
-
-Route::get('/influencer-category', [ApiController::class, 'influencerCategoryList']);
-Route::get('/influencer', [ApiController::class, 'categoryWiseInfluencerList']);
-
-// profile
-Route::post('/influencer-profile/{id?}', [ApiController::class, 'influencerProfile']);
-
-// portfolio
-Route::get('/influencer-portfolio/{id?}', [ApiController::class, 'influencerPortfolio']);
-Route::post('/influencer-portfolio-store/{id?}', [ApiController::class, 'influencerPortfolioStore']);
-
-
-// brand Lits for influencer
-Route::get('/brand-list', [ApiController::class, 'BrandListWithCampaign']);
-
-// apply by influencer
-Route::post('/influencer-campaign-apply', [ApiController::class, 'campaignApplied']);
-
-// campaign applied list of influencer
-
-Route::get('/influencer-campaign-list/{id?}', [ApiController::class, 'campaignAppliedList']);
-
-// coentant store for approved influencer
-Route::post('/influencer-campaign-content-store', [ApiController::class, 'addContentforCampaign']);
-Route::get('/influencer-campaign-content-view/{id?}', [ApiController::class, 'influencerContentforCampaignView']);
-
-// followed Step by influencer
-Route::get('/influencer-campaign-stepList/{campaignId?}', [ApiController::class, 'stepList']);
-Route::post('/influencer-campaign-step', [ApiController::class, 'followedStep']);
-
-// Brand
+// -------------Brand
 
 
 // Campaign
@@ -323,3 +292,39 @@ Route::get('/brand-campaign-applier-content-pending/{id?}', [ApiController::clas
 
 // content Reject
 Route::post('/brand-campaign-applier-content-rejected/{id?}', [ApiController::class, 'brandCampaignApplierContentReject']);
+
+
+
+// ---------- Influencer
+
+Route::get('/influencer-category', [ApiController::class, 'influencerCategoryList']);
+Route::get('/influencer', [ApiController::class, 'categoryWiseInfluencerList']);
+
+// profile
+Route::post('/influencer-profile/{id?}', [ApiController::class, 'influencerProfile']);
+
+// portfolio
+Route::get('/influencer-portfolio/{id?}', [ApiController::class, 'influencerPortfolio']);
+Route::post('/influencer-portfolio-store/{id?}', [ApiController::class, 'influencerPortfolioStore']);
+
+
+// brand Lits for influencer
+Route::get('/brand-list', [ApiController::class, 'BrandListWithCampaign']);
+
+// apply by influencer
+Route::post('/influencer-campaign-apply', [ApiController::class, 'campaignApplied']);
+
+// campaign applied list of influencer
+
+Route::get('/influencer-campaign-list/{id?}', [ApiController::class, 'campaignAppliedList']);
+
+// coentant store for approved influencer
+Route::post('/influencer-campaign-content-store', [ApiController::class, 'addContentforCampaign']);
+Route::get('/influencer-campaign-content-view/{id?}', [ApiController::class, 'influencerContentforCampaignView']);
+
+// followed Step by influencer
+Route::get('/influencer-campaign-stepList/{campaignId?}', [ApiController::class, 'stepList']);
+Route::post('/influencer-campaign-step', [ApiController::class, 'followedStep']);
+
+Route::get('/influencer-package', [ApiController::class, 'influencerPackage']);
+Route::post('/influencer-package-store', [ApiController::class, 'storeInfluencerPackage']);

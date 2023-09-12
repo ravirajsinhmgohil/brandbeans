@@ -43,6 +43,7 @@ use App\Models\Campaign;
 use App\Models\CampaignStep;
 use App\Models\CampaignInfluencerActivity;
 use App\Models\CampaignInfluencerActivityStep;
+use App\Models\InfluencerPackages;
 use Carbon\Carbon;
 use Validator;
 use DB;
@@ -854,6 +855,7 @@ class ApiController extends Controller
         $card->companyname = $request->companyname;
         $card->city = $request->city;
         $card->state = $request->state;
+        $card->address = $request->address;
         $card->about = $request->about;
         $card->year = $request->year;
 
@@ -2833,351 +2835,6 @@ class ApiController extends Controller
     }
 
 
-    // Influencer
-
-    public function influencerCategoryList()
-    {
-        $category = CategoryInfluencer::all();
-        if ($category) {
-
-            $response = [
-                'status' => 200,
-                'category' => $category,
-            ];
-            return response($response, 200);
-        } else {
-            return response([
-                'message' => ['Not found']
-            ], 404);
-        }
-    }
-
-    public function categoryWiseInfluencerList()
-    {
-        $category = CategoryInfluencer::with('Influencer.profile')->get();
-        if ($category) {
-
-            $response = [
-                'status' => 200,
-                'category' => $category,
-            ];
-            return response($response, 200);
-        } else {
-            return response([
-                'message' => ['Not found']
-            ], 404);
-        }
-    }
-
-    public function influencerPortfolio($id)
-    {
-        // $category = CategoryInfluencer::with('Influencer.portfolio')->get();
-        $influencer = InfluencerProfile::with('profile')
-            ->with('profile.portfolio')
-            ->where('userId', '=', $id)
-            ->get();
-        if ($influencer) {
-
-            $response = [
-                'status' => 200,
-                'Influencer' => $influencer,
-            ];
-            return response($response, 200);
-        } else {
-            return response([
-                'message' => ['Invalid Coupon']
-            ], 404);
-        }
-    }
-    public function influencerProfile(Request $request, $id)
-    {
-
-        $rules = array(
-            'mobileno'  => "required",
-            'categoryId'  => "required",
-            'profilePhoto'  => "required",
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $validator->errors();
-        }
-        $user = User::find($id);
-        $user->mobileno = $request->mobileno;
-        $user->profilePhoto = time() . '.' . $request->profilePhoto->extension();
-        $request->profilePhoto->move(public_path('profile'), $user->profilePhoto);
-        $user->save();
-        $influencer = InfluencerProfile::where('userId', '=', $user->id)->with('profile')->first();
-        if ($influencer) {
-            $influencer->contactNo = $user->mobileno;
-            $influencer->address = $request->address;
-            $influencer->categoryId = $request->categoryId;
-            $influencer->save();
-
-
-            $response = [
-                'status' => 200,
-                'Influencer' => $influencer,
-                // 'Influencer' => $influencer->with('influencer')->get(),
-            ];
-            return response($response, 200);
-        } else {
-            return response([
-                'message' => ['User Not found']
-            ], 404);
-        }
-    }
-
-    public function influencerPortfolioStore(Request $request)
-    {
-
-        $rules = array(
-            'userId'  => "required",
-            'title'  => "required",
-            'photo'  => "required",
-            'type'  => "required",
-            'details'  => "required",
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $validator->errors();
-        }
-
-        $influencer = new InfluencerPortfolio();
-        if ($influencer) {
-            $influencer->userId = $request->userId;
-            $influencer->title = $request->title;
-            $influencer->photo = time() . '.' . $request->photo->extension();
-            $request->photo->move(public_path('portfolioPhoto'), $influencer->photo);
-            $influencer->type = $request->type;
-            $influencer->details = $request->details;
-            $influencer->save();
-
-
-            $response = [
-                'status' => 200,
-                'Influencer' => $influencer,
-                // 'Influencer' => $influencer->with('influencer')->get(),
-            ];
-            return response($response, 200);
-        } else {
-            return response([
-                'message' => ['User Not found']
-            ], 404);
-        }
-    }
-
-    function BrandListWithCampaign()
-    {
-        $brands = User::whereHas(
-            'roles',
-            function ($q) {
-                $q->where('name', 'Brand');
-            }
-        )->with('campaign')->get();
-
-
-        if ($brands) {
-
-            $response = [
-                'status' => 200,
-                'Brands' => $brands,
-            ];
-            return response($response, 200);
-        } else {
-            return response([
-                'message' => ['User Not found']
-            ], 404);
-        }
-    }
-
-
-    function campaignApplied(Request $request)
-    {
-
-        $rules = array(
-            'userId'  => "required",
-            'campaignId'  => "required",
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $validator->errors();
-        }
-
-        $apply = new Apply();
-        $apply->campaignId = $request->campaignId;
-        $apply->userId = $request->userId;
-        $apply->status = "Applied";
-        $apply->save();
-
-        if ($apply) {
-
-            $response = [
-                'status' => 200,
-                'data' => $apply,
-            ];
-            return response($response, 200);
-        } else {
-            return response([
-                'message' => ['somthing went wrong']
-            ], 404);
-        }
-    }
-
-    function campaignAppliedList($id)
-    {
-        $apply = Apply::with('campaign')->where('userId', '=', $id)->get();
-        if ($apply) {
-
-
-            $response = [
-                'status' => 200,
-                'data' => $apply,
-            ];
-            return response($response, 200);
-        } else {
-            return response([
-                'message' => ['No List Found']
-            ], 404);
-        }
-    }
-
-    function addContentforCampaign(Request $request)
-    {
-        $rules = array(
-            'campaignId'  => "required",
-            'userId'  => "required",
-            'file'  => "required",
-            'fileType'  => "required",
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $validator->errors();
-        }
-        $appliers = new CheckApply();
-        $appliers->campaignId = $request->campaignId;
-        $appliers->userId = $request->userId;
-        $appliers->file = time() . '.' . $request->file->extension();
-        $request->file->move(public_path('checkApplyFile'), $appliers->file);
-        $appliers->fileType = $request->fileType;
-        $appliers->status = "Pending";
-
-        $appliers->save();
-
-        if ($appliers) {
-            $response = [
-                'status' => 200,
-                'data' => $appliers,
-            ];
-            return response($response, 200);
-        } else {
-            return response([
-                'message' => ['No List Found']
-            ], 404);
-        }
-    }
-    function influencerContentforCampaignView($id)
-    {
-
-        $appliers = CheckApply::where('userId', '=', $id)->get();
-
-        if ($appliers) {
-            $response = [
-                'status' => 200,
-                'data' => $appliers,
-            ];
-            return response($response, 200);
-        } else {
-            return response([
-                'message' => ['No List Found']
-            ], 404);
-        }
-    }
-
-    function BrandInfluencerList()
-    {
-        $items = array();
-        $brand = User::whereHas(
-            'roles',
-            function ($q) {
-                $q->where('name', 'Brand');
-            }
-        )->get();
-
-        $influencer = User::whereHas(
-            'roles',
-            function ($q) {
-                $q->where('name', 'Influencer');
-            }
-        )->get();
-
-        array_push($items, ['Brand' => $brand, "Influencer" => $influencer]);
-
-        $response = [
-            'status' => true,
-            'Data' => $items
-        ];
-
-        return response($response, 200);
-    }
-
-    function stepList($campaignId)
-    {
-        $list = CampaignStep::where('campaignId', '=', $campaignId)->get();
-        $response = [
-            'status' => true,
-            'Data' => $list
-        ];
-
-        return response($response, 200);
-    }
-    function followedStep(Request $request)
-    {
-        $rules = array(
-            'campaignId'  => "required",
-            'influencerId'  => "required",
-            'stepId'  => "required",
-            'uploadActivityPhoto'  => "required_without_all:uploadActivityLink",
-            'uploadActivityLink'  => "required_without_all:uploadActivityPhoto",
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $validator->errors();
-        }
-
-        $campaignId = $request->campaignId;
-        $influencerId = $request->influencerId;
-        $stepId = $request->stepId;
-
-        $step = new  CampaignInfluencerActivity();
-        $step->campaignId = $campaignId;
-        $step->influencerId = $influencerId;
-        $step->save();
-
-
-        $steps = new CampaignInfluencerActivityStep();
-        $steps->campaignInfluencerActivityId = $step->id;
-        $steps->campaignId = $step->campaignId;
-        $steps->influencerId = $step->influencerId;
-        $steps->stepId = $stepId;
-        if ($request->uploadActivityPhoto) {
-            $steps->uploadActivityPhoto = time() . '.' . $request->uploadActivityPhoto->extension();
-            $request->uploadActivityPhoto->move(public_path('uploadActivityPhoto'), $steps->uploadActivityPhoto);
-        }
-        $steps->uploadActivityLink = $request->uploadActivityLink;
-        $steps->save();
-
-        $response = [
-            'status' => true,
-            'Data' => $steps,
-        ];
-
-        return response($response, 200);
-    }
 
 
 
@@ -3517,6 +3174,397 @@ class ApiController extends Controller
             'status' => 200,
             'data' => $applier,
         ];
+        return response($response, 200);
+    }
+
+    // Influencer
+
+    public function influencerCategoryList()
+    {
+        $category = CategoryInfluencer::all();
+        if ($category) {
+
+            $response = [
+                'status' => 200,
+                'category' => $category,
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['Not found']
+            ], 404);
+        }
+    }
+
+    public function categoryWiseInfluencerList()
+    {
+        $category = CategoryInfluencer::whereHas('Influencer.profile')->get();
+        if ($category) {
+
+            $response = [
+                'status' => 200,
+                'category' => $category,
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['Not found']
+            ], 404);
+        }
+    }
+
+    public function influencerPortfolio($id)
+    {
+        // $category = CategoryInfluencer::with('Influencer.portfolio')->get();
+        $influencer = InfluencerProfile::with('profile')
+            ->with('profile.portfolio')
+            ->where('userId', '=', $id)
+            ->get();
+        if ($influencer) {
+
+            $response = [
+                'status' => 200,
+                'Influencer' => $influencer,
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['Invalid Coupon']
+            ], 404);
+        }
+    }
+    public function influencerProfile(Request $request, $id)
+    {
+
+        $rules = array(
+            'mobileno'  => "required",
+            'categoryId'  => "required",
+            'profilePhoto'  => "required",
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        $user = User::find($id);
+        $user->mobileno = $request->mobileno;
+        $user->profilePhoto = time() . '.' . $request->profilePhoto->extension();
+        $request->profilePhoto->move(public_path('profile'), $user->profilePhoto);
+        $user->save();
+        $influencer = InfluencerProfile::where('userId', '=', $user->id)->with('profile')->first();
+        if ($influencer) {
+            $influencer->contactNo = $user->mobileno;
+            $influencer->address = $request->address;
+            $influencer->categoryId = $request->categoryId;
+            $influencer->save();
+
+
+            $response = [
+                'status' => 200,
+                'Influencer' => $influencer,
+                // 'Influencer' => $influencer->with('influencer')->get(),
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['User Not found']
+            ], 404);
+        }
+    }
+
+    public function influencerPortfolioStore(Request $request)
+    {
+
+        $rules = array(
+            'userId'  => "required",
+            'title'  => "required",
+            'photo'  => "required",
+            'type'  => "required",
+            'details'  => "required",
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $influencer = new InfluencerPortfolio();
+        if ($influencer) {
+            $influencer->userId = $request->userId;
+            $influencer->title = $request->title;
+            $influencer->photo = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('portfolioPhoto'), $influencer->photo);
+            $influencer->type = $request->type;
+            $influencer->details = $request->details;
+            $influencer->save();
+
+
+            $response = [
+                'status' => 200,
+                'Influencer' => $influencer,
+                // 'Influencer' => $influencer->with('influencer')->get(),
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['User Not found']
+            ], 404);
+        }
+    }
+
+    function BrandListWithCampaign()
+    {
+        $brands = User::whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Brand');
+            }
+        )->with('campaign')->get();
+
+
+        if ($brands) {
+
+            $response = [
+                'status' => 200,
+                'Brands' => $brands,
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['User Not found']
+            ], 404);
+        }
+    }
+
+
+    function campaignApplied(Request $request)
+    {
+
+        $rules = array(
+            'userId'  => "required",
+            'campaignId'  => "required",
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $apply = new Apply();
+        $apply->campaignId = $request->campaignId;
+        $apply->userId = $request->userId;
+        $apply->status = "Applied";
+        $apply->save();
+
+        if ($apply) {
+
+            $response = [
+                'status' => 200,
+                'data' => $apply,
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['somthing went wrong']
+            ], 404);
+        }
+    }
+
+    function campaignAppliedList($id)
+    {
+        $apply = Apply::with('campaign')->where('userId', '=', $id)->get();
+        if ($apply) {
+
+
+            $response = [
+                'status' => 200,
+                'data' => $apply,
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['No List Found']
+            ], 404);
+        }
+    }
+
+    function addContentforCampaign(Request $request)
+    {
+        $rules = array(
+            'campaignId'  => "required",
+            'userId'  => "required",
+            'file'  => "required",
+            'fileType'  => "required",
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        $appliers = new CheckApply();
+        $appliers->campaignId = $request->campaignId;
+        $appliers->userId = $request->userId;
+        $appliers->file = time() . '.' . $request->file->extension();
+        $request->file->move(public_path('checkApplyFile'), $appliers->file);
+        $appliers->fileType = $request->fileType;
+        $appliers->status = "Pending";
+
+        $appliers->save();
+
+        if ($appliers) {
+            $response = [
+                'status' => 200,
+                'data' => $appliers,
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['No List Found']
+            ], 404);
+        }
+    }
+    function influencerContentforCampaignView($id)
+    {
+
+        $appliers = CheckApply::where('userId', '=', $id)->get();
+
+        if ($appliers) {
+            $response = [
+                'status' => 200,
+                'data' => $appliers,
+            ];
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['No List Found']
+            ], 404);
+        }
+    }
+
+    function BrandInfluencerList()
+    {
+        $items = array();
+        $brand = User::whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Brand');
+            }
+        )->get();
+
+        $influencer = User::whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Influencer');
+            }
+        )->get();
+
+        array_push($items, ['Brand' => $brand, "Influencer" => $influencer]);
+
+        $response = [
+            'status' => true,
+            'Data' => $items
+        ];
+
+        return response($response, 200);
+    }
+
+    function stepList($campaignId)
+    {
+        $list = CampaignStep::where('campaignId', '=', $campaignId)->get();
+        $response = [
+            'status' => true,
+            'Data' => $list
+        ];
+
+        return response($response, 200);
+    }
+    function followedStep(Request $request)
+    {
+        $rules = array(
+            'campaignId'  => "required",
+            'influencerId'  => "required",
+            'stepId'  => "required",
+            'uploadActivityPhoto'  => "required_without_all:uploadActivityLink",
+            'uploadActivityLink'  => "required_without_all:uploadActivityPhoto",
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $campaignId = $request->campaignId;
+        $influencerId = $request->influencerId;
+        $stepId = $request->stepId;
+
+        $step = new  CampaignInfluencerActivity();
+        $step->campaignId = $campaignId;
+        $step->influencerId = $influencerId;
+        $step->save();
+
+
+        $steps = new CampaignInfluencerActivityStep();
+        $steps->campaignInfluencerActivityId = $step->id;
+        $steps->campaignId = $step->campaignId;
+        $steps->influencerId = $step->influencerId;
+        $steps->stepId = $stepId;
+        if ($request->uploadActivityPhoto) {
+            $steps->uploadActivityPhoto = time() . '.' . $request->uploadActivityPhoto->extension();
+            $request->uploadActivityPhoto->move(public_path('uploadActivityPhoto'), $steps->uploadActivityPhoto);
+        }
+        $steps->uploadActivityLink = $request->uploadActivityLink;
+        $steps->save();
+
+        $response = [
+            'status' => true,
+            'Data' => $steps,
+        ];
+
+        return response($response, 200);
+    }
+
+    // influencer package
+
+    function influencerPackage()
+    {
+        $package = User::with('influencerPackage')->whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Influencer');
+            }
+        )->whereHas('influencerPackage')->get();
+        $response = [
+            'status' => true,
+            'Data' => $package,
+        ];
+
+        return response($response, 200);
+    }
+
+    function storeInfluencerPackage(Request $request)
+    {
+        $rules = array(
+            "userId" => "required",
+            "title" => "required",
+            "price" => "required",
+            "description" => "required",
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        $package = new InfluencerPackages();
+        $package->userId = $request->userId;
+        $package->title = $request->title;
+        $package->price = $request->price;
+        $package->description = $request->description;
+        $package->save();
+        $response = [
+            'status' => true,
+            'Data' => $package,
+        ];
+
         return response($response, 200);
     }
 }

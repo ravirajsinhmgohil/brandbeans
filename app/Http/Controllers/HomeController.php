@@ -43,7 +43,8 @@ class HomeController extends Controller
     public function index()
     {
         try {
-            if (Auth::user()->hasRole(['Admin', 'Writer', 'Designer', 'Influencer', 'Brand'])) {
+            //  'Writer', 'Designer', 'Influencer', 'Brand'   // for dashboard
+            if (Auth::user()->hasRole(['Admin'])) {
                 $users = User::count();
                 $paidUsers = User::where('package', '!=', 'FREE')->count();
                 $freeUsers = User::where('package', '=', 'FREE')->count();
