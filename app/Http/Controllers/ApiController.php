@@ -673,6 +673,49 @@ class ApiController extends Controller
         }
     }
 
+
+    // update pin 
+    function updatePin(Request $request)
+    {
+        $rules = array(
+            'userId' => 'required',
+            'oldPin' => 'required',
+            'newPin' => 'required',
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $userId = $request->userId;
+
+        $pin = $request->newPin;
+
+        $user = User::where('users.id', '=', $userId)
+            ->first();
+
+        if ($user) {
+
+            if ($request->oldPin ==  $user->pin) {
+
+                $userPin = User::find($userId);
+                $userPin->pin = $pin;
+                $userPin->save();
+
+                //    return $userPin;
+                return response([
+                    'message' => 'Pin Change Successfully',
+                    'oldPin' => $user->pin,
+                    'newPin' => $pin,
+                ], 201);
+            } else {
+                return response('Old Pin does not match', 404);
+            }
+        } else {
+            return response('User not Found', 501);
+        }
+    }
+
     //forgetpassword && changepassword
 
     function changepassword(Request $req)

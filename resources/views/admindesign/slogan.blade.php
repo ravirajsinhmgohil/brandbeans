@@ -82,6 +82,7 @@
                                 <th> Title</th>
                                 <th> Category</th>
                                 <th> Write By</th>
+                                <th> End Date</th>
                                 <th> Status</th>
                                 <th> Option</th>
                             </tr>
@@ -93,6 +94,7 @@
                                     <td>{!! $data->title !!}</td>
                                     <td>{{ $data->categoryName }}</td>
                                     <td>{{ $data->userName }}</td>
+                                    <td>{{ $data->endDate }}</td>
                                     @if ($data->status == 'Pending')
                                         <td class="text-primary"><b>{{ $data->status }}</b></td>
                                     @elseif($data->status == 'Rejected')
@@ -110,8 +112,26 @@
                                                 <button class="btn btn-danger btn-sm" name="Reject" value="Reject" type="submit" onclick="return confirm('Do you really want to Reject?')">Reject</button>
                                             </form>
                                         </td>
+                                    @else
+                                        <td><button data-remodal-target="remodal" class="btn btn-sm btn-violet">Change Date</button></td>
                                     @endif
                                 </tr>
+
+
+                                <div class="remodal" data-remodal-id="remodal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+                                    <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+                                    <div class="remodal-content">
+                                        <h2 id="modal1Title">Remodal</h2>
+                                        <form action="" method="post">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose">
+                                                <span class="input-group-addon bg-primary text-white"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                    </div>
+                                    <button type="sumbit" class="remodal-confirm">OK</button>
+                                    </form>
+                                    <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+                                </div>
                             @endforeach
 
                         </tbody>

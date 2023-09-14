@@ -25,7 +25,7 @@ class InfluencerPackagesController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'description' => 'required',
         ]);
 
@@ -53,7 +53,7 @@ class InfluencerPackagesController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'description' => 'required',
         ]);
         $id = $request->influencerPackageId;

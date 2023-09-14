@@ -300,6 +300,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('design/update', [DesignController::class, 'update'])->name('design.update');
     Route::get('design/delete/{id?}', [DesignController::class, 'destroy'])->name('design.delete');
 
+    // Writer Designer Report
+    Route::get('writer/designer/report', [DesignController::class, 'writerDesignerReport'])->name('writer.designer.report');
+    Route::get('writer/report/{id?}', [DesignController::class, 'writerReport'])->name('writer.report');
+    Route::get('designer/report/{id?}', [DesignController::class, 'designerReport'])->name('designer.report');
+
+
     // admin side slogan and design
     // slogan
     Route::get('adminslogan/adminslogan', [DesignController::class, 'adminslogan'])->name('adminslogan.adminslogan');
@@ -317,6 +323,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('influencer/category/index', [CategoryInfluencerController::class, 'index'])->name('influencer.index');
     Route::get('influencer/list', [CategoryInfluencerController::class, 'list'])->name('influencer.list');
     Route::get('influencer/singleView/{id?}', [CategoryInfluencerController::class, 'singleView'])->name('influencer.singleView');
+    Route::get('influencer/statusEdit/{id?}', [CategoryInfluencerController::class, 'statusEdit'])->name('influencer.statusEdit');
+    Route::post('influencer/statusEditCode', [CategoryInfluencerController::class, 'statusEditCode'])->name('influencer.statusEditCode');
     Route::get('influencer/category/create', [CategoryInfluencerController::class, 'create'])->name('influencer.create');
     Route::post('influencer/category/store', [CategoryInfluencerController::class, 'store'])->name('influencer.store');
     Route::get('influencer/category/edit/{id?}', [CategoryInfluencerController::class, 'edit'])->name('influencer.edit');

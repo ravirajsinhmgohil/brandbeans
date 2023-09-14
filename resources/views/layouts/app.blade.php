@@ -58,6 +58,16 @@
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('assets/plugin/toastr/toastr.css') }}">
 
+    <!-- TinyMCE -->
+    <link rel="stylesheet" href="{{ asset('assets/plugin/tinymce/skins/lightgray/skin.min.css') }}">
+    <!-- Must include this script FIRST -->
+    <script src="{{ asset('assets/plugin/tinymce/tinymce.min.js') }}"></script>
+    <!-- Plugin Files DON'T INCLUDES THESES FILES IF YOU USE IN THE HOST -->
+    <link rel="stylesheet" href="{{ asset('assets/plugin/tinymce/skins/lightgray/skin.min.css') }}">
+
+    <!-- Datepicker -->
+    <link rel="stylesheet" href="{{ asset('assets/plugin/datepicker/css/bootstrap-datepicker.min.css') }}">
+
 
 </head>
 
@@ -177,6 +187,15 @@
 
     <!-- dropdown -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+    {{-- ck editor --}}
+    <script src="{{ asset('assets/scripts/tinymce.init.min.js') }}"></script>
+
+
+    {{-- datepicker --}}
+    <script src="{{ asset('assets/plugin/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $('#dropdown').select2({

@@ -62,7 +62,7 @@ class CategoryInfluencerController extends Controller
             function ($q) {
                 $q->where('name', 'Influencer');
             }
-        )->get();
+        )->with('influencer')->get();
         return view('influencer.list', \compact('influencer'));
     }
     public function singleView($id)
@@ -73,6 +73,25 @@ class CategoryInfluencerController extends Controller
             ->orderBy('id', 'DESC')
             ->first();
         return view('influencer.listView', \compact('profile'));
+    }
+
+    public function statusEdit($id)
+    {
+        $profile = InfluencerProfile::with('profile')
+            ->where('userId', '=', $id)
+            ->first();
+        return view('influencer.statusUpdate', \compact('profile'));
+    }
+    public function statusEditCode(Request $request)
+    {
+        $id = $request->influencerId;
+        $influencerStatus = InfluencerProfile::where('userId', '=', $id)->first();
+        $influencerStatus->is_featured = $request->is_featured;
+        $influencerStatus->is_trending = $request->is_trending;
+        $influencerStatus->is_brandBeansVerified = $request->is_brandBeansVerified;
+        $influencerStatus->save();
+
+        return \redirect()->back()->with('success', 'Status Updated Successfully');
     }
 
     public function edit($id)

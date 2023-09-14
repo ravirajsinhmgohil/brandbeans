@@ -255,6 +255,11 @@ class InfluencerController extends Controller
                     $userData->mobileno = $mobileno;
                     $userData->assignRole(['Influencer', 'User']);
                     $userData->save();
+                    $profile = new InfluencerProfile();
+                    $profile->userId = $userData->id;
+                    $profile->contactNo = $user->mobileno;
+                    $profile->status = "Active";
+                    $profile->save();
                     Auth::login($userData);
                     return redirect('dashboard');
                 }

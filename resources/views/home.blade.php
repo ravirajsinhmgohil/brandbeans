@@ -70,7 +70,7 @@
 
                                 </h4>
                                 <div class="js__card_content">
-                                    <a href="{{ route('users.index') }}">
+                                    <a href="{{ route('users.index') }}?roleSearch=Influencer">
                                         <span class="fs-2"> {{ $influencer }} </span>
                                     </a>
                                 </div>
@@ -83,7 +83,7 @@
 
                                 </h4>
                                 <div class="js__card_content">
-                                    <a href="{{ route('users.index') }}">
+                                    <a href="{{ route('users.index') }}?roleSearch=Brand">
                                         <span class="fs-2"> {{ $brand }}</span>
                                     </a>
                                 </div>
@@ -95,7 +95,7 @@
                                     <i class="ico fa fa-user fs-2"></i> Reseller
                                 </h4>
                                 <div class="js__card_content">
-                                    <a href="{{ route('users.index') }}">
+                                    <a href="{{ route('users.index') }}?roleSearch=Reseller">
                                         <span class="fs-2"> {{ $reseller }}</span>
                                     </a>
                                 </div>
@@ -107,7 +107,7 @@
                                     <i class="bi bi-pen fs-2"></i> Writer
                                 </h4>
                                 <div class="js__card_content">
-                                    <a href="{{ route('users.index') }}">
+                                    <a href="{{ route('users.index') }}?roleSearch=Writer">
                                         <span class="fs-2"> {{ $writer }}</span>
                                     </a>
                                 </div>
@@ -120,7 +120,7 @@
                                     <i class="bi bi-brush fs-2"></i> Designer
                                 </h4>
                                 <div class="js__card_content">
-                                    <a href="{{ route('users.index') }}">
+                                    <a href="{{ route('users.index') }}?roleSearch=Designer">
                                         <span class="fs-2"> {{ $designer }}</span>
                                     </a>
                                 </div>

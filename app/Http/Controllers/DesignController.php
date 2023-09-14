@@ -473,4 +473,70 @@ class DesignController extends Controller
             return view('servererror');
         }
     }
+
+    // report
+
+    function writerDesignerReport()
+    {
+        $writer = User::whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Writer');
+            }
+        )->with('writer')->get();
+        $designer = User::whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Designer');
+            }
+        )->with('designer')->get();
+        return view('designer.writerDesignerReport', \compact('writer', 'designer'));
+    }
+
+    function writerReport($id)
+    {
+
+        $data = User::where('id', '=', $id)->whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Writer');
+            }
+        )->with('writer')->first();
+
+        $totalSlogans = Writerslogan::where('userId', '=', $id)->count();
+        $approvedSlogans = Writerslogan::where('userId', '=', $id)
+            ->where('status', '=', "Approved")
+            ->count();
+        $rejectedSlogans = Writerslogan::where('userId', '=', $id)
+            ->where('status', '=', "Rejected")
+            ->count();
+        $pendingSlogans = Writerslogan::where('userId', '=', $id)
+            ->where('status', '=', "Pending")
+            ->count();
+
+        return view('designer.writerReport', \compact('data', 'totalSlogans', 'approvedSlogans', 'rejectedSlogans', 'pendingSlogans'));
+    }
+    function designerReport($id)
+    {
+
+        $data = User::where('id', '=', $id)->whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Designer');
+            }
+        )->with('designer')->first();
+
+        $totalDesigns = Design::where('userId', '=', $id)->count();
+        $approvedDesigns = Design::where('userId', '=', $id)
+            ->where('status', '=', "Approved")
+            ->count();
+        $rejectedDesigns = Design::where('userId', '=', $id)
+            ->where('status', '=', "Rejected")
+            ->count();
+        $pendingDesigns = Design::where('userId', '=', $id)
+            ->where('status', '=', "Pending")
+            ->count();
+
+        return view('designer.designerReport', \compact('data', 'totalDesigns', 'approvedDesigns', 'rejectedDesigns', 'pendingDesigns'));
+    }
 }

@@ -30,6 +30,7 @@ Route::post('/otpapi', [ApiController::class, 'otpapi']);
 // login with Pin
 
 Route::post('/loginWithPin', [ApiController::class, 'loginWithPin']);
+Route::post('/updatePin', [ApiController::class, 'updatePin']);
 
 
 

@@ -5,7 +5,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 
-    @if ($message = Session::get('success'))
+    {{-- @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>{{ $message }}</strong>
@@ -27,7 +27,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+    @endif --}}
 
 
     <div class="box-content card">
@@ -60,7 +60,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea type="text" class="form-control" id="description" name="description" required>{{ $packages->description }}</textarea>
+                    <textarea type="text" class="form-control" id="tinymce" name="description" required>{{ $packages->description }}</textarea>
                     @if ($errors->has('description'))
                         <span class="error text-danger fs-6">{{ $errors->first('description') }}</span>
                     @endif

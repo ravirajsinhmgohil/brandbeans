@@ -145,7 +145,7 @@ class SubscriptionpackageController extends Controller
             $details = Subscriptiondetail::where('packageId', '=', $id)->get();
             return view('adminSubPack.subscriptiondetails', \compact('subpack', 'details'));
         } catch (\Throwable $th) {
-            //throw $th;    
+            // throw $th;
             return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }
@@ -165,8 +165,8 @@ class SubscriptionpackageController extends Controller
             $subddetail->save();
             return redirect()->back()->with('success', 'Title Added Successfully');
         } catch (\Throwable $th) {
-            //throw $th;    
-            return view('servererror');
+            throw $th;
+            // return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }
     }

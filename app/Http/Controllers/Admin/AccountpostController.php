@@ -33,7 +33,8 @@ class AccountpostController extends Controller
         } else if ($type == 'Paid') {
             $user = User::where('package', '=', 'SILVER')->orderBy('id', 'DESC')->paginate(10);
         } else {
-            $user = User::orderBy('id', 'DESC')->paginate(10);
+            $user = User::orderBy('id', 'DESC')
+                ->where('status', '!=', 'Deleted')->paginate(10);
         }
         return view("adminAccountPost.index", compact('user'));
     }
@@ -110,8 +111,10 @@ class AccountpostController extends Controller
 
     public function destroy($id)
     {
-        $accountpost = Accountpost::find($id);
-        $accountpost->delete();
+        $accountpost = User::find($id);
+
+        $accountpost->status = 'Deleted';
+        $accountpost->save();
         return redirect()->back();
     }
 }

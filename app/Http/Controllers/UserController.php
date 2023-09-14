@@ -35,7 +35,41 @@ class UserController extends Controller
             $data = User::whereHas('roles', function ($query) {
                 return $query->where('name', '!=', 'User');
             })->orderBy('id', 'DESC')->paginate(50);
-            return view('users.index', compact('data'))
+            $userRoles = Role::all();
+
+            $search = $request->roleSearch;
+            if ($search == "Admin") {
+                $data = User::whereHas('roles', function ($query) {
+                    return $query->where('name', '=', 'Admin');
+                })->orderBy('id', 'DESC')->paginate(50);
+            }
+            if ($search == "Brand") {
+                $data = User::whereHas('roles', function ($query) {
+                    return $query->where('name', '=', 'Brand');
+                })->orderBy('id', 'DESC')->paginate(50);
+            }
+            if ($search == "Influencer") {
+                $data = User::whereHas('roles', function ($query) {
+                    return $query->where('name', '=', 'Influencer');
+                })->orderBy('id', 'DESC')->paginate(50);
+            }
+            if ($search == "Reseller") {
+                $data = User::whereHas('roles', function ($query) {
+                    return $query->where('name', '=', 'Reseller');
+                })->orderBy('id', 'DESC')->paginate(50);
+            }
+            if ($search == "Designer") {
+                $data = User::whereHas('roles', function ($query) {
+                    return $query->where('name', '=', 'Designer');
+                })->orderBy('id', 'DESC')->paginate(50);
+            }
+            if ($search == "Writer") {
+                $data = User::whereHas('roles', function ($query) {
+                    return $query->where('name', '=', 'Writer');
+                })->orderBy('id', 'DESC')->paginate(50);
+            }
+
+            return view('users.index', compact('data', 'userRoles'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
             // $data = User::all();
         } catch (\Throwable $th) {

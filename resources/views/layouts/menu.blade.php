@@ -116,8 +116,11 @@
             <li>
                 <a class="text-white waves-effect" href="{{ route('adminsubscriptionpackage.index') }}"><span>Subscription Package</span></a>
             </li>
+            {{-- <li>
+                <a class="text-white waves-effect" href="{{ route('accountpost.index') }}"><span>Our Users</span></a>
+            </li> --}}
             <li>
-                {{-- <a class="text-white waves-effect" href="{{ route('accountpost.index') }}"><span>Our Users</span></a> --}}
+                <a class="text-white waves-effect" href="{{ route('writer.designer.report') }}"><span>Writer/Designer</span></a>
             </li>
         </ul>
         <!-- /.sub-menu js__content -->
@@ -178,6 +181,7 @@
         <a class="text-white waves-effect" href="{{ route('reseller.passbook') }}"><i class="text-white menu-icon fa fa-user"></i><span>Passbook</span></a>
     </li>
 @endrole
+
 
 
 

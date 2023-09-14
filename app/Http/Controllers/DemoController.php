@@ -139,7 +139,7 @@ class DemoController extends Controller
             $feed = Feedback::where('card_id', '=', $id)->get();
             $inq = Inquiry::where('card_id', '=', $id)->get();
 
-            $admincategory = Category::where('isBusiness', '=', 'yes')->get();
+            $admincategory = Category::all();
             $cardimage = Cardportfoilo::where('cardportfoilos.card_id', '=', $id)
                 ->where('type', '=', 'Photo')
                 // ->orWhere('type', '=', 'Image')
@@ -154,7 +154,7 @@ class DemoController extends Controller
 
             $linkcount = Links::where('card_id', '=', $id)->count();
 
-            $category = Category::where('isBusiness', '=', 'yes')->get();
+            $category = Category::all();
             // if ($linkcount > 0) {
             //     return view('demo', compact('linkcount', 'inq', 'cardvideo', 'feed', 'id', 'details', 'qr', 'links', 'data1', 'category', 'cardimage', 'servicedetail', 'payment', 'admincategory', 'users'));
             // } else {

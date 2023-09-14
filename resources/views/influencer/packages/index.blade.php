@@ -59,7 +59,7 @@
                                 <tr>
                                     <td>{{ $data->title }}</td>
                                     <td>{{ $data->price }}</td>
-                                    <td>{{ $data->description }}</td>
+                                    <td>{!! $data->description !!}</td>
                                     <td>
                                         <a class="btn btn-primary btn-sm" href="{{ route('influencer.package.edit') }}/{{ $data->id }}">Edit</a>
                                         <a class="btn btn-danger btn-sm" href="{{ route('influencer.package.delete') }}/{{ $data->id }}">Delete</a>

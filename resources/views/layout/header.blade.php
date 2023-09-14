@@ -12,12 +12,12 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('main.brandStory') }}">Brand Story</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('main.influencer') }}">Influencers</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
                         <!-- <a class="nav-link" href="{{ route('otp.login') }}">Login</a> -->

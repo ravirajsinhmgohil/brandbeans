@@ -36,21 +36,21 @@
 
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
+                    <input type="text" class="form-control" value="{{ old('title') }}" id="title" name="title" required>
                     @if ($errors->has('title'))
                         <span class="error text-danger fs-6">{{ $errors->first('title') }}</span>
                     @endif
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
-                    <input type="text" class="form-control" id="price" name="price" required>
+                    <input type="text" class="form-control" value="{{ old('price') }}" id="price" name="price" required>
                     @if ($errors->has('price'))
                         <span class="error text-danger fs-6">{{ $errors->first('price') }}</span>
                     @endif
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea type="text" class="form-control" id="description" name="description" required></textarea>
+                    <textarea type="text" class="form-control" id="tinymce" name="description" required>{{ old('description') }}</textarea>
                     @if ($errors->has('description'))
                         <span class="error text-danger fs-6">{{ $errors->first('description') }}</span>
                     @endif

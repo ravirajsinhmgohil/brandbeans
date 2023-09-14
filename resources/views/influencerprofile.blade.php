@@ -71,15 +71,7 @@
                                                     <b>{{ $profile->profile->email }}</b>
                                                 </h6>
                                                 <h6 class=" mb-3 d-flex justify-content-between "><span class="text-muted">Contact : </span><b>{{ $profile->contactNo }}</b></h6>
-                                                <h6 class=" mb-3 d-flex justify-content-between "><span class="text-muted">Category : </span><b>
-                                                    $profile->categoryId = 
-                                                    [""]
-                                                        @foreach ($profile->incategory as $category)
-                                                            <?php
-                                                            $categoryName = explode(',', $category);
-                                                            ?>
-                                                            {{ $categoryName }}
-                                                        @endforeach
+                                                <h6 class=" mb-3 d-flex justify-content-between "><span class="text-muted">Category : </span><b id="category" class="text-end">
                                                     </b></h6>
                                                 <h6 class=" mb-3 d-flex justify-content-between "><span class="text-muted">Address : </span><b>{{ $profile->address }}</b></h6>
                                                 <h6 class=" mb-3 d-flex justify-content-between "><span class="text-muted">Trending : </span>
@@ -123,8 +115,83 @@
 
                             </div>
                         </div>
-                        <div class="col-md-7 ">
-                            bjhsgdadghajsh
+                        <div class="col-md-3 ">
+                            gigs
+                        </div>
+                        <div class="col-md-4 ">
+                            <div class="car" style="">
+
+                                <style>
+                                    .nav-link {
+                                        display: block;
+                                        padding: 0.5rem 1rem;
+                                        color: #000102 !important;
+                                        text-decoration: none;
+                                        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+                                    }
+
+                                    .nav-tabs .nav-link {
+                                        margin-bottom: -1px;
+                                        margin: 5px !important;
+                                        background: 0 0;
+                                        border-bottom: px solid #000000 !important;
+                                        border-right: 1px solid rgba(00, 00, 00, 0.2) !important;
+                                        border-top-left-radius: 0;
+                                        border-top-right-radius: 0;
+                                        border-right: #000102 !important;
+                                    }
+
+                                    .nav-tabs {
+                                        border: 1px solid rgba(00, 00, 00, 0.2);
+                                        /* border-bottom: 3px solid #000000 !important; */
+                                    }
+
+                                    .nav-tabs .nav-item.show .nav-link,
+                                    .nav-tabs .nav-link.active {
+                                        color: #495057;
+                                        background-color: #dddee0;
+                                        border-color: #eef0f2 #eef0f2 #eef0f2;
+                                    }
+
+                                    .nav {
+                                        display: flex;
+                                        justify-content: center;
+                                        flex-wrap: wrap;
+                                        border-bottom: 3px solid #000000 !important;
+                                        margin-bottom: 0;
+                                        list-style: none;
+                                    }
+                                </style>
+
+                                <div class="card-body">
+                                    <div class="row">
+
+                                        <div class="col-md-12 ">
+
+                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active fw-bold" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">Basic</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link fw-bold" id="standard-tab" data-bs-toggle="tab" data-bs-target="#standard" type="button" role="tab" aria-controls="standard" aria-selected="false">Standard</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link fw-bold" id="premium-tab" data-bs-toggle="tab" data-bs-target="#premium" type="button" role="tab" aria-controls="premium" aria-selected="false">Premium</button>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content mt-3" id="myTabContent">
+                                                <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">Basic Info</div>
+                                                <div class="tab-pane fade" id="standard" role="tabpanel" aria-labelledby="standard-tab">Standard</div>
+                                                <div class="tab-pane fade" id="premium" role="tabpanel" aria-labelledby="premium-tab">Premium</div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
@@ -139,6 +206,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="{{ asset('asset/scripts/influencer.js') }}"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script>
+        const category = {!! $profile->categoryId !!};
+        console.log(category);
+
+        document.getElementById('category').innerHTML = category.join(', ');
+    </script>
 </body>
 
 </html>

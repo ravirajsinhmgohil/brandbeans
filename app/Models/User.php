@@ -93,4 +93,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(InfluencerPackages::class, 'userId', 'id');
     }
+    public function writer()
+    {
+        return $this->hasMany(Writerslogan::class, 'userId', 'id');
+    }
+    public function designer()
+    {
+        return $this->hasMany(Design::class, 'userId', 'id');
+    }
 }

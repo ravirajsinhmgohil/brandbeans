@@ -75,8 +75,10 @@
 
                                         @if ($userData->status == 'Active')
                                             <button class="update-status  btn btn-xs btn-rounded btn-bordered btn-success" data-user-id="{{ $userData->id }}">Active</button>
-                                        @else
+                                        @elseif($userData->status == 'Inactive')
                                             <button class="update-status  btn btn-xs btn-rounded btn-bordered btn-danger" data-user-id="{{ $userData->id }}">Inactive</button>
+                                        @else
+                                            <button class="update-status  btn btn-xs btn-rounded btn-danger" data-user-id="{{ $userData->id }}">Deleted</button>
                                         @endif
 
                                     </form>

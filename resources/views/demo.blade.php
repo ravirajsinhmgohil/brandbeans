@@ -22,7 +22,7 @@
 
 
         /* .modal-backdrop.show {
-                                                                                                                                                                                                                                                                                                                                                    } */
+                                                                                                                                                                                                                                                                                                                                                                                                                                    } */
         .dialogmodel1 {
             margin-top: 100px;
         }
@@ -318,14 +318,21 @@
                                         <label class="fs-4">Influencer Category:</label>
                                     </div>
                                     <div class="col-md-10 pb-1">
-                                        <select class="form-control select2_1 " style="width:95%" name="categoryId[]" multiple="multiple">
-                                            <option disabled>-- Select Influencer Category --</option>
-                                            @foreach ($influencerCategory as $category)
-                                                <option value="{{ $category->id }}" {{ old('categoryId', $influencer->categoryId) == $category->id ? 'selected' : '' }}>
-                                                    {{ $category->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <b id="influencerCategory"></b>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select class="form-control select2_1 " style="width:95%" name="categoryId[]" multiple="multiple">
+                                                    <option disabled>-- Select Influencer Category --</option>
+                                                    @foreach ($influencerCategory as $category)
+                                                        <option value="{{ $category->name }}" {{ old('categoryId', $influencer->categoryId) == $category->id ? 'selected' : '' }}>
+                                                            {{ $category->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             @endrole
@@ -810,5 +817,12 @@
         });
     </script>
 
+    @role('Influencer')
+        <script>
+            const category = {!! $influencer->categoryId !!};
+            console.log(category);
 
+            document.getElementById('influencerCategory').innerHTML = category.join(', ');
+        </script>
+    @endrole
 @endsection

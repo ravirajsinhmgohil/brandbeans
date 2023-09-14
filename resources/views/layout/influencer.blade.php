@@ -54,14 +54,10 @@
         <div class="wrapper d-flex justify-content-center">
             <div class="icon"><i id="left" class="bi bi-caret-left-fill"></i></div>
             <ul class="tabs-box">
-                <li class="tab">Food</li>
-                <li class="tab">Travel</li>
-                <li class="tab">Beauty</li>
-                <li class="tab">LifeStyle</li>
-                <li class="tab active">Fitness</li>
-                <li class="tab">Fashion</li>
-                <li class="tab">Parenting</li>
-                <li class="tab">Finance</li>
+                @foreach ($category as $influencerCategory)
+                    <li class="tab">{{ $influencerCategory->name }}</li>
+                @endforeach
+
 
             </ul>
             <div class="icon"><i id="right" class="bi bi-caret-right-fill"></i></div>
@@ -72,7 +68,12 @@
             @foreach ($influencers as $influencer)
                 <div class="col-md-3 pt-3">
                     <a href="{{ route('main.influencer.profile') }}/{{ $influencer->id }}">
-                        <img src="{{ asset('influencerPage/demo1.avif') }}" class=" image" alt="">
+                        {{-- <img src="{{ asset('influencer') }}" class=" image" alt=""> --}}
+                        @if ($influencer->profilePhoto)
+                            <img class="image" src="{{ asset('profile') }}/{{ $influencer->profilePhoto }}" alt="image">
+                        @else
+                            <img class="image" src="{{ url('asset/img/defaultImage.jpg') }}" alt="image"><br> <br>
+                        @endif
                     </a>
                 </div>
             @endforeach
@@ -213,14 +214,9 @@
             <div class="wrapper d-flex justify-content-center">
                 <div class="icon"><i id="left" class="bi bi-caret-left-fill"></i></div>
                 <ul class="tabs-box">
-                    <li class="tab">Food</li>
-                    <li class="tab">Travel</li>
-                    <li class="tab">Beauty</li>
-                    <li class="tab">LifeStyle</li>
-                    <li class="tab active">Fitness</li>
-                    <li class="tab">Fashion</li>
-                    <li class="tab">Parenting</li>
-                    <li class="tab">Finance</li>
+                    @foreach ($category as $influencerCategory)
+                        <li class="tab">{{ $influencerCategory->name }}</li>
+                    @endforeach
 
                 </ul>
                 <div class="icon"><i id="right" class="bi bi-caret-right-fill"></i></div>
