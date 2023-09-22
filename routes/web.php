@@ -310,6 +310,7 @@ Route::group(['middleware' => ['auth']], function () {
     // slogan
     Route::get('adminslogan/adminslogan', [DesignController::class, 'adminslogan'])->name('adminslogan.adminslogan');
     Route::post('adminslogan/approve', [DesignController::class, 'approve'])->name('adminslogan.approve');
+    Route::post('adminslogan/changeDate', [DesignController::class, 'changeSloganDate'])->name('slogan.changeDate');
 
     // design
     Route::get('admindesign/admindesign', [DesignController::class, 'admindesign'])->name('admindesign.admindesign');

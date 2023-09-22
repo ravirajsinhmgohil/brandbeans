@@ -157,7 +157,7 @@
         <a class="text-white waves-effect" href="{{ route('influencer.campaignApplyList') }}"><i class="text-white menu-icon fa fa-users"></i><span>My Applied Campaign</span></a>
     </li>
     <li>
-        <a class="text-white waves-effect" href="{{ route('influencer.package.index') }}"><span>Influencer Packages</span></a>
+        <a class="text-white waves-effect" href="{{ route('influencer.package.index') }}"><i class="bi bi-bookmark-heart-fill text-white menu-icon"></i><span>Influencer Packages</span></a>
     </li>
 @endrole
 

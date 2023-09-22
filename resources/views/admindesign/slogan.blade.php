@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('header', 'Slogan')
+<!-- Datepicker -->
+<link rel="stylesheet" href="{{ asset('assets/plugin/datepicker/css/bootstrap-datepicker.min.css') }}">
+
 @section('content')
 
     @if ($message = Session::get('success'))
@@ -113,18 +116,20 @@
                                             </form>
                                         </td>
                                     @else
-                                        <td><button data-remodal-target="remodal" class="btn btn-sm btn-violet">Change Date</button></td>
+                                        <td><button data-remodal-target="remodal{{ $data->id }}" class="btn btn-sm btn-violet">Change Date</button></td>
                                     @endif
                                 </tr>
 
 
-                                <div class="remodal" data-remodal-id="remodal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+                                <div class="remodal" data-remodal-id="remodal{{ $data->id }}" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
                                     <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
                                     <div class="remodal-content">
                                         <h2 id="modal1Title">Remodal</h2>
-                                        <form action="" method="post">
+                                        <form action="{{ route('slogan.changeDate') }}" method="post">
+                                            @csrf
+                                            <input type="hiddenn" name="sloganId" value="{{ $data->id }}">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose">
+                                                <input type="date" class="form-control" name="endDate" id="datepicker">
                                                 <span class="input-group-addon bg-primary text-white"><i class="fa fa-calendar"></i></span>
                                             </div>
                                     </div>
@@ -144,5 +149,7 @@
         </div>
         <!-- /.card-content -->
     </div>
+
+
 
 @endsection

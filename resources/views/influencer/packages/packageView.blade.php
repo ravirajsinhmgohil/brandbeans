@@ -34,9 +34,9 @@
             <div class="">
                 <h4 class="">Influencer Package</h4>
             </div>
-            <div class="">
+            {{-- <div class="">
                 <a href="{{ route('influencer.package.create') }}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">Add</a>
-            </div>
+            </div> --}}
         </div>
         <!-- /.dropdown js__dropdown -->
         <div class="card-content">
@@ -65,7 +65,7 @@
                                     </td>
                                     <td>{{ $data->title }}</td>
                                     <td>{{ $data->price }}</td>
-                                    <td>{{ $data->description }}</td>
+                                    <td>{!! $data->description !!}</td>
                                 </tr>
                             @endforeach
                         </tbody>

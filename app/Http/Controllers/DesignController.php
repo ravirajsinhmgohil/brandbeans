@@ -232,6 +232,17 @@ class DesignController extends Controller
         }
     }
 
+    function changeSloganDate(Request $request)
+    {
+        $id = $request->sloganId;
+        $date = $request->endDate;
+
+        $writer = Writerslogan::find($id);
+        $writer->endDate = $date;
+        $writer->save();
+        return redirect()->back()->with('success', 'End date update Successfully');
+    }
+
     public function approve(Request $request)
     {
         try {

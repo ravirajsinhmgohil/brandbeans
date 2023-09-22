@@ -65,9 +65,6 @@
     <!-- Plugin Files DON'T INCLUDES THESES FILES IF YOU USE IN THE HOST -->
     <link rel="stylesheet" href="{{ asset('assets/plugin/tinymce/skins/lightgray/skin.min.css') }}">
 
-    <!-- Datepicker -->
-    <link rel="stylesheet" href="{{ asset('assets/plugin/datepicker/css/bootstrap-datepicker.min.css') }}">
-
 
 </head>
 
@@ -77,7 +74,7 @@
             <a href="{{ url('/home') }}" style="background-color: white;" class="logo"><img src="{{ asset('asset/img/logo.png') }}" style="width:150px" class="img-fluid" />a</a>
             <button type="button" class="button-close fa fa-times js__menu_close" style="color: #03ACF0;"></button>
             <div class="user">
-                <h5 class="name"><a class="text-white fs-3" href="#">{{ Auth::user()->name }}</a></h5>
+                <h5 class="name text-center"><a class="text-white fs-3" href="#">{{ Auth::user()->name }}</a></h5>
                 <div class="control-wrap js__drop_down">
                     <i class="fa fa-aret-down "></i>
                     <div class="control-list">
@@ -193,8 +190,11 @@
     <script src="{{ asset('assets/scripts/tinymce.init.min.js') }}"></script>
 
 
-    {{-- datepicker --}}
-    <script src="{{ asset('assets/plugin/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    {{-- Date picker --}}
+    <script src="{{ asset('assets/scripts/form.demo.min.js') }}"></script>
+
+    <script src="{{ asset('assets/plugin/datepicker/js/bootstrap-datepicker.js') }}"></script>
+
 
     <script>
         $(document).ready(function() {
