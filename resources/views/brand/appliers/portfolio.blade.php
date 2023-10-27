@@ -193,7 +193,7 @@
                     Followed Steps
                 </h4>
             </div>
-            <button class="btn btn-sm btn" style="background-color: #002E6E; color:white;">Comfirm Step</button>
+            {{-- <button class="btn btn-sm btn" style="background-color: #002E6E; color:white;">Comfirm Step</button> --}}
 
         </div>
         <div class="card-content">

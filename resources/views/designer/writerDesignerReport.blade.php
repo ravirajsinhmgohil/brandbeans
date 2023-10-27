@@ -71,6 +71,7 @@
                                                 <td class="text-danger">{{ $writerData->status }}</td>
                                             @endif
                                             <td><a href="{{ route('writer.report') }}/{{ $writerData->id }}" class="btn btn-sm btn-violet">View Report</a></td>
+
                                         </tr>
                                     @endforeach
 
@@ -107,7 +108,10 @@
                                             @else
                                                 <td class="text-danger">{{ $designerData->status }}</td>
                                             @endif
-                                            <td><a href="{{ route('designer.report') }}/{{ $designerData->id }}" class="btn btn-sm btn-violet">View Report</a></td>
+                                            <td>
+                                                <a href="{{ route('designer.report') }}/{{ $designerData->id }}" class="btn btn-xs btn-violet">View Report</a>
+                                                <a href="{{ route('designer.cost') }}/{{ $designerData->id }}" class="btn btn-info btn-xs">Update Cost</a>
+                                            </td>
                                         </tr>
                                     @endforeach
 

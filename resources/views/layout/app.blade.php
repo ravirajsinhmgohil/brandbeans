@@ -29,6 +29,7 @@
     </div>
 
     @include('layout.landingPageHome')
+    {{-- @include('layout.mainHomePage') --}}
 
     @include('layout.footer')
 

@@ -187,7 +187,6 @@ class DemoController extends Controller
             $details->companyname = $request->companyname;
             $details->city = $request->city;
             $details->state = $request->state;
-            $details->address = $request->address;
             $category1 = $request->category;
             if ($category1 == 'other') {
                 $categorystore = new Category();
@@ -229,6 +228,7 @@ class DemoController extends Controller
                 if ($influencerCategory) {
                     $influencer->categoryId = $influencerCategory;
                 }
+
                 $influencer->address = $request->influaddress;
                 $influencer->contactNo = $user->mobileno;
                 $influencer->publicLocation = $request->publicLocation;
@@ -241,8 +241,8 @@ class DemoController extends Controller
             }
             return redirect()->back()->with('success', 'Details Updated successfully');
         } catch (\Throwable $th) {
-            // throw $th;
-            return view('servererror');
+            throw $th;
+            // return view('servererror');
         }
     }
 

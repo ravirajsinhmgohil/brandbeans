@@ -45,6 +45,7 @@ use App\Http\Controllers\CardServicesController;
 use App\Http\Controllers\CategoryInfluencerController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DesignController;
+use App\Http\Controllers\CostController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\InfluencerController;
 use App\Http\Controllers\InfluencerPortfolioController;
@@ -63,7 +64,8 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\TypedetailController;
 use App\Http\Controllers\ViewcardController;
 use App\Http\Controllers\WritersloganController;
-
+use App\Models\Media;
+use App\Models\Mymedia;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,8 +79,11 @@ use App\Http\Controllers\WritersloganController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $downloads = Mymedia::take(4)->get();
+    $media = Media::take(1)->first();
+    return view('welcome', compact('downloads', 'media'));
 });
+Route::get('/home2', [HomepageController::class, 'newHomepage'])->name('newHomepage');
 Route::get('/influencer', [HomepageController::class, 'influencer'])->name('main.influencer');
 Route::get('/influencer/profile/{id?}', [HomepageController::class, 'influencerProfileView'])->name('main.influencer.profile');
 
@@ -103,6 +108,10 @@ Route::post('Writer/Register/store', [WritersloganController::class, 'RegisterWr
 // New Register as Writer
 Route::get('designer-register', [DesignController::class, 'RegisterDesigner'])->name('designer.register');
 Route::post('Designer/Register/store', [DesignController::class, 'RegisterDesignerstore'])->name('designer.register.store');
+
+// Content Creators Cost
+Route::get('designer-cost/{id?}', [CostController::class, 'create'])->name('designer.cost');
+Route::post('designer-cost-store', [CostController::class, 'store'])->name('designer-cost.store');
 
 
 // New Register as Influencer
@@ -440,7 +449,7 @@ Route::get('notfound', [LayoutsController::class, 'notfound'])->name('notfound')
 Route::get('homepage', [HomepageController::class, 'homepage'])->name('wcard.homepage');
 
 Route::get('/home1', [HomeController::class, 'home1'])->name('layout.home');
-Route::get('/home2', [HomeController::class, 'home2'])->name('layout.home1');
+// Route::get('/home2', [HomeController::class, 'home2'])->name('layout.home1');
 
 Route::get('/cards/create', [MycardsController::class, 'create'])->name('layout.carddetail');
 

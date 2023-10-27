@@ -79,7 +79,11 @@
                             <div class="col-md-4">
                                 <h5 class="card-title"><b>Email : </b>{{ $profile->profile->email }}</h5>
                                 <h6 class="card-subtitle mb-2 "><b>Contact Number : </b>{{ $profile->profile->mobileno }}</h6>
-                                <h6 class="card-subtitle mb-2 "><b>Category Name : </b>{{ $profile->category->name }}</h6>
+                                @if (isset($profile->category))
+                                    <h6 class="card-subtitle mb-2 "><b>Category Name : </b>{{ $profile->category->name }}</h6>
+                                @else
+                                    <h6 class="card-subtitle mb-2 "><b>Category Name : </b>-</h6>
+                                @endif
                                 <h6 class="card-subtitle mb-2 "><b>Address : </b>{{ $profile->address }}</h6>
                                 <h6 class="card-subtitle mb-2 "><b>Brand Beans Verified : </b>
                                     @if ($profile->is_brandBeansVerified == 'on')

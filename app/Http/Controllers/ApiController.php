@@ -679,8 +679,7 @@ class ApiController extends Controller
     {
         $rules = array(
             'userId' => 'required',
-            'oldPin' => 'required',
-            'newPin' => 'required',
+            'pin' => 'required',
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -689,28 +688,22 @@ class ApiController extends Controller
 
         $userId = $request->userId;
 
-        $pin = $request->newPin;
+        $pin = $request->pin;
 
         $user = User::where('users.id', '=', $userId)
             ->first();
 
         if ($user) {
 
-            if ($request->oldPin ==  $user->pin) {
+            $userPin = User::find($userId);
+            $userPin->pin = $pin;
+            $userPin->save();
 
-                $userPin = User::find($userId);
-                $userPin->pin = $pin;
-                $userPin->save();
-
-                //    return $userPin;
-                return response([
-                    'message' => 'Pin Change Successfully',
-                    'oldPin' => $user->pin,
-                    'newPin' => $pin,
-                ], 201);
-            } else {
-                return response('Old Pin does not match', 404);
-            }
+            //    return $userPin;
+            return response([
+                'message' => 'Pin Change Successfully',
+                'newPin' => $userPin,
+            ], 201);
         } else {
             return response('User not Found', 501);
         }
@@ -2705,14 +2698,16 @@ class ApiController extends Controller
 
         $data = Category::orderBy('sequence', 'DESC')
             ->where('iconPath', '!=', Null)
+            ->where('id', '!=', 195)
             ->get();
 
         $items = array();
         foreach ($data as $data) {
             // $items->push(['Category' => $data]);
-            $mediadata = Media::whereDate('startDate', '<=', $date)
-                ->whereDate('endDate', '>=', $date)
-                ->where('category', '=', $data->id)
+            $mediadata = Media::
+                // whereDate('startDate', '<=', $date)
+                // ->whereDate('endDate', '>=', $date)
+                where('category', '=', $data->id)
                 ->get();
 
             array_push($items, ['Category' => $data, "media" => $mediadata]);
@@ -2721,6 +2716,36 @@ class ApiController extends Controller
         $response = [
             'status' => true,
             'Data' => $items
+        ];
+
+        return response($response, 200);
+    }
+    public function homescreencategoryfortoday()
+    {
+        // $date = Carbon::now()->toDateString();
+        $date = Carbon::now()->tz('Asia/Kolkata')->format('Y-m-d');
+
+        $category = 195;
+
+        // $mediadata = Media::whereDate('startDate', '<=', $date)
+        //     ->whereDate('endDate', '>=', $date)
+        //     ->where('category', '=', $category)
+        //     ->with('category')
+        //     ->get();
+
+        $mediadata = Category::with(['media' => function ($query) use ($date) {
+            $query->whereDate('startDate', '<=', $date)
+                ->whereDate('endDate', '>=', $date);
+        }])->where('id', '=', $category)
+
+            ->get();
+
+
+
+
+        $response = [
+            'status' => true,
+            'Category' => $mediadata
         ];
 
         return response($response, 200);

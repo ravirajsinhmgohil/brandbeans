@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\CategoryInfluencer;
 use App\Models\InfluencerProfile;
+use App\Models\Media;
+use App\Models\Mymedia;
 use App\Models\Story;
 use App\Models\User;
 use Carbon\Carbon;
@@ -83,5 +85,11 @@ class HomepageController extends Controller
             //throw $th;
             return view('servererror');
         }
+    }
+    public function newHomepage()
+    {
+        $downloads = Mymedia::take(4)->get();
+        $media = Media::take(1)->first();
+        return view('layout.mainHomePage', \compact('downloads', 'media'));
     }
 }

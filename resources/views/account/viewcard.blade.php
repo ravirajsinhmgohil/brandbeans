@@ -83,60 +83,60 @@
                 <div class="col-md-6">
                     <div class="shadow p-3 mb-5">
                         <div class="banner">
-                            @if(count($slider) > 0)
-                            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    @foreach($slider as $slider)
-                                    <div class="carousel-item active">
-                                        <img src="{{asset('slider')}}/{{$slider->file}}" class="d-block w-100" style="height: 300px;" alt="...">
+                            @if (count($slider) > 0)
+                                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        @foreach ($slider as $slider)
+                                            <div class="carousel-item active">
+                                                <img src="{{ asset('slider') }}/{{ $slider->file }}" class="d-block w-100" style="height: 300px;" alt="...">
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
                             @else
-                            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
+                                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
 
-                                    <div class="carousel-item active">
-                                        <img class="d-block w-100" src="{{ asset('asset/img/slider5.png') }}" alt="Image">
-                                    </div>
-                                    <!-- <div class="carousel-item active">
+                                        <div class="carousel-item active">
+                                            <img class="d-block w-100" src="{{ asset('asset/img/slider5.png') }}" alt="Image">
+                                        </div>
+                                        <!-- <div class="carousel-item active">
                                         <img class="d-block w-100" src="{{ asset('asset/img/slider2.jpg') }}" alt="Image">
                                     </div>
                                     <div class="carousel-item active">
                                         <img class="d-block w-100" src="{{ asset('asset/img/slider3.jpg') }}" alt="Image">
                                     </div> -->
 
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
                             @endif
                         </div>
                         <div>
                             <div class="text-center ovrlp text-center">
-                                @if($user->profilePhoto)
-                                <img src="{{ url('profile') }}/{{$user->profilePhoto}}" style="width: 180px; height:180px;" class="img-fluid rounded-circle main-img" alt="Logo">
+                                @if ($user->profilePhoto)
+                                    <img src="{{ url('profile') }}/{{ $user->profilePhoto }}" style="width: 180px; height:180px;" class="img-fluid rounded-circle main-img" alt="Logo">
                                 @else
-                                <img src="{{ asset('asset/img/default.jpg') }}" style="width: 180px; height:180px;" alt="Your Profile" title="Your Profile" class="img-fluid rounded-circle main-img">
+                                    <img src="{{ asset('asset/img/default.jpg') }}" style="width: 180px; height:180px;" alt="Your Profile" title="Your Profile" class="img-fluid rounded-circle main-img">
                                 @endif
-                                <h2 class="mt-3">{{$cards->name}}</h2>
-                                <img src="{{ url('cardlogo') }}/{{$cards->logo}}" alt="logo" title="company logo" style="height: 50px;">
-                                <h4>{{$cards->heading}}</h4>
+                                <h2 class="mt-3">{{ $cards->name }}</h2>
+                                <img src="{{ url('cardlogo') }}/{{ $cards->logo }}" alt="logo" title="company logo" style="height: 50px;">
+                                <h4>{{ $cards->heading }}</h4>
                             </div>
 
                             <div>
@@ -148,7 +148,7 @@
                                             </div>
                                             <div class="col-9">
                                                 <h6 class="fw-light">Business Name</h6>
-                                                <h5 class="m-0">{{$cards->companyname}}</h5>
+                                                <h5 class="m-0">{{ $cards->companyname }}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -162,13 +162,13 @@
                                             </div>
                                             <div class="col-9">
                                                 <h6 class="fw-light">Address</h6>
-                                                <h5 class="m-0 text-break">{{$cards->city}}</h5>
+                                                <h5 class="m-0 text-break">{{ $cards->city }}</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
 
-                                <a href="tel:{{$links->phone1}}" class="text-decoration-none text-dark">
+                                <a href="tel:{{ $links->phone1 }}" class="text-decoration-none text-dark">
                                     <div class="border mt-3">
                                         <div class="row p-2 align-items-center">
                                             <div class="col-3 text-center">
@@ -176,13 +176,13 @@
                                             </div>
                                             <div class="col-9">
                                                 <h6 class="fw-light">Mobile</h6>
-                                                <h5 class="m-0 text-break">{{$links->phone1}}</h5>
+                                                <h5 class="m-0 text-break">{{ $links->phone1 }}</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
 
-                                <a href="mailto:{{$user->email}}" target="_blank" class="text-decoration-none text-dark">
+                                <a href="mailto:{{ $user->email }}" target="_blank" class="text-decoration-none text-dark">
                                     <div class="border mt-3">
                                         <div class="row p-2 align-items-center">
                                             <div class="col-3 text-center">
@@ -190,13 +190,13 @@
                                             </div>
                                             <div class="col-9">
                                                 <h6 class="fw-light">Email</h6>
-                                                <h5 class="m-0 text-break">{{$user->email}}</h5>
+                                                <h5 class="m-0 text-break">{{ $user->email }}</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
 
-                                <a href="https://{{$web->website}}" target="_blank" class="text-decoration-none text-dark">
+                                <a href="https://{{ $web->website }}" target="_blank" class="text-decoration-none text-dark">
                                     <div class="border mt-3">
                                         <div class="row p-2 align-items-center">
                                             <div class="col-3 text-center">
@@ -204,7 +204,7 @@
                                             </div>
                                             <div class="col-9">
                                                 <h6 class="fw-light">Website</h6>
-                                                <h5 class="m-0 text-break">{{$links->website}}</h5>
+                                                <h5 class="m-0 text-break">{{ $links->website }}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -227,33 +227,36 @@
                                     <div class="accordion-body">
                                         <dl>
                                             <dt>Company name :</dt>
-                                            <dd>{{$cards->companyname}}</dd>
+                                            <dd>{{ $cards->companyname }}</dd>
                                             <dt>Established from :</dt>
-                                            <dd>{{$cards->year}}</dd>
+                                            <dd>{{ $cards->year }}</dd>
                                             <dt>Role of Business :</dt>
-                                            <dd>{{$card->catName}}</dd>
+                                            @if (isset($card->catName))
+                                                <dd>{{ $card->catName }}</dd>
+                                            @endif
+
                                             <dt>About Us:</dt>
-                                            <dd class="text-justify text-break">{{$cards->about}}</dd>
+                                            <dd class="text-justify text-break">{{ $cards->about }}</dd>
                                             <dt>Links :</dt>
                                             <dd class="d-flex justify-content-between mt-3">
                                                 <div>
-                                                    <a class="text-decoration-none text-dark" href="{{$links->facebook}}" target="_blank"><i class="fa-brands fa-square-facebook fa-xl"></i></a>
+                                                    <a class="text-decoration-none text-dark" href="{{ $links->facebook }}" target="_blank"><i class="fa-brands fa-square-facebook fa-xl"></i></a>
                                                 </div>
 
                                                 <div>
-                                                    <a class="text-decoration-none text-dark" href="{{$links->instagram}}" target="_blank"><i class="fa-brands fa-square-instagram fa-xl"></i></a>
+                                                    <a class="text-decoration-none text-dark" href="{{ $links->instagram }}" target="_blank"><i class="fa-brands fa-square-instagram fa-xl"></i></a>
                                                 </div>
 
                                                 <div>
-                                                    <a class="text-decoration-none text-dark" href="{{$links->twitter}}" target="_blank"><i class="fa-brands fa-square-twitter fa-xl"></i></a>
+                                                    <a class="text-decoration-none text-dark" href="{{ $links->twitter }}" target="_blank"><i class="fa-brands fa-square-twitter fa-xl"></i></a>
                                                 </div>
 
                                                 <div>
-                                                    <a class="text-decoration-none text-dark" href="{{$links->linkedin}}" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+                                                    <a class="text-decoration-none text-dark" href="{{ $links->linkedin }}" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
                                                 </div>
 
                                                 <div>
-                                                    <a class="text-decoration-none text-dark" href="{{$links->skype}}" target="_blank"><i class=" fa-brands fa-skype fa-xl"></i></a>
+                                                    <a class="text-decoration-none text-dark" href="{{ $links->skype }}" target="_blank"><i class=" fa-brands fa-skype fa-xl"></i></a>
                                                 </div>
                                             </dd>
                                         </dl>
@@ -271,46 +274,46 @@
                                     <div class="accordion-body">
                                         <h4 class="text-center">Services</h4>
                                         <?php
-
+                                        
                                         use Illuminate\Support\Facades\URL;
                                         use PhpParser\Node\Stmt\Break_;
-
+                                        
                                         $count = 0;
-
+                                        
                                         ?>
 
 
-                                        @if(count($service) != 0)
-                                        @foreach($service as $service)
-                                        @php
-                                        $count++;
-                                        @endphp
-                                        @if($count%2 == 0)
-                                        <div class="row mt-3">
-                                            <div class="col-md-8">
-                                                <h5 class="fw-bold"><span style="color: #002E6E"> {{$service->title}} </span></h5>
-                                                <p class="" style="text-align: justify;">{{$service->description}}</p>
-                                            </div>
-                                            <div class="col-md-4 pt-3">
-                                                <img src="{{url('servicedetailimg')}}/{{$service->photo}}" style="width: 150px;" alt="img" class=" serviceimg">
-                                            </div>
-                                        </div>
-                                        <hr>
+                                        @if (count($service) != 0)
+                                            @foreach ($service as $service)
+                                                @php
+                                                    $count++;
+                                                @endphp
+                                                @if ($count % 2 == 0)
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-8">
+                                                            <h5 class="fw-bold"><span style="color: #002E6E"> {{ $service->title }} </span></h5>
+                                                            <p class="" style="text-align: justify;">{{ $service->description }}</p>
+                                                        </div>
+                                                        <div class="col-md-4 pt-3">
+                                                            <img src="{{ url('servicedetailimg') }}/{{ $service->photo }}" style="width: 150px;" alt="img" class=" serviceimg">
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                @else
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-4 pt-3">
+                                                            <img src="{{ url('servicedetailimg') }}/{{ $service->photo }}" style="width: 150px;" alt="img" class=" serviceimg">
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <h5 class="fw-bold"><span style="color: #002E6E"> {{ $service->title }} </span></h5>
+                                                            <p class="" style="text-align: justify;">{{ $service->description }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                @endif
+                                            @endforeach
                                         @else
-                                        <div class="row mt-3">
-                                            <div class="col-md-4 pt-3">
-                                                <img src="{{url('servicedetailimg')}}/{{$service->photo}}" style="width: 150px;" alt="img" class=" serviceimg">
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h5 class="fw-bold"><span style="color: #002E6E"> {{$service->title}} </span></h5>
-                                                <p class="" style="text-align: justify;">{{$service->description}}</p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        @endif
-                                        @endforeach
-                                        @else
-                                        <span class="text-muted">No Data found</span>
+                                            <span class="text-muted">No Data found</span>
                                         @endif
                                     </div>
                                 </div>
@@ -325,49 +328,49 @@
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <dl>
-                                            @if(count($payment) != 0)
-                                            @foreach($payment as $payment)
-                                            <dt>Bank Name</dt>
-                                            <dd>{{$payment->bankName}}</dd>
-                                            <dt>Account holder name</dt>
-                                            <dd>{{$payment->accountHolderName}}</dd>
-                                            <dt>Bank Account Number</dt>
-                                            <dd>{{$payment->accountNumber}}</dd>
-                                            <dt>Account Type</dt>
-                                            <dd>{{$payment->accountType}}</dd>
-                                            <dt>IFSC Code</dt>
-                                            <dd>{{$payment->ifscCode}}</dd>
-                                            <dt>UPI Detail</dt>
-                                            <dd>{{$payment->upidetail}}</dd>
-                                            @endforeach
-                                            @if(count($qrno) != 0)
-                                            <div class="row">
-                                                <dt>Qr Code</dt>
-                                                @foreach($qrno as $qrnos)
-                                                <div class="col-md-4">
-                                                    <dd>-{{$qrnos->type}}</dd>
-                                                    <dd><img src="{{ url('QRcodes') }}/{{$qrnos->code}}" alt="" style="height: 100px; width: 100px;"></dd>
-                                                    <dd>{{$qrnos->number}}</dd>
-
-                                                </div>
+                                            @if (count($payment) != 0)
+                                                @foreach ($payment as $payment)
+                                                    <dt>Bank Name</dt>
+                                                    <dd>{{ $payment->bankName }}</dd>
+                                                    <dt>Account holder name</dt>
+                                                    <dd>{{ $payment->accountHolderName }}</dd>
+                                                    <dt>Bank Account Number</dt>
+                                                    <dd>{{ $payment->accountNumber }}</dd>
+                                                    <dt>Account Type</dt>
+                                                    <dd>{{ $payment->accountType }}</dd>
+                                                    <dt>IFSC Code</dt>
+                                                    <dd>{{ $payment->ifscCode }}</dd>
+                                                    <dt>UPI Detail</dt>
+                                                    <dd>{{ $payment->upidetail }}</dd>
                                                 @endforeach
-                                            </div>
-                                            @endif
+                                                @if (count($qrno) != 0)
+                                                    <div class="row">
+                                                        <dt>Qr Code</dt>
+                                                        @foreach ($qrno as $qrnos)
+                                                            <div class="col-md-4">
+                                                                <dd>-{{ $qrnos->type }}</dd>
+                                                                <dd><img src="{{ url('QRcodes') }}/{{ $qrnos->code }}" alt="" style="height: 100px; width: 100px;"></dd>
+                                                                <dd>{{ $qrnos->number }}</dd>
+
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
                                             @else
-                                            <dt>Bank Name</dt>
-                                            <dd>-</dd>
-                                            <dt>Account holder name</dt>
-                                            <dd>-</dd>
-                                            <dt>Bank Account Number</dt>
-                                            <dd>-</dd>
-                                            <dt>Account Type</dt>
-                                            <dd>-</dd>
-                                            <dt>IFSC Code</dt>
-                                            <dd>-</dd>
-                                            <dt>UPI Detail</dt>
-                                            <dd>-</dd>
-                                            <dt>QR Code</dt>
-                                            <dd>-</dd>
+                                                <dt>Bank Name</dt>
+                                                <dd>-</dd>
+                                                <dt>Account holder name</dt>
+                                                <dd>-</dd>
+                                                <dt>Bank Account Number</dt>
+                                                <dd>-</dd>
+                                                <dt>Account Type</dt>
+                                                <dd>-</dd>
+                                                <dt>IFSC Code</dt>
+                                                <dd>-</dd>
+                                                <dt>UPI Detail</dt>
+                                                <dd>-</dd>
+                                                <dt>QR Code</dt>
+                                                <dd>-</dd>
                                             @endif
                                         </dl>
                                     </div>
@@ -383,22 +386,22 @@
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <div class="row d-flex flex-wrap align-items-center" data-bs-toggle="modal" data-bs-target="#lightbox">
-                                            @if(count($gallery) != 0)
-                                            @foreach($gallery as $gallery)
-                                            <div class="col-6 p-2">
-                                                <div class="text-center">
-                                                    @if($gallery->type == "Photo")
-                                                    <img src="{{ url('cardimage')}}/{{$gallery->image}}" class="img-fluid" data-bs-target="#indicators" data-bs-slide-to="0" alt="Image">
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            @endforeach
+                                            @if (count($gallery) != 0)
+                                                @foreach ($gallery as $gallery)
+                                                    <div class="col-6 p-2">
+                                                        <div class="text-center">
+                                                            @if ($gallery->type == 'Photo')
+                                                                <img src="{{ url('cardimage') }}/{{ $gallery->image }}" class="img-fluid" data-bs-target="#indicators" data-bs-slide-to="0" alt="Image">
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                @endforeach
                                             @else
-                                            <div class="col-6 p-2">
-                                                <div class="text-center">
-                                                    No Images Found
+                                                <div class="col-6 p-2">
+                                                    <div class="text-center">
+                                                        No Images Found
+                                                    </div>
                                                 </div>
-                                            </div>
                                             @endif
                                         </div>
                                     </div>
@@ -413,9 +416,9 @@
                                 </h2>
                                 <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <form class="" action="{{route('feedback.store')}}" method="post">
+                                        <form class="" action="{{ route('feedback.store') }}" method="post">
                                             @csrf
-                                            <input type="hidden" name="cardId" value="{{$user->id}}">
+                                            <input type="hidden" name="cardId" value="{{ $user->id }}">
                                             <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label">Enter Full
                                                     Name</label>
@@ -444,16 +447,16 @@
                                 </h2>
                                 <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        @if(count($gallery1) != 0)
-                                        @foreach($gallery1 as $gallery1)
-                                        @if($gallery1->type == "Video")
-                                        <div class="col-md-12 py-1">
-                                            <iframe src="{!! $gallery1->image !!}" style="width: 100%;"></iframe>
-                                        </div>
-                                        @endif
-                                        @endforeach
+                                        @if (count($gallery1) != 0)
+                                            @foreach ($gallery1 as $gallery1)
+                                                @if ($gallery1->type == 'Video')
+                                                    <div class="col-md-12 py-1">
+                                                        <iframe src="{!! $gallery1->image !!}" style="width: 100%;"></iframe>
+                                                    </div>
+                                                @endif
+                                            @endforeach
                                         @else
-                                        <span class="text-muted">No Data found</span>
+                                            <span class="text-muted">No Data found</span>
                                         @endif
                                     </div>
                                 </div>
@@ -468,9 +471,9 @@
                                 <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <div class="container">
-                                            <form class="" action="{{route('inquiry.store')}}" method="post">
+                                            <form class="" action="{{ route('inquiry.store') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="cardId" value="{{$user->id}}">
+                                                <input type="hidden" name="cardId" value="{{ $user->id }}">
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Enter Full
                                                         Name</label>
@@ -507,14 +510,14 @@
                                     <div class="accordion-body">
                                         <div>
                                             <div class="row">
-                                                @if(count($bro) != 0)
-                                                @foreach($bro as $bro)
-                                                <div class="col-md-12 text-center">
-                                                    <h5><a href="{{$bro->file}}" download> Download</a></h5>
-                                                </div>
-                                                @endforeach
+                                                @if (count($bro) != 0)
+                                                    @foreach ($bro as $bro)
+                                                        <div class="col-md-12 text-center">
+                                                            <h5><a href="{{ $bro->file }}" download> Download</a></h5>
+                                                        </div>
+                                                    @endforeach
                                                 @else
-                                                <span class="text-muted">No Brochure found</span>
+                                                    <span class="text-muted">No Brochure found</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -660,7 +663,7 @@
                 }
             </style>
             <div class="d-flex justify-content-end fixed-top position-absolute top-50 end-0 translate-middle-y">
-                <a id="btn" href="{{route('otp.login')}}" style="background-color: #002e6e;" class="btn round">
+                <a id="btn" href="{{ route('otp.login') }}" style="background-color: #002e6e;" class="btn round">
                     <i class="bi bi-plus-lg text-white"></i>
                     <span class="text-white">Create your Own Card</span>
                 </a>
@@ -672,17 +675,17 @@
                     <div class="row justify-content-between">
                         <div class="col-1"></div>
                         <div class="col-2 bg-blue text-center p-1">
-                            <a href="tel:{{$links->phone1}}" class="text-decoration-none text-light">
+                            <a href="tel:{{ $links->phone1 }}" class="text-decoration-none text-light">
                                 <i class="fa-solid fa-phone-volume fa-lg"></i>
                             </a>
                         </div>
                         <div class="col-2 bg-green text-center p-1">
-                            <a href="https://wa.me/{{$links->phone1}}?send" target="_blank" class="text-decoration-none text-light">
+                            <a href="https://wa.me/{{ $links->phone1 }}?send" target="_blank" class="text-decoration-none text-light">
                                 <i class="fa-brands fa-whatsapp fa-lg"></i>
                             </a>
                         </div>
                         <div class="col-2 bg-yellow text-center p-1">
-                            <a href="mailto:{{$user->email}}" class="text-decoration-none text-light">
+                            <a href="mailto:{{ $user->email }}" class="text-decoration-none text-light">
                                 <i class="fa-solid fa-envelope fa-lg"></i>
                             </a>
                         </div>
@@ -692,7 +695,7 @@
                             </a>
                         </div>
                         <div class="col-2 bg-black text-center p-1">
-                            <a href="https://{{$links->website}}" target="_blank" class="text-decoration-none text-light">
+                            <a href="https://{{ $links->website }}" target="_blank" class="text-decoration-none text-light">
                                 <i class="fa-solid fa-globe fa-lg"></i>
                             </a>
                         </div>
@@ -705,8 +708,7 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
     <script src="https://kit.fontawesome.com/629dffd7a0.js" crossorigin="anonymous"></script>
 </body>

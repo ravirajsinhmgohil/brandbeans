@@ -81,27 +81,27 @@
                     <table class="table table-bordered ">
                         <thead>
                             <tr>
-                                <th> Media Type</th>
+                                {{-- <th> Media Type</th> --}}
                                 <th> Category</th>
                                 <th> Designed By</th>
                                 <th> Slogan</th>
-                                <th> Title</th>
+                                {{-- <th> Title</th> --}}
                                 <th> Sequence</th>
                                 <th> Source Path</th>
                                 <th> Preview Path</th>
                                 <th> Status</th>
-                                <th> Option</th>
+                                <th width="150px"> Option</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             @foreach ($design as $data)
                                 <tr>
-                                    <td>{{ $data->mediaType }}</td>
+                                    {{-- <td>{{ $data->mediaType }}</td> --}}
                                     <td>{{ $data->categoryName }}</td>
                                     <td>{{ $data->userName }}</td>
                                     <td class="text-primary">{!! $data->slugName !!}</td>
-                                    <td>{{ $data->title }}</td>
+                                    {{-- <td>{{ $data->title }}</td> --}}
                                     <td>{{ $data->sequence }}</td>
 
 

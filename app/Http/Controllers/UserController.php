@@ -106,14 +106,14 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
+            // 'password' => 'required|same:confirm-password',
             'roles' => 'required',
             'mobileno' => 'required',
         ]);
 
         try {
             $input = $request->all();
-            $input['password'] = Hash::make($input['password']);
+            // $input['password'] = Hash::make($input['password']);
 
             $input['username'] = $input['name'];
             $input['package'] = "FREE";

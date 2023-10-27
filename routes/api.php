@@ -229,6 +229,7 @@ Route::get('/typedetailview/{id?}', [Apicontroller::class, 'typedetailview']);
 
 // Home category view
 Route::get('/homescreencategory', [Apicontroller::class, 'homescreencategory']);
+Route::get('/homescreencategory/today', [Apicontroller::class, 'homescreencategoryfortoday']);
 
 
 // notification tabel data store */

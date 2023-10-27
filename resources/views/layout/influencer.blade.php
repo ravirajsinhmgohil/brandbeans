@@ -72,7 +72,7 @@
                         @if ($influencer->profilePhoto)
                             <img class="image" src="{{ asset('profile') }}/{{ $influencer->profilePhoto }}" alt="image">
                         @else
-                            <img class="image" src="{{ url('asset/img/defaultImage.jpg') }}" alt="image"><br> <br>
+                            <img class="image" src="{{ url('asset/img/defaultImage.jpg') }}" alt="image">
                         @endif
                     </a>
                 </div>
