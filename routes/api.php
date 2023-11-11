@@ -132,6 +132,8 @@ Route::post('/categorymediaWithPaginate', [ApiController::class, 'categorymediaW
 //template Master
 Route::get('/templateview', [ApiController::class, 'templateview']);
 Route::post('/templatestore', [ApiController::class, 'templatestore']);
+// custom template 
+Route::get('/customTemplateView/{id?}', [ApiController::class, 'customTemplateView']);
 
 // FeedBack
 Route::get('/feedview/{id?}', [ApiController::class, 'feedview']);

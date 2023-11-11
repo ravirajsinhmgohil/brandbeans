@@ -21,6 +21,7 @@ use App\Models\Razorpay;
 use App\Models\Servicedetail;
 use App\Models\Subscriptionpackage;
 use App\Models\Templatemaster;
+use App\Models\UserTemplateMaster;
 use App\Models\TemplateDetail;
 use App\Models\User;
 use App\Models\Product;
@@ -1684,6 +1685,26 @@ class ApiController extends Controller
             ->with('location')
             ->get();
         // $template = TemplateDetail::all();
+
+        if ($template) {
+            $response = [
+                'data' => $template,
+            ];
+
+            return response($response, 200);
+        } else {
+            return response([
+                'message' => ['No Data Found']
+            ], 404);
+        }
+    }
+    function customTemplateView($id)
+    {
+        $template = UserTemplateMaster::with('email')
+            ->with('contact')
+            ->with('website')
+            ->with('location')->where('userId', '=', $id)
+            ->get();
 
         if ($template) {
             $response = [

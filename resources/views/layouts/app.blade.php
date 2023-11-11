@@ -87,7 +87,7 @@
                                 @csrf
                             </form>
                         </div>
-                    </div>
+                    </div>  `
                 </div>
             </div>
         </header>

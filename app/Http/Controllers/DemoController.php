@@ -17,6 +17,8 @@ use App\Models\Qrcode;
 use App\Models\Servicedetail;
 use App\Models\Slider;
 use App\Models\CategoryInfluencer;
+use App\Models\CheckApply;
+use App\Models\InfluencerPortfolio;
 use App\Models\InfluencerProfile;
 use Illuminate\Http\Request;
 use Auth;
@@ -326,12 +328,12 @@ class DemoController extends Controller
     function photodestroy($id)
     {
         try {
-            $photo = Cardportfoilo::find($id);
+            $photo = CheckApply::find($id);
             // return $photo;
             $photo->delete();
             return redirect()->back()->with('success', "deleted successfully");
         } catch (\Throwable $th) {
-            //throw $th;    
+            throw $th;
             return view('servererror');
             // return view("adminCategory.index", compact('category'));
         }

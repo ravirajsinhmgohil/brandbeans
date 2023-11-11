@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('templatemasters', function (Blueprint $table) {
+        Schema::create('user_template_masters', function (Blueprint $table) {
             $table->id();
+            $table->integer('userId');
             $table->string('photo');
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('templatemasters');
+        Schema::dropIfExists('user_template_masters');
     }
 };

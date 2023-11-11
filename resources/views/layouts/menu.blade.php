@@ -131,6 +131,11 @@
     </li>
 @endrole
 
+@if (Auth::user()->package != 'FREE')
+    <li class="{{ Route::is('userTemplate.index') ? 'active' : '' }}">
+        <a class="text-white waves-effect" href="{{ route('userTemplate.index') }}"><i class="text-white menu-icon fa fa-user"></i><span>Custom Templates</span></a>
+    </li>
+@endif
 @role('Writer')
     <li class="{{ Route::is('writer.index') ? 'active' : '' }}">
         <a class="text-white waves-effect" href="{{ route('writer.index') }}"><i class="text-white menu-icon fa fa-quote-left"></i><span>My Slogan</span></a>

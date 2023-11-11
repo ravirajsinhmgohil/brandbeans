@@ -62,6 +62,7 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\TypedetailController;
+use App\Http\Controllers\UserTemplateMasterController;
 use App\Http\Controllers\ViewcardController;
 use App\Http\Controllers\WritersloganController;
 use App\Models\Media;
@@ -216,6 +217,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('admintemplatemaster/edit/{id}', [TemplatemasterController::class, 'edit'])->name('admintemplatemaster.edit');
     Route::post('admintemplatemaster/update', [TemplatemasterController::class, 'update'])->name('admintemplatemaster.update');
     Route::get('admintemplatemaster/delete/{id?}', [TemplatemasterController::class, 'destroy'])->name('admintemplatemaster.delete');
+
+    // User Template Master
+
+    Route::get('userTemplate/index', [UserTemplateMasterController::class, 'index'])->name('userTemplate.index');
+    Route::get('userTemplate/create', [UserTemplateMasterController::class, 'create'])->name('userTemplate.create');
+    Route::post('userTemplate/store', [UserTemplateMasterController::class, 'store'])->name('userTemplate.store');
+    Route::get('userTemplate/edit/{id}', [UserTemplateMasterController::class, 'edit'])->name('userTemplate.edit');
+    Route::post('userTemplate/update', [UserTemplateMasterController::class, 'update'])->name('userTemplate.update');
+    Route::get('userTemplate/delete/{id?}', [UserTemplateMasterController::class, 'destroy'])->name('userTemplate.delete');
 
     // Template Master
     Route::get('adminTemplateDetail/index/{id?}', [TemplateDetailController::class, 'index'])->name('adminTemplateDetail.index');
