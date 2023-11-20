@@ -1708,12 +1708,44 @@ class ApiController extends Controller
 
         if ($template) {
             $response = [
-                'data' => $template,
+                'message' => "You",
             ];
 
             return response($response, 200);
         } else {
             return response([
+                'message' => ['No Data Found']
+            ], 404);
+        }
+    }
+
+
+
+    public function customTemplateRequest(Request $request)
+    {
+        $rules = array(
+            'userId'  => "required",
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        $userId = $request->userId;
+        $data = UserTemplateMaster::with('email')->with('contact')
+            ->with('website')
+            ->with('location')
+            ->where('userId', '=', $userId)->get();
+
+        if ($data) {
+            $response = [
+                'data' => $data,
+            ];
+
+            return response($response, 200);
+        } else {
+            return response([
+                'data' => [],
                 'message' => ['No Data Found']
             ], 404);
         }
