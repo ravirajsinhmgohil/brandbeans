@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'instamojo' => [
+        'api_key' => env('IMPG_API_KEY'),
+        'auth_token' => env('IMPG_AUTH_TOKEN'),
+        'endpoint' => env('IMPG_ENDPOINT'),
+    ],
+
 ];

@@ -30,8 +30,11 @@
                         @foreach ($pricing->brandPackageDetails as $detail)
                             <div class="td">{{ $detail->details }}-{{ $detail->points }}</div>
                         @endforeach
-
-                        <div class="td"><a href="#" class="btn-order js__popup_open" data-target="#register-form-popup-2">ORDER NOW</a></div>
+                        <form action="{{ route('pay') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="amount" value="{{ $pricing->price }}">
+                            <div class="td"><button class="btn-order js__popup_open" data-target="#register-form-popup-2">ORDER NOW</button></div>
+                        </form>
                     </div>
                 @endforeach
 
