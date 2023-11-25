@@ -54,6 +54,7 @@ use App\Http\Controllers\InfluencerPortfolioController;
 use App\Http\Controllers\InfluencerPackagesController;
 use App\Http\Controllers\InfluencerStepController;
 use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\InstaMojoPaymentController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\QrcodeController;
@@ -435,6 +436,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('brand/pricing', [BrandPackageDetailController::class, 'pricingView'])->name('brand.pricing');
 
+    // instamojo payment
+    Route::post('pay', [InstaMojoPaymentController::class, 'pay']);
+    Route::get('pay-success', [InstaMojoPaymentController::class, 'success']);
 
 
     // by madhvi

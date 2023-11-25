@@ -30,8 +30,11 @@
                         @foreach ($pricing->brandPackageDetails as $detail)
                             <div class="td">{{ $detail->details }}-{{ $detail->points }}</div>
                         @endforeach
+                        <form action="{{ url('pay') }}" method="POST" name="laravel_instamojo">
+                            {{ csrf_field() }}
 
-                        <div class="td"><a href="#" class="btn-order js__popup_open" data-target="#register-form-popup-2">ORDER NOW</a></div>
+                            <div class="td"><button type="submit" class="btn-order js__popup_open">ORDER NOW</button></div>
+                        </form>
                     </div>
                 @endforeach
 
