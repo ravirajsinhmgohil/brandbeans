@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="{{ asset('assets/plugin/fullcalendar/fullcalendar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugin/fullcalendar/fullcalendar.print.css') }}" media='print'>
 
+    {{-- icon --}}
+    <link rel="stylesheet" href="{{ asset('assets/fonts/material-design/css/materialdesignicons.css') }}">
 
     <!-- Dropify -->
     <link rel="stylesheet" href="{{ asset('assets/plugin/dropify/css/dropify.min.css') }}">
@@ -87,7 +89,7 @@
                                 @csrf
                             </form>
                         </div>
-                    </div>  `
+                    </div> `
                 </div>
             </div>
         </header>

@@ -68,6 +68,9 @@
             <li>
                 <a class="text-white waves-effect" href="{{ route('reseller.admin.adminPaymentStatus') }}"><span>Reseller Payments</span></a>
             </li>
+            <li>
+                <a class="text-white waves-effect" href="{{ route('admin.brand.package.index') }}"><span>Brand Packages</span></a>
+            </li>
         </ul>
     </li>
 
@@ -171,10 +174,13 @@
         <a class="text-white waves-effect" href="{{ route('brand.campaign.index') }}"><i class="text-white menu-icon fa fa-user"></i><span>Campaign</span></a>
     </li>
     <li class="{{ Route::is('brand.campaign.step.index') ? 'active' : '' }}">
-        <a class="text-white waves-effect" href="{{ route('brand.campaign.step.index') }}"><i class="text-white menu-icon fa fa-user"></i><span>Campaign Step</span></a>
+        <a class="text-white waves-effect" href="{{ route('brand.campaign.step.index') }}"><i class="text-white menu-icon mdi mdi-stairs"></i><span>Campaign Step</span></a>
     </li>
     <li class="{{ Route::is('brand.campaign.appliers') ? 'active' : '' }}">
-        <a class="text-white waves-effect" href="{{ route('brand.campaign.appliers') }}"><i class="text-white menu-icon fa fa-user"></i><span>Appliers</span></a>
+        <a class="text-white waves-effect" href="{{ route('brand.campaign.appliers') }}"><i class="text-white menu-icon fa fa-users"></i><span>Appliers</span></a>
+    </li>
+    <li class="{{ Route::is('brand.pricing') ? 'active' : '' }}">
+        <a class="text-white waves-effect" href="{{ route('brand.pricing') }}"><i class="text-white menu-icon fa fa-money"></i><span>Pricing</span></a>
     </li>
 @endrole
 

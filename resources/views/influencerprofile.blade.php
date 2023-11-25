@@ -116,7 +116,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 ">
-                            gigs
+                            -
                         </div>
                         <div class="col-md-4 ">
                             <div class="car" style="">

@@ -22,7 +22,7 @@
 
 
         /* .modal-backdrop.show {
-                                                                                                                                                                                                                                                                                                                                                                                                                                    } */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        } */
         .dialogmodel1 {
             margin-top: 100px;
         }
@@ -149,11 +149,13 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 pb-1">
-                                    <input type="hidden" name="cardid" value="{{ $details->id }}">
+                                        <input type="hidden" name="cardid" value="{{ $details->id }}">
+                                    
                                     <div class="row">
                                         <div class="col-md-4"><label class="fs-4">Your Full Name:</label></div>
                                         <div class="col-md-7">
                                             <input type="text" class="form-control fs-4" id="name" name="name" value="{{ $details->name }}">
+                                            
                                         </div>
                                     </div>
                                 </div>

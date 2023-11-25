@@ -45,6 +45,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    {{-- icon --}}
+    <link rel="stylesheet" href="{{ asset('assets/fonts/material-design/css/materialdesignicons.css') }}">
+
 
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('assets/plugin/toastr/toastr.css') }}">

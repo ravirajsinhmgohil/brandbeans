@@ -41,7 +41,7 @@ class UserTemplateMasterController extends Controller
             $template->userId = Auth::user()->id;
             $image = $request->photo;
             $template->photo = time() . '.' . $request->photo->extension();
-            $request->photo->move(public_path('userTemplateImages'), $template->photo);
+            $request->photo->move(public_path('templateimages'), $template->photo);
             $template->save();
             return redirect()->back()->with('success', 'template created successfully');
         } catch (\Throwable $th) {

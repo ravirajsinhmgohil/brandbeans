@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('header', 'Campaign Step')
+@section('header', 'Brand Package')
 @section('content')
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -17,51 +17,43 @@
             <strong><i class="fa fa-warning ico"></i> {{ $message }}</strong>
         </div>
     @endif
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Oh snap!</strong> {{ __('There were some problems with your input') }}.
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
 
 
     <div class="box-content card">
         <div class="" style="padding: 12px 10px 12px 10px; display: flex; justify-content: space-between; background-color: #03ACF0; color:white;">
             <div class="">
-                <h4 class="">Create Campaign Step</h4>
+                <h4 class="">Create Brand Package</h4>
             </div>
             <div class="">
-                <a href="{{ route('brand.campaign.step.index') }}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">BACK</a>
+                <a href="{{ route('admin.brand.package.index') }}" class="btn btnback btn-sm" style="background-color: #002E6E; color:white;">BACK</a>
             </div>
         </div>
         <div class="card-content">
 
-            <form action="{{ route('brand.campaign.step.store') }}" enctype="multipart/form-data" class="was-validated" novalidate method="post" style="margin-top: 15px;">
+            <form action="{{ route('admin.brand.package.store') }}" enctype="multipart/form-data" class="was-validated" novalidate method="post" style="margin-top: 15px;">
                 @csrf
 
                 <div class="mb-3">
-                    <label for="campaignId" class="form-label">Campaign</label>
-                    <select name="campaignId" class="form-control" id="campaignId">
-                        <option disabled selected>--Select your Option</option>
-                        @foreach ($campaign as $campaign)
-                            <option value="{{ $campaign->id }}">{{ $campaign->title }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
+                    <input type="text" class="form-control" value="{{ old('title') }}" id="title" name="title" required>
+                    @if ($errors->has('title'))
+                        <span class="error text-danger fs-6">{{ $errors->first('title') }}</span>
+                    @endif
                 </div>
-
                 <div class="mb-3">
-                    <label for="detail" class="form-label">Detail</label>
-                    <textarea name="detail" id="detail" class="form-control" required></textarea>
+                    <label for="price" class="form-label">price</label>
+                    <input type="text" class="form-control" value="{{ old('price') }}" id="price" name="price" required>
+                    @if ($errors->has('price'))
+                        <span class="error text-danger fs-6">{{ $errors->first('price') }}</span>
+                    @endif
+                </div>
+                <div class="mb-3">
+                    <label for="points" class="form-label">points</label>
+                    <input type="text" class="form-control" value="{{ old('points') }}" id="points" name="points" required>
+                    @if ($errors->has('points'))
+                        <span class="error text-danger fs-6">{{ $errors->first('points') }}</span>
+                    @endif
                 </div>
 
                 <br>

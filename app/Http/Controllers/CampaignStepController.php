@@ -67,7 +67,8 @@ class CampaignStepController extends Controller
     {
         try {
             $step = CampaignStep::find($id);
-            $campaign = Campaign::all();
+            $userId = Auth::user()->id;
+            $campaign = Campaign::where('userId', '=', $userId)->get();
             return view('brand.campaignStep.edit', compact('step', 'campaign'));
         } catch (\Throwable $th) {
             //throw $th;    

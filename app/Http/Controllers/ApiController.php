@@ -1719,8 +1719,6 @@ class ApiController extends Controller
         }
     }
 
-
-
     public function customTemplateRequest(Request $request)
     {
         $rules = array(
@@ -3433,6 +3431,27 @@ class ApiController extends Controller
         }
     }
 
+    function influencerPortfolioDelete($id)
+    {
+        $influencer = InfluencerPortfolio::find($id);
+        if ($influencer) {
+            $influencer->delete();
+            $response = [
+                'status' => true,
+                'message' => "portfolio Deleted successfully",
+                'Data' => $influencer,
+            ];
+
+            return response($response, 200);
+        } else {
+            $response = [
+                'status' => true,
+                'message' => "record not found",
+            ];
+            return response($response, 200);
+        }
+    }
+
     function BrandListWithCampaign()
     {
         $brands = User::whereHas(
@@ -3661,6 +3680,23 @@ class ApiController extends Controller
 
         return response($response, 200);
     }
+    function influencerPackageById($id)
+    {
+        $package = User::whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Influencer');
+            }
+        )->where('id', $id)->with('influencerPackage', function ($query) use ($id) {
+            $query->where('userId', $id);
+        })->get();
+        $response = [
+            'status' => true,
+            'Data' => $package,
+        ];
+
+        return response($response, 200);
+    }
 
     function storeInfluencerPackage(Request $request)
     {
@@ -3686,6 +3722,37 @@ class ApiController extends Controller
             'Data' => $package,
         ];
 
+        return response($response, 200);
+    }
+    function deleteInfluencerPackage($id)
+    {
+        $package = InfluencerPackages::find($id);
+        if ($package) {
+            $package->delete();
+            $response = [
+                'status' => true,
+                'message' => "Package Deleted successfully",
+                'Data' => $package,
+            ];
+
+            return response($response, 200);
+        } else {
+            $response = [
+                'status' => true,
+                'message' => "package is not found",
+            ];
+
+            return response($response, 200);
+        }
+    }
+
+    function appliersByCampaignId($campaignId)
+    {
+        $appliers = Apply::where('campaignId', $campaignId)->with('user')->get();
+        $response = [
+            'status' => 200,
+            'data' => $appliers,
+        ];
         return response($response, 200);
     }
 }

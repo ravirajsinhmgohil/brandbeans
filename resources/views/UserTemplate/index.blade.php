@@ -54,7 +54,7 @@
                     <tbody>
                         @foreach ($userTemplateMaster as $template)
                             <tr>
-                                <td><img src="{{ asset('userTemplateImages') }}/{{ $template->photo }}" class="img-thumbnail" style="width:50px;height:50px"></td>
+                                <td><img src="{{ asset('templateimages') }}/{{ $template->photo }}" class="img-thumbnail" style="width:50px;height:50px"></td>
 
                                 <td><a class="btn btn-primary btn-sm" href="{{ route('userTemplate.edit', $template->id) }}">Edit</a>
                                     <a class="btn btn-danger btn-sm" href="{{ route('userTemplate.delete', $template->id) }}">Delete</a>

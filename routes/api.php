@@ -310,7 +310,8 @@ Route::post('/influencer-profile/{id?}', [ApiController::class, 'influencerProfi
 
 // portfolio
 Route::get('/influencer-portfolio/{id?}', [ApiController::class, 'influencerPortfolio']);
-Route::post('/influencer-portfolio-store/{id?}', [ApiController::class, 'influencerPortfolioStore']);
+Route::post('/influencer-portfolio-store', [ApiController::class, 'influencerPortfolioStore']);
+Route::get('/influencer-portfolio-delete/{id?}', [ApiController::class, 'influencerPortfolioDelete']);
 
 
 // brand Lits for influencer
@@ -332,4 +333,10 @@ Route::get('/influencer-campaign-stepList/{campaignId?}', [ApiController::class,
 Route::post('/influencer-campaign-step', [ApiController::class, 'followedStep']);
 
 Route::get('/influencer-package', [ApiController::class, 'influencerPackage']);
+Route::get('/influencer-package-by-id/{id?}', [ApiController::class, 'influencerPackageById']);
 Route::post('/influencer-package-store', [ApiController::class, 'storeInfluencerPackage']);
+Route::get('/influencer-package-delete/{id?}', [ApiController::class, 'deleteInfluencerPackage']);
+
+
+// appliers list by campaign id
+Route::get('/appliersByCampaignId/{campaignId?}', [ApiController::class, 'appliersByCampaignId']);

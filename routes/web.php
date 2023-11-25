@@ -38,6 +38,8 @@ use App\Http\Controllers\Admin\TemplatemasterController;
 use App\Http\Controllers\TemplateDetailController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BrandPackageController;
+use App\Http\Controllers\BrandPackageDetailController;
 use App\Http\Controllers\BrochureController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CampaignStepController;
@@ -417,6 +419,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('brand/campaign/step/edit/{id?}', [CampaignStepController::class, 'edit'])->name('brand.campaign.step.edit');
     Route::post('brand/campaign/step/update', [CampaignStepController::class, 'update'])->name('brand.campaign.step.update');
     Route::get('brand/campaign/step/delete/{id?}', [CampaignStepController::class, 'delete'])->name('brand.campaign.step.delete');
+
+
+    // brand Packages
+    Route::get('admin/brand/package/index', [BrandPackageController::class, 'index'])->name('admin.brand.package.index');
+    Route::get('admin/brand/package/create', [BrandPackageController::class, 'create'])->name('admin.brand.package.create');
+    Route::post('admin/brand/package/store', [BrandPackageController::class, 'store'])->name('admin.brand.package.store');
+    Route::get('admin/brand/package/edit/{id?}', [BrandPackageController::class, 'edit'])->name('admin.brand.package.edit');
+    Route::post('admin/brand/package/update', [BrandPackageController::class, 'update'])->name('admin.brand.package.update');
+    Route::get('admin/brand/package/delete/{id?}', [BrandPackageController::class, 'destroy'])->name('admin.brand.package.delete');
+
+    // brand package details
+    Route::get('admin/brand/package/detail/index/{id?}', [BrandPackageDetailController::class, 'index'])->name('admin.brand.package.detail.index');
+    Route::post('admin/brand/package/detail/store', [BrandPackageDetailController::class, 'store'])->name('admin.brand.package.detail.store');
+
+    Route::get('brand/pricing', [BrandPackageDetailController::class, 'pricingView'])->name('brand.pricing');
 
 
 
